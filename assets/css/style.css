@@ -4042,13 +4042,13 @@ header, .collection, .approach, .feature, .enquiry.enquiry-simple,
 .gallery-intro, .gallery-sources { font-size: 12px; line-height: 1.8; color: #716961; }
 .industry-gallery-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
 .industry-gallery-grid figure { margin: 0; min-width: 0; }
-.industry-gallery-grid figure > a { display: block; overflow: hidden; border-radius: 8px; }
+.industry-gallery-grid .gallery-image { display: block; overflow: hidden; border-radius: 8px; }
 .industry-gallery-grid img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; transition: transform .35s; }
 .industry-gallery-grid figcaption { padding: 14px 0; font-size: 14px; line-height: 1.6; }
 .industry-gallery-grid figcaption span { display: block; font-size: 11px; color: #716961; }
 .industry-gallery-grid figcaption a, .gallery-sources a { text-decoration: underline; text-underline-offset: 3px; }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
- .industry-gallery-grid figure > a:hover img { transform: scale(1.025); }
+ .industry-gallery-grid .gallery-image:hover img { transform: scale(1.025); }
 }
 @media (max-width: 800px) { .paper-guide-grid { grid-template-columns: 1fr; gap: 12px; } }
 @media (max-width: 600px) {
@@ -4306,4 +4306,28 @@ header nav .nav-cta:active { background: #680018; }
 @media (max-width: 600px) {
  .industry-gallery .gallery-intro { gap: 10px; margin-top: 26px; font-size: 26px; }
  .industry-gallery .gallery-intro::before { flex-basis: 20px; }
+}
+
+/* Desktop gallery uses arrows without a visible scrollbar. */
+@media (min-width: 801px) {
+ .industry-gallery-grid { scrollbar-width: none; padding-bottom: 0; }
+ .industry-gallery-grid::-webkit-scrollbar { display: none; }
+}
+
+/* Larger approach numbers make the three steps easier to scan. */
+.approach .steps article > span {
+ font-size: 32px;
+ font-weight: 600;
+ line-height: 1.2;
+ flex: 0 0 48px;
+ padding-top: 0;
+ font-variant-numeric: tabular-nums;
+}
+@media (max-width: 600px) {
+ .approach .steps article > span {
+  width: 48px;
+  height: 48px;
+  flex-basis: 48px;
+  font-size: 25px;
+ }
 }
