@@ -5,7 +5,7 @@ export function createPageFixture() {
   class Element {
     constructor(id = '') {
       this.id = id; this.dataset = {}; this.attributes = {}; this.children = [];
-      this.listeners = {}; this.value = ''; this.open = false; this.scrollLeft = 0;
+      this.style = { top: '' }; this.listeners = {}; this.value = ''; this.open = false; this.scrollLeft = 0;
       const classes = new Set();
       this.classList = {
         add: name => classes.add(name), remove: name => classes.delete(name),
@@ -55,6 +55,7 @@ export function createPageFixture() {
   const values = new Map([['name', 'Test visitor'], ['email', 'visitor@example.com'], ['paper', 'Kraft paper'], ['quantity', '500 kg'], ['details', 'Carry bags']]);
   get('sort').value = 'collection';
   const document = {
+    body: get('body'), documentElement: get('html'),
     getElementById: get,
     createElement: () => new Element(),
     createDocumentFragment: () => Object.assign(new Element(), { fragment: true }),
@@ -72,7 +73,9 @@ export function createPageFixture() {
   };
   const location = { search: '', hash: '', href: '' };
   const window = {
-    scrollY: 0, listeners: {},
+    scrollY: 0, scrollX: 0, listeners: {},
+    scrollTo({ top, left }) { this.scrollY = top; this.scrollX = left; },
+    history: { replaceState(_state, _title, hash) { location.hash = hash; } },
     addEventListener(type, callback) { (this.listeners[type] ??= []).push(callback); },
     matchMedia: () => ({ matches: true, addEventListener() {} }),
     requestAnimationFrame: callback => callback(),

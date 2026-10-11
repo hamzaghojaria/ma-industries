@@ -70,3 +70,38 @@ test('mobile navigation expanded state and label reset on Escape', () => {
   assert.equal(page.get('menu').attributes['aria-expanded'], 'false');
   assert.equal(page.get('menu').attributes['aria-label'], 'Open navigation');
 });
+
+
+test('product dialogs lock the page and restore scroll across close, Escape, backdrop and hash navigation', () => {
+  const page = boot();
+  page.window.scrollY = 640;
+  function open() {
+    page.location.hash = '#paper-kraft-paper';
+    page.window.listeners.hashchange[0]();
+    assert.equal(page.document.body.style.top, '-640px');
+    assert.equal(page.document.body.classList.contains('product-modal-open'), true);
+  }
+  function restored() {
+    assert.equal(page.document.body.classList.contains('product-modal-open'), false);
+    assert.equal(page.document.documentElement.classList.contains('product-modal-open'), false);
+    assert.equal(page.document.body.style.top, '');
+    assert.equal(page.window.scrollY, 640);
+  }
+  open();
+  // Changing products while already open must not overwrite the saved position.
+  page.window.scrollY = 0;
+  page.location.hash = '#paper-duplex-paper';
+  page.window.listeners.hashchange[0]();
+  page.get('close').click();
+  restored();
+  open(); page.get('detail').dispatch('cancel'); restored();
+  open(); page.get('detail').dispatch('click', { clientX: 0, clientY: 0 }); restored();
+  open(); page.location.hash = '#categories'; page.window.listeners.hashchange[0](); restored();
+  open(); page.get('detail').close(); page.get('detail').dispatch('close'); restored();
+  open();
+  const choice = new page.Element(); choice.dataset.choosePaper = 'kraft-paper';
+  page.get('detail').dispatch('click', { target: choice });
+  restored();
+  assert.equal(page.location.hash, 'enquiry');
+  assert.equal(page.get('enquiry').scrolled, true);
+});

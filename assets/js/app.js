@@ -119,6 +119,33 @@
     else location.hash = hash;
   }
 
+  let savedPageScroll = null;
+
+  function lockPageScroll() {
+    if (savedPageScroll) return;
+    // Fixed positioning prevents background touch scrolling on iOS Safari too.
+    savedPageScroll = { x: window.scrollX || 0, y: window.scrollY, top: document.body.style.top };
+    document.body.style.top = '-' + savedPageScroll.y + 'px';
+    document.documentElement.classList.add('product-modal-open');
+    document.body.classList.add('product-modal-open');
+  }
+
+  function unlockPageScroll() {
+    if (!savedPageScroll) return;
+    const saved = savedPageScroll;
+    savedPageScroll = null;
+    document.body.classList.remove('product-modal-open');
+    document.body.style.top = saved.top;
+    // Restore before removing the root class so global smooth scrolling cannot animate it.
+    window.scrollTo({ left: saved.x, top: saved.y, behavior: 'instant' });
+    document.documentElement.classList.remove('product-modal-open');
+  }
+
+  function closeProductDialog() {
+    dom.detail.close();
+    unlockPageScroll();
+  }
+
   function openProduct(id) {
     const paper = paperById.get(id);
     if (!paper) return;
@@ -135,17 +162,21 @@
       <p>Paper weight (GSM), sheet or reel dimensions, finish, printing requirements, quantity and delivery timeline.</p>
       <p class="detail-note">Exact specifications, availability and suitability are confirmed on enquiry.${paper.group === 'wrapping' ? ' Confirm food-contact compliance and temperature suitability for the intended application.' : ''}</p>
       <button class="button" type="button" data-choose-paper="${paper.id}">Enquire about this paper <span>${ACTION_ARROW}</span></button>`;
-    if (!dom.detail.open) dom.detail.showModal();
+    if (!dom.detail.open) {
+      lockPageScroll();
+      dom.detail.showModal();
+    }
   }
 
   function handleProductHash() {
     if (location.hash.startsWith('#paper-')) openProduct(location.hash.slice(7));
-    else if (dom.detail.open) dom.detail.close();
+    else if (dom.detail.open) closeProductDialog();
   }
 
   function closeProduct() {
-    dom.detail.close();
-    location.hash = 'collection';
+    closeProductDialog();
+    // Update the URL without jumping back to the start of the collection.
+    window.history.replaceState(null, '', '#collection');
   }
 
   function initializeCatalogue() {
@@ -195,12 +226,18 @@
 
   function initializeProductDetails() {
     document.querySelector('.close').addEventListener('click', closeProduct);
-    dom.detail.addEventListener('cancel', () => { location.hash = 'collection'; });
+    dom.detail.addEventListener('cancel', event => {
+      event.preventDefault();
+      closeProduct();
+    });
+    dom.detail.addEventListener('close', () => {
+      if (!dom.detail.open) unlockPageScroll();
+    });
     dom.detail.addEventListener('click', event => {
       const choice = event.target.closest('[data-choose-paper]');
       if (choice) {
         dom.paper.value = paperById.get(choice.dataset.choosePaper).name;
-        dom.detail.close();
+        closeProductDialog();
         location.hash = 'enquiry';
         byId('enquiry').scrollIntoView();
         dom.paper.focus({ preventScroll: true });
@@ -318,7 +355,6 @@
     document.querySelector('.art-tag b').textContent = '01 — ' + papers.length;
   }
 
-  byId('year').textContent = new Date().getFullYear();
   initializeCounts();
   initializeEnquiry();
   initializeCatalogue();

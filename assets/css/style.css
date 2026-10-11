@@ -3161,7 +3161,7 @@ button:active {
 
 @media(max-width:600px) {
   .site-footer {
-    padding: 30px 6% 85px;
+    padding: 30px 6% 24px;
     background: #fff;
   }
 
@@ -3244,6 +3244,7 @@ button:active {
   }
 
   .site-footer .footer-bottom {
+    padding-right: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -3682,4 +3683,33 @@ header>nav {
   .category-card:hover .category-photo {
     transform: scale(1.035);
   }
+}
+
+/* Keep touch/wheel scrolling inside the product dialog, including on iPhone. */
+html.product-modal-open {
+  overflow: hidden;
+  scroll-behavior: auto;
+  scrollbar-gutter: stable;
+}
+
+body.product-modal-open {
+  position: fixed;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+}
+
+#detail {
+  max-height: calc(100vh - 32px);
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Center the footer return link across desktop and mobile layouts. */
+.site-footer .footer-bottom {
+  justify-content: center;
+  padding-right: 0;
+  text-align: center;
 }
