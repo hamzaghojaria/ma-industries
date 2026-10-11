@@ -33,12 +33,6 @@
     },
     {
       "products": [
-        "kraft-paper"
-      ],
-      "url": "https://www.mondigroup.com/globalassets/mondigroup.com/products--solutions/speciality-kraft-paper/tds/ecom/mondi-spkp-tds-advantage-ecom-kraft.pdf"
-    },
-    {
-      "products": [
         "sack-kraft-paper"
       ],
       "url": "https://www.billerud.com/globalassets/billerud/our-offer/packaging-materials/sack-paper/techdatasheet_qf-brown-xcel-70-120.pdf"
@@ -48,12 +42,6 @@
         "kraft-liner-paper"
       ],
       "url": "https://www.billerud.se/produkter/forpackningsmaterial/wellpappmaterial/liners"
-    },
-    {
-      "products": [
-        "fluting-paper"
-      ],
-      "url": "https://www.mondigroup.com/globalassets/mondigroup.com/products--solutions/containerboard/containerboard_kuopio_provantage_powerflute_2023-typical_en.pdf"
     },
     {
       "products": [
@@ -186,6 +174,21 @@
         "cotton-content-paper"
       ],
       "url": "https://specialpapers.fedrigoni.com/wp-content/uploads/2021/09/COTTAGE-2.pdf"
+    },
+    {
+      "products": [
+        "kraft-paper"
+      ],
+      "url": "https://malupaper.com/mg-kraft-pm1/",
+      "additionalUrl": "https://malupaper.com/mf-kraft-pm2/",
+      "note": "Guide combines MG 45–100 and MF 120–200 reference grades; not every intermediate weight is offered."
+    },
+    {
+      "products": [
+        "fluting-paper"
+      ],
+      "url": "https://www.shreeajit.com/products",
+      "note": "80–300 reference mill range. Exact grade, BF and shade combinations require confirmation."
     }
   ]
 }

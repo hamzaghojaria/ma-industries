@@ -48,11 +48,11 @@
     "name": "Kraft paper",
     "group": "packaging",
     "tag": "EARTHY & EXPRESSIVE",
-    "desc": "Warm brown character for bags, wrapping and packaging applications.",
+    "desc": "Brown kraft paper for bags, wrapping and packaging. Discuss machine-glazed (MG) or machine-finished (MF) grades for your application.",
     "uses": [
-      "Paper bags",
-      "Wrapping",
-      "Packaging projects"
+      "Grocery and shopping bags",
+      "Wrapping and envelopes",
+      "Packaging applications"
     ],
     "color": "#bb905e",
     "bg": "#e5d7bf",
@@ -60,9 +60,10 @@
     "id": "kraft-paper",
     "index": 3,
     "gsm": {
-      "min": 70,
-      "max": 120
-    }
+      "min": 45,
+      "max": 200
+    },
+    "details": "MG kraft is a useful starting point for bags and wrapping (reference: 45–100 GSM). MF kraft is commonly discussed for corrugated packaging (reference: 120–200 GSM). Confirm finish, strength and suitability for the intended use."
   },
   {
     "name": "Golden paper",
@@ -166,11 +167,11 @@
     "name": "Kraft liner paper",
     "group": "boards",
     "tag": "THE OUTER LAYER",
-    "desc": "A containerboard family used for the facing layers of corrugated packaging.",
+    "desc": "A kraft liner family for the outer faces of corrugated board. Discuss kraftliner, test liner or semi-kraft liner to match your packaging needs.",
     "uses": [
-      "Corrugated box liners",
-      "Transport packaging",
-      "Printed box concepts"
+      "Corrugated outer liners",
+      "Printed shipping cartons",
+      "Industrial packaging"
     ],
     "color": "#a48563",
     "bg": "#e5e0d4",
@@ -181,17 +182,18 @@
     "gsm": {
       "min": 125,
       "max": 200
-    }
+    },
+    "details": "Kraftliner, recycled test liner and semi-kraft liner are distinct grades. Discuss fibre composition, natural or golden shade, GSM, BF, compression performance and print finish; specifications vary by grade."
   },
   {
     "name": "Fluting paper",
     "group": "boards",
     "tag": "THE CORE OF CORRUGATION",
-    "desc": "Paper used for the corrugated middle layer in corrugated board.",
+    "desc": "The corrugated middle layer that gives a board its fluted structure. Select the grade around box design, strength and converting requirements.",
     "uses": [
-      "Corrugated board production",
-      "Packaging structures",
-      "Box material enquiries"
+      "Corrugated board manufacture",
+      "Shipping cartons",
+      "Protective packaging"
     ],
     "color": "#bba17c",
     "bg": "#e5e0d4",
@@ -200,9 +202,10 @@
     "id": "fluting-paper",
     "index": 10,
     "gsm": {
-      "min": 120,
-      "max": 200
-    }
+      "min": 80,
+      "max": 300
+    },
+    "details": "Reference mill grades span 80–300 GSM. Discuss bursting factor (BF), compression requirements, moisture, reel width and the intended box construction. Not every GSM, BF and shade combination is available."
   },
   {
     "name": "Folding boxboard",

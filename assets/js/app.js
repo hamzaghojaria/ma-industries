@@ -157,6 +157,7 @@
       <figure class="detail-photo"><img src="${escapeHtml(paper.image)}" alt="Illustrative ${escapeHtml(paper.name.toLowerCase())} sample" width="800" height="800" decoding="async"><figcaption>Illustrative sample. Actual colour and finish may vary.</figcaption></figure>
       <p>${escapeHtml(paper.desc)}</p>
       <div class="detail-gsm"><span>GSM guide</span><strong>${escapeHtml(gsmLabel(paper))}</strong><small>GSM means grams per square metre. Typical reference guide; confirm your required grade on enquiry.</small></div>
+      ${paper.details ? '<p class="detail-note">' + escapeHtml(paper.details) + '</p>' : ''}
       <span class="availability">Availability on enquiry</span>
       <h3 class="detail-section-title">Applications to explore</h3>
       <ul>${paper.uses.map(use => '<li>' + escapeHtml(use) + '</li>').join('')}</ul>
