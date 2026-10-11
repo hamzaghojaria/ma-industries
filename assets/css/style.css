@@ -4031,3 +4031,6 @@ header, .collection, .approach, .feature, .enquiry.enquiry-simple,
     font-size: 12px;
   }
 }
+
+.footer-contact-actions .instagram-placeholder { gap: 8px; }
+.social-icon { width: 20px; height: 20px; flex-shrink: 0; }
