@@ -9,13 +9,14 @@ const OUTPUT = resolve(ROOT, 'dist');
 const JAVASCRIPT_FILES = [
   'assets/js/catalogue-data.js',
   'assets/js/catalogue-utils.js',
-  'assets/js/app.js'
+  'assets/js/app.js',
+  'assets/js/about.js'
 ];
 const PRODUCT_IMAGES = JSON.parse(await readFile(resolve(ROOT, 'scripts/product-images.json'), 'utf8'));
 const CATEGORY_IMAGES = JSON.parse(await readFile(resolve(ROOT, 'scripts/category-images.json'), 'utf8'));
 // An allowlist keeps docs, local caches and credentials out of the hosted site.
 const PUBLIC_FILES = [
-  'index.html', 'assets/css/style.css', ...JAVASCRIPT_FILES,
+  'index.html', 'about.html', 'assets/css/style.css', ...JAVASCRIPT_FILES,
   'assets/images/brand-logo.png', 'assets/images/favicon-32.png',
   'assets/images/favicon-192.png', 'assets/images/apple-touch-icon.png',
   'assets/images/share-preview.png',
@@ -27,7 +28,7 @@ for (const file of JAVASCRIPT_FILES) {
   new Script(await readFile(resolve(ROOT, file), 'utf8'), { filename: file });
 }
 
-function applyPublicUrl(html, origin) {
+function applyPublicUrl(html, origin, pagePath = '') {
   if (!origin) return html;
   const url = new URL(origin);
   if (!['https:', 'http:'].includes(url.protocol)) {
@@ -37,16 +38,21 @@ function applyPublicUrl(html, origin) {
   url.search = '';
   url.hash = '';
   const imageUrl = new URL('assets/images/share-preview.png', url).href;
+  const pageUrl = new URL(pagePath, url).href;
   return html
     .replaceAll('content="assets/images/share-preview.png"', 'content="' + imageUrl + '"')
-    .replace('</head>', '<link rel="canonical" href="' + url.href + '">\n' +
-      '<meta property="og:url" content="' + url.href + '">\n</head>');
+    .replace('</head>', '<link rel="canonical" href="' + pageUrl + '">\n' +
+      '<meta property="og:url" content="' + pageUrl + '">\n</head>');
 }
 
-const html = applyPublicUrl(
-  await readFile(resolve(ROOT, 'index.html'), 'utf8'),
-  process.env.SITE_URL || process.env.RENDER_EXTERNAL_URL
-);
+const pages = new Map();
+for (const file of ['index.html', 'about.html']) {
+  pages.set(file, applyPublicUrl(
+    await readFile(resolve(ROOT, file), 'utf8'),
+    process.env.SITE_URL || process.env.RENDER_EXTERNAL_URL,
+    file === 'index.html' ? '' : file
+  ));
+}
 
 // Delete only this generated directory, never the checkout or source assets.
 if (dirname(OUTPUT) !== resolve(ROOT) || basename(OUTPUT) !== 'dist') {
@@ -58,8 +64,8 @@ await mkdir(OUTPUT, { recursive: true });
 for (const file of PUBLIC_FILES) {
   const destination = resolve(OUTPUT, file);
   await mkdir(dirname(destination), { recursive: true });
-  if (file === 'index.html') {
-    await writeFile(destination, html);
+  if (pages.has(file)) {
+    await writeFile(destination, pages.get(file));
   } else if (file.endsWith('.css')) {
     // Source remains readable; deployment removes comments and indentation.
     const css = await readFile(resolve(ROOT, file), 'utf8');

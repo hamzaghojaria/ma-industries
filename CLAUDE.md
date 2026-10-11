@@ -13,6 +13,8 @@ M&A Industries is a dependency-free static website. Work from the repository roo
 
 ## Files
 
+- `about.html`: founder profiles, company approach and standalone About page.
+- `assets/js/about.js`: About-page navigation.
 - `index.html`: page structure, contact links, enquiry fields, footer, favicon and social metadata.
 - `assets/js/catalogue-data.js`: product and category records.
 - `assets/js/catalogue-utils.js`: pure validation, filtering, pagination and enquiry-text helpers.
@@ -32,6 +34,7 @@ M&A Industries is a dependency-free static website. Work from the repository roo
 - Prefer delegated handlers for dynamically rendered cards and paging buttons. Comment intent or constraints rather than restating code.
 - Preserve the `paper`, `brief`, `products`, `pagination` and `status` element IDs; JavaScript uses them.
 - Enquiry actions open drafts in WhatsApp/email. Do not silently send messages or claim a message was sent.
+- Keep founder names, roles and contact details accurate. Do not invent biography dates, awards, client names or quantified achievements.
 - Do not invent certifications, stock availability, prices, minimum quantities or response-time promises.
 - Use `textContent` for visitor-supplied content. Catalogue HTML should use only trusted, repository-owned data.
 - Keep mobile touch targets at least 44px and form-input text at least 16px. Preserve keyboard focus states and reduced-motion behaviour.

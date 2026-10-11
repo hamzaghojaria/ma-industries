@@ -3713,3 +3713,246 @@ body.product-modal-open {
   padding-right: 0;
   text-align: center;
 }
+
+/* About page: founder-led editorial layout with the shared brand palette. */
+.about-hero {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  align-items: center;
+  gap: 6%;
+  padding: 58px 6%;
+}
+.about-hero h1 {
+  font-size: clamp(48px, 5.5vw, 82px);
+  letter-spacing: -3px;
+  margin: 22px 0;
+}
+.about-hero-copy > p:not(.eyebrow),
+.about-story p,
+.founder-card > p:not(.eyebrow),
+.about-value-grid p,
+.about-cta p:not(.eyebrow) {
+  font-size: 15px;
+  line-height: 1.85;
+  color: #63655c;
+}
+.about-hero-copy .about-lead {
+  font-size: 19px;
+  color: var(--ink);
+}
+.about-hero-image {
+  margin: 0;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.about-hero-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.about-hero-image figcaption {
+  position: absolute;
+  bottom: 18px;
+  left: 20px;
+  right: 20px;
+  padding: 10px 14px;
+  background: #fffaf2ed;
+  color: var(--red);
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-size: 19px;
+}
+.about-section {
+  padding: 48px 6%;
+  border-top: 1px solid var(--line);
+  scroll-margin-top: 100px;
+}
+.about-story-grid,
+.founder-grid,
+.about-cta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6%;
+}
+.about-story-grid h2,
+.about-cta h2 {
+  font-size: clamp(36px, 4vw, 56px);
+}
+.about-founders {
+  background: #fffaf2;
+}
+.founder-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 28px;
+}
+.founder-card {
+  padding: 30px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.founder-monogram {
+  display: grid;
+  place-items: center;
+  width: 68px;
+  height: 68px;
+  margin-bottom: 24px;
+  border-radius: 50%;
+  background: #f6e8e9;
+  color: var(--red);
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 27px;
+}
+.founder-card h3 {
+  font-size: 28px;
+  letter-spacing: -1px;
+  margin: 12px 0;
+}
+.founder-card .text-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 44px;
+}
+.about-value-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+  margin-top: 24px;
+}
+.about-value-grid article > span {
+  color: var(--red);
+  font-size: 12px;
+}
+.about-value-grid h3 {
+  font-size: 22px;
+  margin: 14px 0;
+}
+.about-cta {
+  align-items: center;
+}
+@media (min-width: 801px) and (max-width: 1100px) {
+  header nav { gap: 18px; font-size: 12px; }
+  header .logo { width: 220px; }
+}
+@media (max-width: 800px) {
+  .about-hero,
+  .about-story-grid,
+  .founder-grid,
+  .about-cta { grid-template-columns: 1fr; gap: 24px; }
+  .about-hero { padding: 36px 6%; }
+  .about-hero h1 { font-size: clamp(44px, 9vw, 68px); letter-spacing: -2px; }
+  .about-hero-image { max-width: 520px; width: 100%; justify-self: center; }
+  .about-section { padding: 36px 6%; }
+  .about-value-grid { grid-template-columns: 1fr; gap: 18px; }
+  .founder-card { padding: 24px; }
+  .about-section h2 { font-size: clamp(34px, 7.5vw, 48px); letter-spacing: -1.5px; }
+}
+
+/* Qualifications remain readable; phone profiles scroll inside their own strip. */
+.founder-card > .founder-qualification {
+  color: var(--red);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.5;
+  margin: 0 0 18px;
+}
+.founder-swipe-hint {
+  display: none;
+}
+@media (max-width: 600px) {
+  .founder-swipe-hint {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 11px;
+    color: #686a61;
+    margin: 18px 0 10px;
+  }
+  .about-founders .founder-grid {
+    display: grid;
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 88%;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 2px;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+    scrollbar-color: var(--red) #ded8cb;
+    margin-top: 0;
+    padding: 4px 2px 14px;
+    max-width: 100%;
+    min-width: 0;
+  }
+  .founder-grid .founder-card {
+    scroll-snap-align: start;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .founder-grid .founder-card .text-button {
+    margin-top: auto;
+    padding-top: 12px;
+  }
+  .founder-grid::-webkit-scrollbar { height: 6px; }
+  .founder-grid::-webkit-scrollbar-track { background: #ded8cb; border-radius: 10px; }
+  .founder-grid::-webkit-scrollbar-thumb { background: var(--red); border-radius: 10px; }
+}
+
+/* Equal-height profiles keep contact actions on one shared baseline. */
+.founder-grid .founder-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.founder-grid .founder-card .text-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  min-height: 48px;
+  margin-top: auto;
+  padding: 10px;
+  border: 1px solid #d9bdc2;
+  border-radius: 6px;
+  background: #fff7f7;
+  color: var(--red);
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: #a7002726;
+  transition: background .2s ease, color .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+.founder-card .text-button .action-arrow {
+  width: 18px;
+  height: 18px;
+  flex-basis: 18px;
+  transition: transform .2s ease;
+}
+.founder-grid .founder-card .text-button:hover,
+.founder-grid .founder-card .text-button:focus-visible,
+.founder-grid .founder-card .text-button:active {
+  background: var(--red);
+  color: #fff;
+  border-color: var(--red);
+  box-shadow: 0 4px 12px #a7002720;
+}
+.founder-card .text-button:hover .action-arrow,
+.founder-card .text-button:focus-visible .action-arrow {
+  transform: translate(2px, -2px);
+}
+.founder-card .text-button:active .action-arrow {
+  transform: translate(3px, -3px);
+}
+@media (min-width: 801px) and (max-width: 1000px) {
+  .founder-grid { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .founder-grid .founder-card .text-button,
+  .founder-card .text-button .action-arrow { transition: none; }
+}

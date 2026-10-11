@@ -1,6 +1,6 @@
 # M&A Industries
 
-A responsive, single-page paper catalogue with 36 products across eight categories, searchable product enquiries, and WhatsApp/email contact actions.
+A responsive paper catalogue with 36 products across eight categories, searchable product enquiries, and WhatsApp/email contact actions.
 
 ## Project structure
 
@@ -101,3 +101,7 @@ When replacing a photo, update its `image` path in `catalogue-data.js` and the e
 ## Category photography
 
 The eight category cards use separate AI-generated illustrative assortments in `assets/images/categories/`, matching the product photos. Images use lazy loading and fixed 16:10 display bounds; card links, product counts and mobile swipe behavior stay intact. `scripts/category-images.json` lists deployment assets and `scripts/category-image-prompts.json` records generation subjects. Category image paths are in `index.html`.
+
+## About Us page
+
+`about.html` introduces founders Maaz Dawa and Aadil Dhukka, their customer-focused approach and direct WhatsApp contact links. It uses the shared stylesheet and `assets/js/about.js` for mobile navigation. The build packages both pages and gives the About page its own canonical/social URL. Founder biographies avoid unverified awards, dates, clients and numerical claims; add confirmed history when available.
