@@ -8,8 +8,16 @@
     for (const paper of papers) {
       if (productIds.has(paper.id)) throw new Error('Duplicate product ID: ' + paper.id);
       if (!categoryIds.has(paper.group)) throw new Error('Unknown category: ' + paper.group);
+      if (paper.gsm !== null && (!paper.gsm || !Number.isFinite(paper.gsm.min) ||
+          !Number.isFinite(paper.gsm.max) || paper.gsm.min <= 0 || paper.gsm.max < paper.gsm.min)) {
+        throw new Error('Invalid GSM guide: ' + paper.id);
+      }
       productIds.add(paper.id);
     }
+  }
+
+  function gsmLabel(paper) {
+    return paper.gsm ? paper.gsm.min + '–' + paper.gsm.max + ' GSM' : 'Varies by grade';
   }
 
   function filterPapers(papers, { category = 'all', query = '', sort = 'collection' } = {}) {
@@ -71,6 +79,6 @@
 
   // Classic scripts retain compatibility with opening index.html directly.
   window.MACatalogueUtils = Object.freeze({
-    validateCatalogue, filterPapers, paginate, paginationPages, enquiryText
+    validateCatalogue, gsmLabel, filterPapers, paginate, paginationPages, enquiryText
   });
 })();

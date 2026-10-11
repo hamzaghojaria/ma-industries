@@ -1,0 +1,191 @@
+{
+  "note": "Reference examples for typical GSM guides, reviewed 2026-10-12. These do not represent brands stocked, continuous availability or confirmed specifications. Label-paper values refer to paper facestock, not adhesive plus liner. Scrap varies by recovered grade.",
+  "sources": [
+    {
+      "products": [
+        "duplex-paper"
+      ],
+      "url": "https://www.itcpspd.com/Paperboards/Coated-Recycled-Boards/Eco_Natura"
+    },
+    {
+      "products": [
+        "folding-boxboard"
+      ],
+      "url": "https://www.itcpspd.com/Paperboards/Coated-Virgin-Boards/Cyber_XLPac_without_back_coat"
+    },
+    {
+      "products": [
+        "sbs-board"
+      ],
+      "url": "https://www.itcpspd.com/Paperboards/Coated-Virgin-Boards/Safire_Graphik"
+    },
+    {
+      "products": [
+        "cupstock-board"
+      ],
+      "url": "https://www.itcpspd.com/Specialty-and-Graphic-Boards/PE-Coated-Barrier-Boards/Indobev"
+    },
+    {
+      "products": [
+        "white-bag-paper"
+      ],
+      "url": "https://www.mondigroup.com/globalassets/mondigroup.com/products--solutions/speciality-kraft-paper/tds-update-2025/food/mondi-spkp-tds-advantage-smooth-white.pdf"
+    },
+    {
+      "products": [
+        "kraft-paper"
+      ],
+      "url": "https://www.mondigroup.com/globalassets/mondigroup.com/products--solutions/speciality-kraft-paper/tds/ecom/mondi-spkp-tds-advantage-ecom-kraft.pdf"
+    },
+    {
+      "products": [
+        "sack-kraft-paper"
+      ],
+      "url": "https://www.billerud.com/globalassets/billerud/our-offer/packaging-materials/sack-paper/techdatasheet_qf-brown-xcel-70-120.pdf"
+    },
+    {
+      "products": [
+        "kraft-liner-paper"
+      ],
+      "url": "https://www.billerud.se/produkter/forpackningsmaterial/wellpappmaterial/liners"
+    },
+    {
+      "products": [
+        "fluting-paper"
+      ],
+      "url": "https://www.mondigroup.com/globalassets/mondigroup.com/products--solutions/containerboard/containerboard_kuopio_provantage_powerflute_2023-typical_en.pdf"
+    },
+    {
+      "products": [
+        "butter-paper"
+      ],
+      "url": "https://pudumjee.com/glassine-butter-paper/"
+    },
+    {
+      "products": [
+        "tissue-wrapping-paper"
+      ],
+      "url": "https://pudumjee.com/packing-tissue/"
+    },
+    {
+      "products": [
+        "greaseproof-paper"
+      ],
+      "url": "https://www.nordic-paper.com/en/our-paper/natural-greaseproof-paper/barrier-paper"
+    },
+    {
+      "products": [
+        "recycled-wrapping-paper"
+      ],
+      "url": "https://www.mondigroup.com/products-and-solutions/kraft-paper/food-safe-kraft-paper-solutions/",
+      "note": "Representative wrapping range; recycled fibre content and exact grade must be confirmed."
+    },
+    {
+      "products": [
+        "uncoated-printing-paper",
+        "envelope-paper",
+        "drawing-paper",
+        "coloured-copier-paper"
+      ],
+      "url": "https://www.jkpaper.com/writing-and-printing-paper"
+    },
+    {
+      "products": [
+        "copier-paper"
+      ],
+      "url": "https://www.jkpaper.com/jk-easy-copier"
+    },
+    {
+      "products": [
+        "bond-writing-paper"
+      ],
+      "url": "https://www.jkpaper.com/jk-excel-bond"
+    },
+    {
+      "products": [
+        "ledger-paper"
+      ],
+      "url": "https://www.jkpaper.com/jk-ledger"
+    },
+    {
+      "products": [
+        "coated-art-paper"
+      ],
+      "url": "https://www.sappi.com/en-gb/products-services/products/magno"
+    },
+    {
+      "products": [
+        "thermal-receipt-paper"
+      ],
+      "url": "https://www.koehlerpaper.com/en/products/Thermal-paper/TH_POS_Cash-register-rolls.php"
+    },
+    {
+      "products": [
+        "direct-thermal-label-paper"
+      ],
+      "url": "https://www.koehlerpaper.com/en/products/Thermal-paper/TH_Labels.php"
+    },
+    {
+      "products": [
+        "semi-gloss-label-paper"
+      ],
+      "url": "https://label.averydennison.com/content/dam/averydennison/lpm-responsive/asia-pacific/en-sa/documents/customer-tools/psg-pcg/south-asia/psg-sthasia-2024-q1.pdf"
+    },
+    {
+      "products": [
+        "uncoated-label-paper"
+      ],
+      "url": "https://specialpapers.fedrigoni.com/serie/satin-ws/"
+    },
+    {
+      "products": [
+        "glassine-release-liner"
+      ],
+      "url": "https://label.averydennison.com/content/dam/durables-product-overview-asean-dec-2023.pdf"
+    },
+    {
+      "products": [
+        "clay-coated-kraft-liner"
+      ],
+      "url": "https://www.mondigroup.com/globalassets/mondigroup.com/products--solutions/release-liner/Factsheet-Release-Liner-for-Labels/"
+    },
+    {
+      "products": [
+        "natural-paper"
+      ],
+      "url": "https://specialpapers.fedrigoni.com/wp-content/uploads/2021/09/ARENA-SMOOTH.pdf"
+    },
+    {
+      "products": [
+        "textured-paper"
+      ],
+      "url": "https://specialpapers.fedrigoni.com/serie/mistral-tradition/"
+    },
+    {
+      "products": [
+        "dyed-through-coloured-paper"
+      ],
+      "url": "https://specialpapers.fedrigoni.com/serie/sirio-color/"
+    },
+    {
+      "products": [
+        "golden-paper",
+        "metallic-finish-paper",
+        "pearlescent-paper"
+      ],
+      "url": "https://specialpapers.fedrigoni.com/wp-content/uploads/2022/03/SIRIO-PEARL-1.pdf"
+    },
+    {
+      "products": [
+        "translucent-paper"
+      ],
+      "url": "https://specialpapers.fedrigoni.com/wp-content/uploads/2025/03/TECHNICAL-DATA-SHEET_FEDRIGONI-SPECIAL-PAPERS_GSK-TRANSLUCENT_EN_v1.pdf"
+    },
+    {
+      "products": [
+        "cotton-content-paper"
+      ],
+      "url": "https://specialpapers.fedrigoni.com/wp-content/uploads/2021/09/COTTAGE-2.pdf"
+    }
+  ]
+}

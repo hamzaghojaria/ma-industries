@@ -63,3 +63,15 @@ test('enquiry contains entered details, handles general enquiries and does not c
   assert.match(text, /Project details: Carry bags/);
   assert.doesNotMatch(text, /Company:|Required by:|enquiry has been sent/i);
 });
+
+test('GSM guides cover the catalogue and reject invalid ranges', () => {
+  for (const paper of papers) {
+    assert.ok(Object.hasOwn(paper, 'gsm'));
+    assert.match(utils.gsmLabel(paper), paper.gsm ? /^\d+–\d+ GSM$/ : /^Varies by grade$/);
+  }
+  assert.equal(papers.filter(paper => paper.gsm === null).length, 1);
+  assert.equal(papers.find(paper => paper.gsm === null).id, 'scrap-paper');
+  for (const gsm of [{min: 0, max: 100}, {min: 100, max: 50}, {min: 50, max: Infinity}]) {
+    assert.throws(() => utils.validateCatalogue([{...papers[0], gsm}], categories), /Invalid GSM/);
+  }
+});

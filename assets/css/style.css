@@ -2859,30 +2859,6 @@ button:active {
   }
 }
 
-.product .product-top,
-.product>p {
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-.product>.text-button {
-  margin-left: 20px;
-  margin-right: 20px;
-}
-
-@media(max-width:600px) {
-  .product .product-top,
-  .product>p {
-    padding-left: 18px;
-    padding-right: 18px;
-  }
-
-  .product>.text-button {
-    margin-left: 18px;
-    margin-right: 18px;
-  }
-}
-
 .filters small {
   display: inline-flex;
   align-items: center;
@@ -3955,4 +3931,80 @@ body.product-modal-open {
 @media (prefers-reduced-motion: reduce) {
   .founder-grid .founder-card .text-button,
   .founder-card .text-button .action-arrow { transition: none; }
+}
+
+/* Reference weights stay compact and wrap naturally in mobile cards. */
+.product .product-gsm {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  margin: 8px 0 10px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.product-gsm span, .detail-gsm > span { color: #716961; }
+.product-gsm strong {
+  padding: 3px 9px;
+  border-radius: 20px;
+  background: #f6ecec;
+  color: #a70027;
+  font-weight: 600;
+}
+.detail-gsm {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  padding: 14px 16px;
+  margin: 16px 0;
+  border: 1px solid #e6dcd4;
+  border-radius: 12px;
+  background: #faf6f0;
+  font-size: 13px;
+}
+.detail-gsm > strong { color: #a70027; font-size: 17px; }
+.detail-gsm > small { flex-basis: 100%; color: #716961; line-height: 1.6; font-size: 12px; }
+
+/* One small page gutter replaces the wider percentage-based side margins. */
+:root { --page-gutter: clamp(16px, 2vw, 32px); }
+header, .collection, .approach, .feature, .enquiry.enquiry-simple,
+.site-footer, .about-hero, .about-section {
+  padding-left: var(--page-gutter);
+  padding-right: var(--page-gutter);
+}
+.hero-copy { padding-left: var(--page-gutter); }
+.site-footer::before { left: var(--page-gutter); }
+@media (min-width: 1500px) {
+  main, header, footer { max-width: none; }
+}
+@media (max-width: 800px) {
+  .hero-copy, header nav {
+    padding-left: var(--page-gutter);
+    padding-right: var(--page-gutter);
+  }
+}
+
+/* Inset the product text while keeping the sample image full width. */
+.product > .product-top,
+.product > .product-gsm,
+.product > p {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.product > .text-button {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+@media (max-width: 600px) {
+  .product > .product-top,
+  .product > .product-gsm,
+  .product > p {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+  .product > .text-button {
+    margin-left: 18px;
+    margin-right: 18px;
+  }
 }

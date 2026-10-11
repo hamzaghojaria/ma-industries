@@ -3,7 +3,7 @@
   'use strict';
 
   const { papers, categories } = window.MACatalogueData;
-  const { validateCatalogue, filterPapers, paginate, paginationPages, enquiryText } = window.MACatalogueUtils;
+  const { validateCatalogue, gsmLabel, filterPapers, paginate, paginationPages, enquiryText } = window.MACatalogueUtils;
   // SVG keeps action arrows consistent across iOS and desktop font rendering.
   const ACTION_ARROW = "<svg class=\"action-arrow\" viewBox=\"0 0 24 24\" fill=\"none\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M6 18 18 6M6 6h12v12\" /></svg>";
   const PAGE_SIZE = 6;
@@ -58,6 +58,7 @@
       </a>
       <div class="product-top"><h3><a href="#paper-${paper.id}">${name}</a></h3>
         <a class="detail-button" href="#paper-${paper.id}" aria-label="View ${name}">${ACTION_ARROW}</a></div>
+      <div class="product-gsm"><span>GSM guide</span><strong>${escapeHtml(gsmLabel(paper))}</strong></div>
       <p>${escapeHtml(paper.desc)}</p><a class="text-button" href="#paper-${paper.id}">Explore paper</a>
     </article>`;
   }
@@ -155,6 +156,7 @@
       <h2 id="detail-title">${escapeHtml(paper.name)}</h2>
       <figure class="detail-photo"><img src="${escapeHtml(paper.image)}" alt="Illustrative ${escapeHtml(paper.name.toLowerCase())} sample" width="800" height="800" decoding="async"><figcaption>Illustrative sample. Actual colour and finish may vary.</figcaption></figure>
       <p>${escapeHtml(paper.desc)}</p>
+      <div class="detail-gsm"><span>GSM guide</span><strong>${escapeHtml(gsmLabel(paper))}</strong><small>GSM means grams per square metre. Typical reference guide; confirm your required grade on enquiry.</small></div>
       <span class="availability">Availability on enquiry</span>
       <h3 class="detail-section-title">Applications to explore</h3>
       <ul>${paper.uses.map(use => '<li>' + escapeHtml(use) + '</li>').join('')}</ul>

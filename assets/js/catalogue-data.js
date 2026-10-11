@@ -2,6 +2,7 @@
 (() => {
   'use strict';
 
+  // GSM values are reference guides, not confirmed stock specifications.
   const papers = [
   {
     "name": "Duplex paper",
@@ -17,7 +18,11 @@
     "bg": "#dedcd2",
     "image": "assets/images/products/duplex-paper.webp",
     "id": "duplex-paper",
-    "index": 1
+    "index": 1,
+    "gsm": {
+      "min": 230,
+      "max": 400
+    }
   },
   {
     "name": "White bag paper",
@@ -33,7 +38,11 @@
     "bg": "#e4e6de",
     "image": "assets/images/products/white-bag-paper.webp",
     "id": "white-bag-paper",
-    "index": 2
+    "index": 2,
+    "gsm": {
+      "min": 50,
+      "max": 130
+    }
   },
   {
     "name": "Kraft paper",
@@ -49,7 +58,11 @@
     "bg": "#e5d7bf",
     "image": "assets/images/products/kraft-paper.webp",
     "id": "kraft-paper",
-    "index": 3
+    "index": 3,
+    "gsm": {
+      "min": 70,
+      "max": 120
+    }
   },
   {
     "name": "Golden paper",
@@ -65,7 +78,11 @@
     "bg": "#e5dec9",
     "image": "assets/images/products/golden-paper.webp",
     "id": "golden-paper",
-    "index": 4
+    "index": 4,
+    "gsm": {
+      "min": 110,
+      "max": 350
+    }
   },
   {
     "name": "Scrap paper",
@@ -81,7 +98,8 @@
     "bg": "#dcded4",
     "image": "assets/images/products/scrap-paper.webp",
     "id": "scrap-paper",
-    "index": 5
+    "index": 5,
+    "gsm": null
   },
   {
     "name": "Butter paper",
@@ -97,7 +115,11 @@
     "bg": "#e9e5dc",
     "image": "assets/images/products/butter-paper.webp",
     "id": "butter-paper",
-    "index": 6
+    "index": 6,
+    "gsm": {
+      "min": 18,
+      "max": 39
+    }
   },
   {
     "name": "Natural paper",
@@ -113,7 +135,11 @@
     "bg": "#e1ded1",
     "image": "assets/images/products/natural-paper.webp",
     "id": "natural-paper",
-    "index": 7
+    "index": 7,
+    "gsm": {
+      "min": 90,
+      "max": 350
+    }
   },
   {
     "name": "Sack kraft paper",
@@ -130,7 +156,11 @@
     "suggested": true,
     "image": "assets/images/products/sack-kraft-paper.webp",
     "id": "sack-kraft-paper",
-    "index": 8
+    "index": 8,
+    "gsm": {
+      "min": 70,
+      "max": 120
+    }
   },
   {
     "name": "Kraft liner paper",
@@ -147,7 +177,11 @@
     "suggested": true,
     "image": "assets/images/products/kraft-liner-paper.webp",
     "id": "kraft-liner-paper",
-    "index": 9
+    "index": 9,
+    "gsm": {
+      "min": 125,
+      "max": 200
+    }
   },
   {
     "name": "Fluting paper",
@@ -164,7 +198,11 @@
     "suggested": true,
     "image": "assets/images/products/fluting-paper.webp",
     "id": "fluting-paper",
-    "index": 10
+    "index": 10,
+    "gsm": {
+      "min": 120,
+      "max": 200
+    }
   },
   {
     "name": "Folding boxboard",
@@ -181,7 +219,11 @@
     "suggested": true,
     "image": "assets/images/products/folding-boxboard.webp",
     "id": "folding-boxboard",
-    "index": 11
+    "index": 11,
+    "gsm": {
+      "min": 200,
+      "max": 400
+    }
   },
   {
     "name": "SBS board",
@@ -198,7 +240,11 @@
     "suggested": true,
     "image": "assets/images/products/sbs-board.webp",
     "id": "sbs-board",
-    "index": 12
+    "index": 12,
+    "gsm": {
+      "min": 200,
+      "max": 400
+    }
   },
   {
     "name": "Uncoated printing paper",
@@ -215,7 +261,11 @@
     "suggested": true,
     "image": "assets/images/products/uncoated-printing-paper.webp",
     "id": "uncoated-printing-paper",
-    "index": 13
+    "index": 13,
+    "gsm": {
+      "min": 58,
+      "max": 120
+    }
   },
   {
     "name": "Coated art paper",
@@ -232,7 +282,11 @@
     "suggested": true,
     "image": "assets/images/products/coated-art-paper.webp",
     "id": "coated-art-paper",
-    "index": 14
+    "index": 14,
+    "gsm": {
+      "min": 90,
+      "max": 350
+    }
   },
   {
     "name": "Tissue wrapping paper",
@@ -249,7 +303,11 @@
     "suggested": true,
     "image": "assets/images/products/tissue-wrapping-paper.webp",
     "id": "tissue-wrapping-paper",
-    "index": 15
+    "index": 15,
+    "gsm": {
+      "min": 18,
+      "max": 40
+    }
   },
   {
     "name": "Greaseproof paper",
@@ -266,7 +324,11 @@
     "suggested": true,
     "image": "assets/images/products/greaseproof-paper.webp",
     "id": "greaseproof-paper",
-    "index": 16
+    "index": 16,
+    "gsm": {
+      "min": 40,
+      "max": 80
+    }
   },
   {
     "name": "Cupstock board",
@@ -283,7 +345,11 @@
     "suggested": true,
     "image": "assets/images/products/cupstock-board.webp",
     "id": "cupstock-board",
-    "index": 17
+    "index": 17,
+    "gsm": {
+      "min": 185,
+      "max": 345
+    }
   },
   {
     "name": "Recycled wrapping paper",
@@ -300,7 +366,11 @@
     "suggested": true,
     "image": "assets/images/products/recycled-wrapping-paper.webp",
     "id": "recycled-wrapping-paper",
-    "index": 18
+    "index": 18,
+    "gsm": {
+      "min": 60,
+      "max": 120
+    }
   },
   {
     "name": "Copier paper",
@@ -317,7 +387,11 @@
     "suggested": true,
     "image": "assets/images/products/copier-paper.webp",
     "id": "copier-paper",
-    "index": 19
+    "index": 19,
+    "gsm": {
+      "min": 70,
+      "max": 100
+    }
   },
   {
     "name": "Bond writing paper",
@@ -334,7 +408,11 @@
     "suggested": true,
     "image": "assets/images/products/bond-writing-paper.webp",
     "id": "bond-writing-paper",
-    "index": 20
+    "index": 20,
+    "gsm": {
+      "min": 70,
+      "max": 100
+    }
   },
   {
     "name": "Coloured copier paper",
@@ -351,7 +429,11 @@
     "suggested": true,
     "image": "assets/images/products/coloured-copier-paper.webp",
     "id": "coloured-copier-paper",
-    "index": 21
+    "index": 21,
+    "gsm": {
+      "min": 75,
+      "max": 80
+    }
   },
   {
     "name": "Envelope paper",
@@ -368,7 +450,11 @@
     "suggested": true,
     "image": "assets/images/products/envelope-paper.webp",
     "id": "envelope-paper",
-    "index": 22
+    "index": 22,
+    "gsm": {
+      "min": 68,
+      "max": 175
+    }
   },
   {
     "name": "Ledger paper",
@@ -385,7 +471,11 @@
     "suggested": true,
     "image": "assets/images/products/ledger-paper.webp",
     "id": "ledger-paper",
-    "index": 23
+    "index": 23,
+    "gsm": {
+      "min": 70,
+      "max": 95
+    }
   },
   {
     "name": "Drawing paper",
@@ -402,7 +492,11 @@
     "suggested": true,
     "image": "assets/images/products/drawing-paper.webp",
     "id": "drawing-paper",
-    "index": 24
+    "index": 24,
+    "gsm": {
+      "min": 80,
+      "max": 170
+    }
   },
   {
     "name": "Thermal receipt paper",
@@ -419,7 +513,11 @@
     "suggested": true,
     "image": "assets/images/products/thermal-receipt-paper.webp",
     "id": "thermal-receipt-paper",
-    "index": 25
+    "index": 25,
+    "gsm": {
+      "min": 44,
+      "max": 90
+    }
   },
   {
     "name": "Direct thermal label paper",
@@ -436,7 +534,11 @@
     "suggested": true,
     "image": "assets/images/products/direct-thermal-label-paper.webp",
     "id": "direct-thermal-label-paper",
-    "index": 26
+    "index": 26,
+    "gsm": {
+      "min": 65,
+      "max": 70
+    }
   },
   {
     "name": "Semi-gloss label paper",
@@ -453,7 +555,11 @@
     "suggested": true,
     "image": "assets/images/products/semi-gloss-label-paper.webp",
     "id": "semi-gloss-label-paper",
-    "index": 27
+    "index": 27,
+    "gsm": {
+      "min": 70,
+      "max": 80
+    }
   },
   {
     "name": "Uncoated label paper",
@@ -470,7 +576,11 @@
     "suggested": true,
     "image": "assets/images/products/uncoated-label-paper.webp",
     "id": "uncoated-label-paper",
-    "index": 28
+    "index": 28,
+    "gsm": {
+      "min": 70,
+      "max": 100
+    }
   },
   {
     "name": "Glassine release liner",
@@ -487,7 +597,11 @@
     "suggested": true,
     "image": "assets/images/products/glassine-release-liner.webp",
     "id": "glassine-release-liner",
-    "index": 29
+    "index": 29,
+    "gsm": {
+      "min": 60,
+      "max": 80
+    }
   },
   {
     "name": "Clay-coated kraft liner",
@@ -504,7 +618,11 @@
     "suggested": true,
     "image": "assets/images/products/clay-coated-kraft-liner.webp",
     "id": "clay-coated-kraft-liner",
-    "index": 30
+    "index": 30,
+    "gsm": {
+      "min": 41,
+      "max": 155
+    }
   },
   {
     "name": "Translucent paper",
@@ -521,7 +639,11 @@
     "suggested": true,
     "image": "assets/images/products/translucent-paper.webp",
     "id": "translucent-paper",
-    "index": 31
+    "index": 31,
+    "gsm": {
+      "min": 80,
+      "max": 375
+    }
   },
   {
     "name": "Textured paper",
@@ -538,7 +660,11 @@
     "suggested": true,
     "image": "assets/images/products/textured-paper.webp",
     "id": "textured-paper",
-    "index": 32
+    "index": 32,
+    "gsm": {
+      "min": 100,
+      "max": 320
+    }
   },
   {
     "name": "Dyed-through coloured paper",
@@ -555,7 +681,11 @@
     "suggested": true,
     "image": "assets/images/products/dyed-through-coloured-paper.webp",
     "id": "dyed-through-coloured-paper",
-    "index": 33
+    "index": 33,
+    "gsm": {
+      "min": 80,
+      "max": 350
+    }
   },
   {
     "name": "Metallic finish paper",
@@ -572,7 +702,11 @@
     "suggested": true,
     "image": "assets/images/products/metallic-finish-paper.webp",
     "id": "metallic-finish-paper",
-    "index": 34
+    "index": 34,
+    "gsm": {
+      "min": 110,
+      "max": 350
+    }
   },
   {
     "name": "Pearlescent paper",
@@ -589,7 +723,11 @@
     "suggested": true,
     "image": "assets/images/products/pearlescent-paper.webp",
     "id": "pearlescent-paper",
-    "index": 35
+    "index": 35,
+    "gsm": {
+      "min": 110,
+      "max": 350
+    }
   },
   {
     "name": "Cotton-content paper",
@@ -606,7 +744,11 @@
     "suggested": true,
     "image": "assets/images/products/cotton-content-paper.webp",
     "id": "cotton-content-paper",
-    "index": 36
+    "index": 36,
+    "gsm": {
+      "min": 120,
+      "max": 320
+    }
   }
 ];
 

@@ -105,3 +105,5 @@ The eight category cards use separate AI-generated illustrative assortments in `
 ## About Us page
 
 `about.html` introduces founders Maaz Dawa and Aadil Dhukka, their customer-focused approach and direct WhatsApp contact links. It uses the shared stylesheet and `assets/js/about.js` for mobile navigation. The build packages both pages and gives the About page its own canonical/social URL. Founder biographies avoid unverified awards, dates, clients and numerical claims; add confirmed history when available.
+
+Product GSM values are typical reference guides, not confirmed stock specifications. Edit the `gsm` min/max fields in `assets/js/catalogue-data.js`; use `null` for variable grades. Manufacturer references are recorded in `scripts/gsm-reference-sources.json` and excluded from the public build.
