@@ -4008,3 +4008,26 @@ header, .collection, .approach, .feature, .enquiry.enquiry-simple,
     margin-right: 18px;
   }
 }
+
+/* A reserved social link stays inactive until a profile is supplied. */
+.footer-contact-actions { flex-wrap: wrap; }
+.footer-contact-actions .instagram-placeholder {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 12px 15px;
+  border: 1px dashed #c8c0af;
+  border-radius: 3px;
+  font-size: 11px;
+  color: #716961;
+  cursor: default;
+}
+@media (max-width: 600px) {
+  .site-footer .footer-contact-actions .instagram-placeholder {
+    grid-column: 1 / -1;
+    min-height: 46px;
+    border-radius: 6px;
+    font-size: 12px;
+  }
+}
