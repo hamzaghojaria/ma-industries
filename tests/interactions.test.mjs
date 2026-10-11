@@ -105,3 +105,36 @@ test('product dialogs lock the page and restore scroll across close, Escape, bac
   assert.equal(page.location.hash, 'enquiry');
   assert.equal(page.get('enquiry').scrolled, true);
 });
+
+test('gallery arrows use resized card widths, stop at bounds and respect reduced motion', () => {
+  const page = createPageFixture();
+  const track = page.get('gallery-track');
+  const frames = [{offsetLeft: 0}, {offsetLeft: 360}];
+  track.links = frames;
+  track.clientWidth = 900;
+  track.scrollWidth = 1800;
+  const moves = [];
+  track.scrollBy = options => {
+    moves.push(options);
+    track.scrollLeft = Math.max(0, Math.min(track.scrollWidth - track.clientWidth, track.scrollLeft + options.left));
+    track.dispatch('scroll');
+  };
+  const context = vm.createContext(page.globals);
+  for (const source of sources) vm.runInContext(source, context);
+  const previous = page.get('gallery-previous'), next = page.get('gallery-next');
+  assert.equal(previous.disabled, true);
+  assert.equal(next.disabled, false);
+  next.click();
+  assert.equal(moves[0].left, 360);
+  assert.equal(moves[0].behavior, 'instant');
+  assert.equal(previous.disabled, false);
+  frames[1].offsetLeft = 440;
+  for (const callback of page.window.listeners.resize) callback();
+  next.click();
+  assert.equal(moves[1].left, 440);
+  next.click();
+  assert.equal(next.disabled, true);
+  previous.click();
+  assert.equal(moves.at(-1).left, -440);
+  assert.equal(next.disabled, false);
+});

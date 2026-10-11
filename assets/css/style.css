@@ -4039,25 +4039,30 @@ header, .collection, .approach, .feature, .enquiry.enquiry-simple,
 .paper-guide-grid article { padding: 20px; border: 1px solid var(--line); border-radius: 8px; background: #faf6f0; }
 .paper-guide-grid h3 { font-size: 20px; }
 .paper-guide-grid p { font-size: 14px; line-height: 1.8; color: #63655c; }
-.gallery-intro, .gallery-sources { font-size: 12px; line-height: 1.8; color: #716961; }
-.industry-gallery-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
-.industry-gallery-grid figure { margin: 0; min-width: 0; }
+.industry-gallery-grid {
+  display: grid;
+  position: relative;
+  grid-template-columns: none;
+  grid-auto-flow: column;
+  grid-auto-columns: 88%;
+  gap: 14px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  padding-bottom: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--red) #ded8cb;
+}
+.industry-gallery-grid figure { margin: 0; min-width: 0; scroll-snap-align: start; }
 .industry-gallery-grid .gallery-image { display: block; overflow: hidden; border-radius: 8px; }
 .industry-gallery-grid img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; transition: transform .35s; }
-.industry-gallery-grid figcaption { padding: 14px 0; font-size: 14px; line-height: 1.6; }
-.industry-gallery-grid figcaption span { display: block; font-size: 11px; color: #716961; }
-.industry-gallery-grid figcaption a, .gallery-sources a { text-decoration: underline; text-underline-offset: 3px; }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
  .industry-gallery-grid .gallery-image:hover img { transform: scale(1.025); }
 }
 @media (max-width: 800px) { .paper-guide-grid { grid-template-columns: 1fr; gap: 12px; } }
-@media (max-width: 600px) {
- .industry-gallery-grid { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 88%; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; padding-bottom: 10px; scrollbar-width: thin; scrollbar-color: var(--red) #ded8cb; }
- .industry-gallery-grid figure { scroll-snap-align: start; }
-}
 
-.gallery-photo-credit { font-size: 11px; color: #716961; line-height: 1.8; margin-top: 14px; }
-.gallery-photo-credit a { text-decoration: underline; text-underline-offset: 3px; }
+
+
 
 
 /* Keep Explore compact in two columns at every screen size. */
@@ -4079,21 +4084,6 @@ header, .collection, .approach, .feature, .enquiry.enquiry-simple,
  .site-footer .footer-explore li a { justify-content: center; }
 }
 
-/* Desktop gallery scrolls inside its bounds; phones keep the wider swipe cards. */
-@media (min-width: 601px) {
- .industry-gallery-grid {
-  grid-template-columns: none;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(280px, 36%);
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  overscroll-behavior-x: contain;
-  padding-bottom: 14px;
-  scrollbar-width: thin;
-  scrollbar-color: var(--red) #ded8cb;
- }
- .industry-gallery-grid figure { scroll-snap-align: start; }
-}
 .industry-gallery-grid::-webkit-scrollbar { height: 8px; }
 .industry-gallery-grid::-webkit-scrollbar-track { background: #ded8cb; border-radius: 8px; }
 .industry-gallery-grid::-webkit-scrollbar-thumb { background: var(--red); border-radius: 8px; }
@@ -4228,10 +4218,11 @@ header nav .nav-cta:active { background: #680018; }
  background: var(--red);
 }
 @media (min-width: 801px) {
- .industry-gallery-grid { grid-auto-columns: 46%; gap: 24px; }
+ .industry-gallery-grid { grid-auto-columns: 36%; gap: 24px; scrollbar-width: none; padding-bottom: 0; }
+ .industry-gallery-grid::-webkit-scrollbar { display: none; }
 }
 @media (min-width: 601px) and (max-width: 800px) {
- .industry-gallery-grid { grid-auto-columns: 65%; }
+ .industry-gallery-grid { grid-auto-columns: 65%; gap: 20px; padding-bottom: 14px; }
 }
 @media (max-width: 600px) {
  .industry-gallery-grid figcaption { font-size: 22px; padding-top: 14px; }
@@ -4250,7 +4241,6 @@ header nav .nav-cta:active { background: #680018; }
 .gallery-controls button:focus-visible { background: var(--red); color: #fff; }
 .gallery-controls button:active:not(:disabled) { transform: scale(.95); }
 .gallery-controls button:disabled { opacity: .35; cursor: default; }
-.industry-gallery-grid { position: relative; }
 @media (prefers-reduced-motion: reduce) { .gallery-controls button { transition: none; } }
 
 /* Phone guide cards use a contained swipe strip with a visible next-card preview. */
@@ -4275,10 +4265,7 @@ header nav .nav-cta:active { background: #680018; }
  .paper-guide-grid::-webkit-scrollbar-thumb { background: var(--red); border-radius: 6px; }
 }
 
-/* Smaller desktop frames; touch devices browse the gallery by swiping. */
-@media (min-width: 801px) {
- .industry-gallery-grid { grid-auto-columns: 36%; }
-}
+
 @media (max-width: 800px) {
  .gallery-controls { display: none; }
 }
@@ -4308,11 +4295,7 @@ header nav .nav-cta:active { background: #680018; }
  .industry-gallery .gallery-intro::before { flex-basis: 20px; }
 }
 
-/* Desktop gallery uses arrows without a visible scrollbar. */
-@media (min-width: 801px) {
- .industry-gallery-grid { scrollbar-width: none; padding-bottom: 0; }
- .industry-gallery-grid::-webkit-scrollbar { display: none; }
-}
+
 
 /* Larger approach numbers make the three steps easier to scan. */
 .approach .steps article > span {
