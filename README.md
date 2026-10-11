@@ -9,9 +9,15 @@ MA-Industries-Single-Page/
 ├── index.html              # Page content, navigation, form and metadata
 ├── assets/
 │   ├── css/style.css       # Layout, mobile sliders and animations
-│   ├── js/app.js           # Catalogue data, filtering, pagination and enquiries
+│   ├── js/
+│   │   ├── catalogue-data.js  # Products and categories
+│   │   ├── catalogue-utils.js # Filtering, paging and message helpers
+│   │   └── app.js             # Page rendering and event handlers
 │   └── images/             # Logos, favicon sizes and social-preview image
-├── scripts/build.mjs       # Validate and package public assets
+├── scripts/
+│   ├── build.mjs           # Validate and package public assets
+│   └── check.mjs           # Check browser-script syntax
+├── tests/                  # Catalogue and page-interaction regression checks
 ├── package.json            # Dependency-free build/check commands
 ├── render.yaml             # Render Static Site configuration
 ├── CLAUDE.md               # Guidance for contributors and coding assistants
@@ -37,10 +43,11 @@ Requires Node.js 20 or newer. There are no runtime or build dependencies to inst
 
 ```sh
 npm run check
+npm test
 npm run build
 ```
 
-The build validates JavaScript and copies only public site assets into `dist/`, retaining their folder paths. Generated output is ignored by Git.
+The build validates all three browser scripts, compacts CSS, and copies only public site assets into `dist/`, retaining their folder paths. Generated output is ignored by Git. Tests exercise catalogue rules and page interactions using a lightweight DOM fixture; they do not replace visual checks in a real browser.
 
 ## Deploy to Render
 
@@ -67,11 +74,13 @@ The build uses Render’s `RENDER_EXTERNAL_URL` for canonical and social-preview
 ## Editing
 
 - **Content / contact links / metadata:** `index.html`.
-- **Products and category data:** `assets/js/app.js`.
+- **Products and category data:** `assets/js/catalogue-data.js`.
+- **Filtering, pagination and enquiry text:** `assets/js/catalogue-utils.js`.
+- **Rendering, navigation and event handlers:** `assets/js/app.js`.
 - **Styles and breakpoints:** `assets/css/style.css`.
 - **Branding assets:** `assets/images/`.
 
-If the catalogue changes, update category counts, total-product text and the sharing image where needed. Product descriptions describe paper families; grade specifications, pricing, stock and application suitability must be confirmed with the team.
+Counts are calculated from catalogue data at startup. If the catalogue changes, also update the static HTML fallback totals, metadata and sharing image where needed. Product descriptions describe paper families; grade specifications, pricing, stock and application suitability must be confirmed with the team.
 
 ## Validation before publishing
 

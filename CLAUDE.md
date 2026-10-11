@@ -7,13 +7,17 @@ M&A Industries is a dependency-free static website. Work from the repository roo
 ## Commands
 
 - `npm run check`: validate JavaScript syntax.
+- `npm test`: run catalogue and page-interaction regression checks.
 - `npm run build`: validate and prepare deployment assets.
 - No dependency installation is required for the current codebase.
 
 ## Files
 
 - `index.html`: page structure, contact links, enquiry fields, footer, favicon and social metadata.
-- `assets/js/app.js`: `papers` and `categories` arrays, catalogue rendering, pagination, dialogs, native product autocomplete, enquiry message preparation and navigation.
+- `assets/js/catalogue-data.js`: product and category records.
+- `assets/js/catalogue-utils.js`: pure validation, filtering, pagination and enquiry-text helpers.
+- `assets/js/app.js`: catalogue rendering, delegated interactions, dialogs, native product autocomplete, enquiry actions and navigation.
+- `tests/`: catalogue and interaction tests with a small DOM fixture.
 - `assets/css/style.css`: branding, layout, responsive breakpoints and motion. Inspect the cascade before adding an override.
 - `assets/images/`: supplied logo, web logo, browser icons and social-preview artwork.
 - `scripts/build.mjs`: explicit public-file allowlist and deployment URL handling.
@@ -23,7 +27,9 @@ M&A Industries is a dependency-free static website. Work from the repository roo
 
 - Preserve M&A Industries branding, business contact details and the current concise form/footer unless the user requests changes.
 - Keep product IDs unique and stable. Every product group must match an existing category ID.
-- Keep category counts, catalogue totals and descriptions consistent when editing data.
+- Counts are calculated from data. Keep static HTML fallback totals, metadata and descriptions consistent when editing data.
+- Load classic scripts in data → utilities → app order; this preserves direct-file previews.
+- Prefer delegated handlers for dynamically rendered cards and paging buttons. Comment intent or constraints rather than restating code.
 - Preserve the `paper`, `brief`, `products`, `pagination` and `status` element IDs; JavaScript uses them.
 - Enquiry actions open drafts in WhatsApp/email. Do not silently send messages or claim a message was sent.
 - Do not invent certifications, stock availability, prices, minimum quantities or response-time promises.
