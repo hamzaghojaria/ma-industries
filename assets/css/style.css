@@ -4011,7 +4011,7 @@ header, .collection, .approach, .feature, .enquiry.enquiry-simple,
 
 /* A reserved social link stays inactive until a profile is supplied. */
 .footer-contact-actions { flex-wrap: wrap; }
-.footer-contact-actions .instagram-placeholder {
+.footer-contact-actions :is(.instagram-placeholder, .linkedin-placeholder) {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -4024,13 +4024,12 @@ header, .collection, .approach, .feature, .enquiry.enquiry-simple,
   cursor: default;
 }
 @media (max-width: 600px) {
-  .site-footer .footer-contact-actions .instagram-placeholder {
-    grid-column: 1 / -1;
+  .site-footer .footer-contact-actions :is(.instagram-placeholder, .linkedin-placeholder) {
     min-height: 46px;
     border-radius: 6px;
     font-size: 12px;
   }
 }
 
-.footer-contact-actions .instagram-placeholder { gap: 8px; }
+.footer-contact-actions :is(.instagram-placeholder, .linkedin-placeholder) { gap: 8px; }
 .social-icon { width: 20px; height: 20px; flex-shrink: 0; }
