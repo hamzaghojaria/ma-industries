@@ -4208,3 +4208,102 @@ header nav .nav-cta:active { background: #680018; }
 .site-footer .footer-explore .footer-enquiry-link:focus-visible { background: var(--red); color: #fff; }
 .site-footer .footer-explore .footer-enquiry-link:active { background: #80001e; color: #fff; }
 @media (prefers-reduced-motion: reduce) { header nav .nav-cta { transition: none; } }
+
+/* Editorial captions and larger desktop frames make the gallery easier to browse. */
+.industry-gallery-grid figcaption {
+ font-family: 'Playfair Display', Georgia, serif;
+ font-size: clamp(21px, 2vw, 28px);
+ font-weight: 500;
+ line-height: 1.35;
+ letter-spacing: -.35px;
+ padding: 18px 4px 12px;
+ color: var(--ink);
+}
+.industry-gallery-grid figcaption::after {
+ content: '';
+ display: block;
+ width: 34px;
+ height: 2px;
+ margin-top: 12px;
+ background: var(--red);
+}
+@media (min-width: 801px) {
+ .industry-gallery-grid { grid-auto-columns: 46%; gap: 24px; }
+}
+@media (min-width: 601px) and (max-width: 800px) {
+ .industry-gallery-grid { grid-auto-columns: 65%; }
+}
+@media (max-width: 600px) {
+ .industry-gallery-grid figcaption { font-size: 22px; padding-top: 14px; }
+}
+
+.gallery-controls { display: flex; justify-content: flex-end; gap: 10px; margin: 0 0 16px; }
+.gallery-controls button {
+ display: grid; place-items: center; width: 48px; height: 48px;
+ border: 1px solid var(--red); border-radius: 50%;
+ background: #fff; color: var(--red); cursor: pointer;
+ transition: background .2s, color .2s, transform .2s;
+}
+.gallery-controls svg { width: 24px; height: 24px; }
+.gallery-controls path { stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.gallery-controls button:hover:not(:disabled),
+.gallery-controls button:focus-visible { background: var(--red); color: #fff; }
+.gallery-controls button:active:not(:disabled) { transform: scale(.95); }
+.gallery-controls button:disabled { opacity: .35; cursor: default; }
+.industry-gallery-grid { position: relative; }
+@media (prefers-reduced-motion: reduce) { .gallery-controls button { transition: none; } }
+
+/* Phone guide cards use a contained swipe strip with a visible next-card preview. */
+@media (max-width: 600px) {
+ .paper-guide-grid {
+  grid-template-columns: none;
+  grid-auto-flow: column;
+  grid-auto-columns: 88%;
+  gap: 14px;
+  max-width: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 4px;
+  overscroll-behavior-x: contain;
+  padding: 6px 4px 16px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--red) #ded8cb;
+ }
+ .paper-guide-grid article { min-width: 0; min-height: 230px; scroll-snap-align: start; }
+ .paper-guide-grid::-webkit-scrollbar { height: 6px; }
+ .paper-guide-grid::-webkit-scrollbar-track { background: #ded8cb; border-radius: 6px; }
+ .paper-guide-grid::-webkit-scrollbar-thumb { background: var(--red); border-radius: 6px; }
+}
+
+/* Smaller desktop frames; touch devices browse the gallery by swiping. */
+@media (min-width: 801px) {
+ .industry-gallery-grid { grid-auto-columns: 36%; }
+}
+@media (max-width: 800px) {
+ .gallery-controls { display: none; }
+}
+
+/* A quiet editorial introduction to the gallery. */
+.industry-gallery .gallery-intro {
+ display: flex;
+ align-items: center;
+ gap: 14px;
+ margin: 32px 0 18px;
+ font-family: 'Playfair Display', Georgia, serif;
+ font-size: clamp(24px, 2.6vw, 36px);
+ font-style: italic;
+ font-weight: 500;
+ line-height: 1.35;
+ letter-spacing: -.4px;
+ color: var(--red);
+}
+.industry-gallery .gallery-intro::before {
+ content: '';
+ flex: 0 0 32px;
+ height: 2px;
+ background: var(--red);
+}
+@media (max-width: 600px) {
+ .industry-gallery .gallery-intro { gap: 10px; margin-top: 26px; font-size: 26px; }
+ .industry-gallery .gallery-intro::before { flex-basis: 20px; }
+}

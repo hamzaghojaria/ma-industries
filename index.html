@@ -432,13 +432,17 @@
       <!-- Material-selection process. -->
       <section id="gallery" class="collection industry-gallery" aria-labelledby="gallery-title">
         <div class="section-heading"><div><p class="eyebrow">PAPER &amp; PACKAGING</p><h2 id="gallery-title">A closer look at <em>paper.</em></h2></div></div>
-        <div class="paper-guide-grid">
+        <div class="paper-guide-grid" tabindex="0" role="region" aria-label="Paper guide cards; swipe to explore">
           <article tabindex="0"><h3>Choose the right finish.</h3><p>MG means machine-glazed; MF means machine-finished. Tell us whether you need paper for bags, wrapping or corrugated packaging.</p></article>
           <article tabindex="0"><h3>Look beyond GSM.</h3><p>GSM describes paper weight. For packaging, also discuss bursting factor (BF), compression performance, shade and reel width.</p></article>
           <article tabindex="0"><h3>Start with the application.</h3><p>Share your product, box or bag size, printing needs and quantity. We can discuss the grade and specifications to enquire about.</p></article>
         </div>
         <p class="gallery-intro">Inside the world of paper.</p>
-        <div class="industry-gallery-grid" tabindex="0" role="region" aria-label="Paper industry gallery">
+        <div class="gallery-controls" aria-label="Gallery navigation">
+          <button type="button" id="gallery-previous" aria-label="Previous gallery image" aria-controls="gallery-track"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m14 5-7 7 7 7M7 12h14" /></svg></button>
+          <button type="button" id="gallery-next" aria-label="Next gallery image" aria-controls="gallery-track"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m10 5 7 7-7 7M17 12H3" /></svg></button>
+        </div>
+        <div id="gallery-track" class="industry-gallery-grid" tabindex="0" role="region" aria-label="Paper industry gallery">
           <figure><a href="https://malupaper.com/gallery/" target="_blank" rel="noopener noreferrer" aria-label="View Malu Paper Mills gallery"><img src="assets/images/gallery/malu-mill-reference.webp" alt="Malu Paper Mills building and grounds" width="1000" height="750" loading="lazy" decoding="async"></a><figcaption>Mill and grounds</figcaption></figure>
           <figure><a href="https://malupaper.com/gallery/" target="_blank" rel="noopener noreferrer" aria-label="View Malu Paper Mills process gallery"><img src="assets/images/gallery/malu-production-reference.webp" alt="Process equipment and water treatment tanks at Malu Paper Mills" width="1000" height="750" loading="lazy" decoding="async"></a><figcaption>Process infrastructure</figcaption></figure>
           <figure><a href="https://malupaper.com/gallery/" target="_blank" rel="noopener noreferrer" aria-label="View Malu Paper Mills gallery"><img src="assets/images/gallery/malu-gallery-03.webp" alt="Paper-making machinery and a kraft paper reel at Malu Paper Mills" width="1200" height="900" loading="lazy" decoding="async"></a><figcaption>Paper production</figcaption></figure>

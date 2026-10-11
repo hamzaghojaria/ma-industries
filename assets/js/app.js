@@ -358,6 +358,33 @@
     document.querySelector('.art-tag b').textContent = '01 — ' + papers.length;
   }
 
+
+  function initializeGallery() {
+    const track = byId('gallery-track');
+    const previous = byId('gallery-previous');
+    const next = byId('gallery-next');
+    if (!track || !previous || !next) return;
+    const frames = [...track.querySelectorAll('figure')];
+    const updateButtons = () => {
+      previous.disabled = track.scrollLeft <= 2;
+      next.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 2;
+    };
+    const move = direction => {
+      // Use the rendered card width so navigation stays correct at every breakpoint.
+      const step = frames[1] ? frames[1].offsetLeft - frames[0].offsetLeft : track.clientWidth;
+      track.scrollBy({
+        left: direction * step,
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'
+      });
+    };
+    previous.addEventListener('click', () => move(-1));
+    next.addEventListener('click', () => move(1));
+    track.addEventListener('scroll', updateButtons, { passive: true });
+    window.addEventListener('resize', updateButtons);
+    updateButtons();
+  }
+
+  initializeGallery();
   initializeCounts();
   initializeEnquiry();
   initializeCatalogue();
