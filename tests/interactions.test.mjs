@@ -18,6 +18,9 @@ test('catalogue initializes and delegated paging/filter/reset controls stay func
   const page = boot();
   assert.equal((page.get('products').innerHTML.match(/<article /g) || []).length, 6);
   assert.equal(page.get('paper-options').children.length, 37);
+  assert.equal((page.get('products').innerHTML.match(/class="product-photo"/g) || []).length, 6);
+  assert.match(page.get('products').innerHTML, /loading="lazy"/);
+  assert.match(page.get('products').innerHTML, /alt="Illustrative duplex paper sample"/);
   page.get('pagination').dispatch('click', { target: page.get('pagination').children.at(-1) });
   assert.match(page.get('results-count').textContent, /7–12/);
   page.get('filter-labels').click();
@@ -38,6 +41,8 @@ test('keyboard product selection opens details and preselects the enquiry', () =
   page.window.listeners.hashchange[0]();
   assert.equal(page.get('detail').open, true);
   assert.match(page.get('detail-body').innerHTML, /Kraft paper/);
+  assert.ok(page.get('detail-body').innerHTML.includes('assets/images/products/kraft-paper.webp'));
+  assert.match(page.get('detail-body').innerHTML, /Actual colour and finish may vary/);
   const choice = new page.Element(); choice.dataset.choosePaper = 'kraft-paper';
   page.get('detail').dispatch('click', { target: choice });
   assert.equal(page.get('paper').value, 'Kraft paper');

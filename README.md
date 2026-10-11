@@ -89,3 +89,15 @@ Run the build/check commands and inspect desktop and mobile layouts. Check categ
 ## Reference material
 
 General paper-family descriptions were informed by [Domtar office papers](https://www.domtar.com/domtar-paper/our-products/office-papers/), [Domtar thermal papers](https://www.domtar.com/domtar-paper/our-products/thermal-papers/), [Avery Dennison liners](https://label.averydennison.com/eu/en/home/products/liners.html), and [Fedrigoni specialty papers](https://specialpapers.fedrigoni.com/).
+
+## Product photography
+
+All 36 products use AI-generated illustrative paper-family samples in `assets/images/products/`. These do not certify the exact colour, finish, grade or stock supplied. Each image is an 800 × 800 WebP, with fixed display bounds and lazy loading in the catalogue. Product details use the same image.
+
+The images were created with the built-in image generation tool using one prompt per product: realistic commercial studio sample photograph, warm white seamless background, three-quarter overhead view, soft upper-left daylight, natural shadows, centred material with clear margins, accurate paper-family form and texture, no text or logos. Product-specific subjects are recorded in `scripts/product-image-prompts.json`.
+
+When replacing a photo, update its `image` path in `catalogue-data.js` and the explicit deployment allowlist in `scripts/product-images.json`.
+
+## Category photography
+
+The eight category cards use separate AI-generated illustrative assortments in `assets/images/categories/`, matching the product photos. Images use lazy loading and fixed 16:10 display bounds; card links, product counts and mobile swipe behavior stay intact. `scripts/category-images.json` lists deployment assets and `scripts/category-image-prompts.json` records generation subjects. Category image paths are in `index.html`.

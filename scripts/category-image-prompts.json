@@ -1,0 +1,38 @@
+{
+  "tool": "Built-in image_gen",
+  "commonPrompt": "Illustrative paper-family assortment, realistic studio photograph, seamless warm white background, soft upper-left daylight, gentle natural shadows, three-quarter overhead angle, sharp tactile textures, centred in middle 65 percent with wide margins for landscape crop. No text, logos, brands, people or unrelated props.",
+  "subjects": [
+    [
+      "packaging",
+      "brown kraft sheets, white bag-paper sheets and one blank small paper carry bag"
+    ],
+    [
+      "boards",
+      "white carton board sheets with visible grey reverse, thick cream folding board and a small brown corrugated fluting sample"
+    ],
+    [
+      "creative",
+      "gold decorative sheets, warm natural fibrous sheets and white printing paper"
+    ],
+    [
+      "wrapping",
+      "thin ivory semitranslucent wrapping paper, softly folded white tissue and an unprinted white paper cup"
+    ],
+    [
+      "everyday",
+      "a neat stack of assorted recycled offcuts, soft brown wrapping sheets and white everyday paper"
+    ],
+    [
+      "office",
+      "a stack of clean white writing sheets, pastel coloured sheets and two blank envelopes"
+    ],
+    [
+      "labels",
+      "a compact roll of blank die-cut white labels, three small white receipt rolls and honey-yellow glassine backing sheets"
+    ],
+    [
+      "specialty",
+      "burgundy and teal coloured sheets, ivory textured sheets, translucent vellum and pale pink pearlescent paper"
+    ]
+  ]
+}

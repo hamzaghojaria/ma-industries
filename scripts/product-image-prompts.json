@@ -1,0 +1,150 @@
+{
+  "tool": "Built-in image_gen",
+  "commonPrompt": "Realistic commercial studio sample photograph on warm white seamless background. Three-quarter overhead view, soft upper-left daylight, natural shadows, centred material in middle 65 percent with clear margins, sharp tactile texture, realistic proportions, no text, logos or unrelated props. Illustrative paper family, no specific grade claims.",
+  "subjects": [
+    [
+      "duplex-paper",
+      "White coated thick carton-board sheets with grey recycled reverse and visible layered edges"
+    ],
+    [
+      "white-bag-paper",
+      "white bag paper: crisp white lightweight sheets and a small unbranded folded paper carry bag, no handles obscuring samples"
+    ],
+    [
+      "kraft-paper",
+      "kraft paper: warm brown fibrous sheets with one gently curled corner"
+    ],
+    [
+      "golden-paper",
+      "golden decorative paper: muted gold sheets with soft metallic sheen, not mirror foil"
+    ],
+    [
+      "scrap-paper",
+      "scrap paper: tidy loose stack of assorted unprinted recycled paper offcuts with varied grey, cream and brown fibres"
+    ],
+    [
+      "butter-paper",
+      "butter wrapping paper: thin ivory translucent wrapping sheets with softly folded layers"
+    ],
+    [
+      "natural-paper",
+      "natural creative paper: warm cream uncoated sheets with visible tiny fibres"
+    ],
+    [
+      "sack-kraft-paper",
+      "sack kraft paper: strong brown flexible sheets and a simple empty folded paper sack"
+    ],
+    [
+      "kraft-liner-paper",
+      "kraft liner paper: brown smooth dense paper sheets with a gently curled top sheet"
+    ],
+    [
+      "fluting-paper",
+      "fluting paper: exposed brown corrugated wavy middle-layer paper, clearly visible parallel flutes"
+    ],
+    [
+      "folding-boxboard",
+      "folding boxboard: cream white thick smooth sheets and one neatly scored bent sample"
+    ],
+    [
+      "sbs-board",
+      "solid bleached sulphate board: pure white thick stiff board sheets showing white edges"
+    ],
+    [
+      "uncoated-printing-paper",
+      "uncoated printing paper: matte offwhite thin printable sheets fanned slightly"
+    ],
+    [
+      "coated-art-paper",
+      "coated art paper: smooth white paper sheets with subtle glossy light reflection"
+    ],
+    [
+      "tissue-wrapping-paper",
+      "tissue wrapping paper: airy thin white tissue sheets with gentle soft folds"
+    ],
+    [
+      "greaseproof-paper",
+      "greaseproof paper: pale cream semitranslucent smooth wrapping sheets with one curled edge"
+    ],
+    [
+      "cupstock-board",
+      "cupstock board: thick white paperboard sheets and an unprinted white paper cup next to them"
+    ],
+    [
+      "recycled-wrapping-paper",
+      "recycled wrapping paper: light brown fibrous sheets with subtly crumpled soft folds"
+    ],
+    [
+      "copier-paper",
+      "copier paper: neat stack of white A4-style sheets with a few clean staggered sheets"
+    ],
+    [
+      "bond-writing-paper",
+      "bond writing paper: smooth ivory writing sheets, gently fanned"
+    ],
+    [
+      "coloured-copier-paper",
+      "coloured copier paper: fan of pastel pink yellow pale blue and mint sheets"
+    ],
+    [
+      "envelope-paper",
+      "envelope paper: offwhite sheets and two blank folded envelopes with one open flap"
+    ],
+    [
+      "ledger-paper",
+      "ledger paper: pale cream matte substantial writing sheets, no ruling or printed text"
+    ],
+    [
+      "drawing-paper",
+      "drawing paper: white matte artist paper sheets with clearly visible fine tooth"
+    ],
+    [
+      "thermal-receipt-paper",
+      "thermal receipt paper: three small white receipt rolls with hollow centres and one short curling blank strip"
+    ],
+    [
+      "direct-thermal-label-paper",
+      "direct thermal label paper: blank white die-cut rectangular adhesive labels on a compact roll with visible label gaps"
+    ],
+    [
+      "semi-gloss-label-paper",
+      "semi-gloss label paper: white unprinted label sheets with subtle satin reflection and a small peeling label corner"
+    ],
+    [
+      "uncoated-label-paper",
+      "uncoated label paper: matte white unprinted label sheets, one label slightly lifted from backing"
+    ],
+    [
+      "glassine-release-liner",
+      "glassine release liner: honey yellow translucent thin smooth sheets and a small curled roll"
+    ],
+    [
+      "clay-coated-kraft-liner",
+      "clay coated kraft liner: smooth cream coated surface sheets with brown kraft backing shown by a curled edge"
+    ],
+    [
+      "translucent-paper",
+      "translucent paper: frosted vellum sheets visibly overlapping with subtle translucency"
+    ],
+    [
+      "textured-paper",
+      "textured paper: cream textured sheets with visible elegant linen-like embossed surface"
+    ],
+    [
+      "dyed-through-coloured-paper",
+      "dyed through coloured paper: burgundy teal and ochre sheets with consistent colour through the cut edges"
+    ],
+    [
+      "metallic-finish-paper",
+      "metallic finish paper: muted silver and bronze paper sheets with restrained metallic sheen"
+    ],
+    [
+      "pearlescent-paper",
+      "pearlescent paper: ivory and pale pink sheets with subtle pearly iridescent sheen"
+    ],
+    [
+      "cotton-content-paper",
+      "cotton content paper: warm white thick soft fine fibrous stationery sheets with delicate deckled edges"
+    ]
+  ]
+}

@@ -11,12 +11,16 @@ const JAVASCRIPT_FILES = [
   'assets/js/catalogue-utils.js',
   'assets/js/app.js'
 ];
+const PRODUCT_IMAGES = JSON.parse(await readFile(resolve(ROOT, 'scripts/product-images.json'), 'utf8'));
+const CATEGORY_IMAGES = JSON.parse(await readFile(resolve(ROOT, 'scripts/category-images.json'), 'utf8'));
 // An allowlist keeps docs, local caches and credentials out of the hosted site.
 const PUBLIC_FILES = [
   'index.html', 'assets/css/style.css', ...JAVASCRIPT_FILES,
   'assets/images/brand-logo.png', 'assets/images/favicon-32.png',
   'assets/images/favicon-192.png', 'assets/images/apple-touch-icon.png',
-  'assets/images/share-preview.png'
+  'assets/images/share-preview.png',
+  ...PRODUCT_IMAGES.map(file => 'assets/images/products/' + file),
+  ...CATEGORY_IMAGES.map(file => 'assets/images/categories/' + file)
 ];
 
 for (const file of JAVASCRIPT_FILES) {

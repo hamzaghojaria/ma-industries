@@ -4,3 +4,9 @@ node_modules/
 .env
 .env.*
 !.env.example
+
+tmp/
+
+.uv-python/
+
+__pycache__/

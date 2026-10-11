@@ -15,6 +15,7 @@
     ],
     "color": "#e8e3d6",
     "bg": "#dedcd2",
+    "image": "assets/images/products/duplex-paper.webp",
     "id": "duplex-paper",
     "index": 1
   },
@@ -30,6 +31,7 @@
     ],
     "color": "#fffdf3",
     "bg": "#e4e6de",
+    "image": "assets/images/products/white-bag-paper.webp",
     "id": "white-bag-paper",
     "index": 2
   },
@@ -45,6 +47,7 @@
     ],
     "color": "#bb905e",
     "bg": "#e5d7bf",
+    "image": "assets/images/products/kraft-paper.webp",
     "id": "kraft-paper",
     "index": 3
   },
@@ -60,6 +63,7 @@
     ],
     "color": "#b99a49",
     "bg": "#e5dec9",
+    "image": "assets/images/products/golden-paper.webp",
     "id": "golden-paper",
     "index": 4
   },
@@ -75,6 +79,7 @@
     ],
     "color": "#aaa08a",
     "bg": "#dcded4",
+    "image": "assets/images/products/scrap-paper.webp",
     "id": "scrap-paper",
     "index": 5
   },
@@ -90,6 +95,7 @@
     ],
     "color": "#f5ecd7",
     "bg": "#e9e5dc",
+    "image": "assets/images/products/butter-paper.webp",
     "id": "butter-paper",
     "index": 6
   },
@@ -105,6 +111,7 @@
     ],
     "color": "#c9ba99",
     "bg": "#e1ded1",
+    "image": "assets/images/products/natural-paper.webp",
     "id": "natural-paper",
     "index": 7
   },
@@ -121,6 +128,7 @@
     "color": "#ae8052",
     "bg": "#e5e0d4",
     "suggested": true,
+    "image": "assets/images/products/sack-kraft-paper.webp",
     "id": "sack-kraft-paper",
     "index": 8
   },
@@ -137,6 +145,7 @@
     "color": "#a48563",
     "bg": "#e5e0d4",
     "suggested": true,
+    "image": "assets/images/products/kraft-liner-paper.webp",
     "id": "kraft-liner-paper",
     "index": 9
   },
@@ -153,6 +162,7 @@
     "color": "#bba17c",
     "bg": "#e5e0d4",
     "suggested": true,
+    "image": "assets/images/products/fluting-paper.webp",
     "id": "fluting-paper",
     "index": 10
   },
@@ -169,6 +179,7 @@
     "color": "#eee6d3",
     "bg": "#e5e0d4",
     "suggested": true,
+    "image": "assets/images/products/folding-boxboard.webp",
     "id": "folding-boxboard",
     "index": 11
   },
@@ -185,6 +196,7 @@
     "color": "#fffaf0",
     "bg": "#e5e0d4",
     "suggested": true,
+    "image": "assets/images/products/sbs-board.webp",
     "id": "sbs-board",
     "index": 12
   },
@@ -201,6 +213,7 @@
     "color": "#eeebe3",
     "bg": "#e5e0d4",
     "suggested": true,
+    "image": "assets/images/products/uncoated-printing-paper.webp",
     "id": "uncoated-printing-paper",
     "index": 13
   },
@@ -217,6 +230,7 @@
     "color": "#fffdf6",
     "bg": "#e5e0d4",
     "suggested": true,
+    "image": "assets/images/products/coated-art-paper.webp",
     "id": "coated-art-paper",
     "index": 14
   },
@@ -233,6 +247,7 @@
     "color": "#e9d8cf",
     "bg": "#e5e0d4",
     "suggested": true,
+    "image": "assets/images/products/tissue-wrapping-paper.webp",
     "id": "tissue-wrapping-paper",
     "index": 15
   },
@@ -249,6 +264,7 @@
     "color": "#eee4c8",
     "bg": "#e5e0d4",
     "suggested": true,
+    "image": "assets/images/products/greaseproof-paper.webp",
     "id": "greaseproof-paper",
     "index": 16
   },
@@ -265,6 +281,7 @@
     "color": "#f6f1e5",
     "bg": "#e5e0d4",
     "suggested": true,
+    "image": "assets/images/products/cupstock-board.webp",
     "id": "cupstock-board",
     "index": 17
   },
@@ -281,6 +298,7 @@
     "color": "#aca18c",
     "bg": "#e5e0d4",
     "suggested": true,
+    "image": "assets/images/products/recycled-wrapping-paper.webp",
     "id": "recycled-wrapping-paper",
     "index": 18
   },
@@ -297,6 +315,7 @@
     "color": "#f8f8ef",
     "bg": "#e5e0d4",
     "suggested": true,
+    "image": "assets/images/products/copier-paper.webp",
     "id": "copier-paper",
     "index": 19
   },
@@ -313,6 +332,7 @@
     "color": "#eee8d7",
     "bg": "#e5e0d4",
     "suggested": true,
+    "image": "assets/images/products/bond-writing-paper.webp",
     "id": "bond-writing-paper",
     "index": 20
   },
@@ -329,6 +349,7 @@
     "color": "#c0d8dd",
     "bg": "#e5e0d4",
     "suggested": true,
+    "image": "assets/images/products/coloured-copier-paper.webp",
     "id": "coloured-copier-paper",
     "index": 21
   },
@@ -345,6 +366,7 @@
     "color": "#dac9a9",
     "bg": "#e5e0d4",
     "suggested": true,
+    "image": "assets/images/products/envelope-paper.webp",
     "id": "envelope-paper",
     "index": 22
   },
@@ -361,6 +383,7 @@
     "color": "#dce8cf",
     "bg": "#e5e0d4",
     "suggested": true,
+    "image": "assets/images/products/ledger-paper.webp",
     "id": "ledger-paper",
     "index": 23
   },
@@ -377,6 +400,7 @@
     "color": "#f3e9db",
     "bg": "#e5e0d4",
     "suggested": true,
+    "image": "assets/images/products/drawing-paper.webp",
     "id": "drawing-paper",
     "index": 24
   },
@@ -393,6 +417,7 @@
     "color": "#f1f2e9",
     "bg": "#e5e0d4",
     "suggested": true,
+    "image": "assets/images/products/thermal-receipt-paper.webp",
     "id": "thermal-receipt-paper",
     "index": 25
   },
@@ -409,6 +434,7 @@
     "color": "#eeeedd",
     "bg": "#e5e0d4",
     "suggested": true,
+    "image": "assets/images/products/direct-thermal-label-paper.webp",
     "id": "direct-thermal-label-paper",
     "index": 26
   },
@@ -425,6 +451,7 @@
     "color": "#ede1ca",
     "bg": "#e5e0d4",
     "suggested": true,
+    "image": "assets/images/products/semi-gloss-label-paper.webp",
     "id": "semi-gloss-label-paper",
     "index": 27
   },
@@ -441,6 +468,7 @@
     "color": "#d9ceb6",
     "bg": "#e5e0d4",
     "suggested": true,
+    "image": "assets/images/products/uncoated-label-paper.webp",
     "id": "uncoated-label-paper",
     "index": 28
   },
@@ -457,6 +485,7 @@
     "color": "#e3d8b4",
     "bg": "#e5e0d4",
     "suggested": true,
+    "image": "assets/images/products/glassine-release-liner.webp",
     "id": "glassine-release-liner",
     "index": 29
   },
@@ -473,6 +502,7 @@
     "color": "#c6b694",
     "bg": "#e5e0d4",
     "suggested": true,
+    "image": "assets/images/products/clay-coated-kraft-liner.webp",
     "id": "clay-coated-kraft-liner",
     "index": 30
   },
@@ -489,6 +519,7 @@
     "color": "#e1e4dc",
     "bg": "#e5e0d4",
     "suggested": true,
+    "image": "assets/images/products/translucent-paper.webp",
     "id": "translucent-paper",
     "index": 31
   },
@@ -505,6 +536,7 @@
     "color": "#cbb99e",
     "bg": "#e5e0d4",
     "suggested": true,
+    "image": "assets/images/products/textured-paper.webp",
     "id": "textured-paper",
     "index": 32
   },
@@ -521,6 +553,7 @@
     "color": "#a8b9a0",
     "bg": "#e5e0d4",
     "suggested": true,
+    "image": "assets/images/products/dyed-through-coloured-paper.webp",
     "id": "dyed-through-coloured-paper",
     "index": 33
   },
@@ -537,6 +570,7 @@
     "color": "#bfa566",
     "bg": "#e5e0d4",
     "suggested": true,
+    "image": "assets/images/products/metallic-finish-paper.webp",
     "id": "metallic-finish-paper",
     "index": 34
   },
@@ -553,6 +587,7 @@
     "color": "#dcd2e4",
     "bg": "#e5e0d4",
     "suggested": true,
+    "image": "assets/images/products/pearlescent-paper.webp",
     "id": "pearlescent-paper",
     "index": 35
   },
@@ -569,6 +604,7 @@
     "color": "#e5dfce",
     "bg": "#e5e0d4",
     "suggested": true,
+    "image": "assets/images/products/cotton-content-paper.webp",
     "id": "cotton-content-paper",
     "index": 36
   }

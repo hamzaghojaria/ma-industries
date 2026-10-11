@@ -54,7 +54,7 @@
     return `<article class="product" data-paper-id="${paper.id}" tabindex="0" role="link" aria-label="Explore ${name}">
       <a href="#paper-${paper.id}" class="product-visual" style="--paper:${paper.color};--bg:${paper.bg}" aria-label="Explore ${name}">
         <span class="index">${String(paper.index).padStart(2, '0')} / M&A</span>
-        <div class="paper-object" aria-hidden="true"></div><span class="type">${escapeHtml(paper.tag)}</span>
+        <img class="product-photo" src="${escapeHtml(paper.image)}" alt="Illustrative ${name.toLowerCase()} sample" width="800" height="800" loading="lazy" decoding="async"><span class="type">${escapeHtml(paper.tag)}</span>
       </a>
       <div class="product-top"><h3><a href="#paper-${paper.id}">${name}</a></h3>
         <a class="detail-button" href="#paper-${paper.id}" aria-label="View ${name}">${ACTION_ARROW}</a></div>
@@ -125,7 +125,9 @@
     const category = categoryById.get(paper.group);
     dom.detailBody.innerHTML = `
       <span class="dialog-tag">${escapeHtml(category.name)} / ${String(paper.index).padStart(2, '0')}</span>
-      <h2 id="detail-title">${escapeHtml(paper.name)}</h2><p>${escapeHtml(paper.desc)}</p>
+      <h2 id="detail-title">${escapeHtml(paper.name)}</h2>
+      <figure class="detail-photo"><img src="${escapeHtml(paper.image)}" alt="Illustrative ${escapeHtml(paper.name.toLowerCase())} sample" width="800" height="800" decoding="async"><figcaption>Illustrative sample. Actual colour and finish may vary.</figcaption></figure>
+      <p>${escapeHtml(paper.desc)}</p>
       <span class="availability">Availability on enquiry</span>
       <h3 class="detail-section-title">Applications to explore</h3>
       <ul>${paper.uses.map(use => '<li>' + escapeHtml(use) + '</li>').join('')}</ul>
