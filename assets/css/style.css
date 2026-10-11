@@ -1135,7 +1135,7 @@ textarea:focus-visible {
 }
 
 .product-visual::after {
-  content: 'VIEW MATERIAL ↗';
+  content: 'VIEW MATERIAL';
   position: absolute;
   right: 16px;
   top: 16px;
@@ -3577,4 +3577,30 @@ header>nav {
     align-self: stretch;
     text-align: right;
   }
+}
+
+/* Draw action arrows as vectors instead of platform-dependent text glyphs. */
+.action-arrow {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  vertical-align: middle;
+  overflow: visible;
+  color: inherit;
+}
+
+.action-arrow path {
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.nav-cta .action-arrow,
+.footer-contact-actions .action-arrow,
+.footer-links .action-arrow {
+  width: 16px;
+  height: 16px;
+  margin-left: 5px;
 }

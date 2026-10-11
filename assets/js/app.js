@@ -4,6 +4,8 @@
 
   const { papers, categories } = window.MACatalogueData;
   const { validateCatalogue, filterPapers, paginate, paginationPages, enquiryText } = window.MACatalogueUtils;
+  // SVG keeps action arrows consistent across iOS and desktop font rendering.
+  const ACTION_ARROW = "<svg class=\"action-arrow\" viewBox=\"0 0 24 24\" fill=\"none\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M6 18 18 6M6 6h12v12\" /></svg>";
   const PAGE_SIZE = 6;
   const CONTACT = Object.freeze({ phone: '919769681761', email: 'info@maengineerings.in' });
   const byId = id => document.getElementById(id);
@@ -55,7 +57,7 @@
         <div class="paper-object" aria-hidden="true"></div><span class="type">${escapeHtml(paper.tag)}</span>
       </a>
       <div class="product-top"><h3><a href="#paper-${paper.id}">${name}</a></h3>
-        <a class="detail-button" href="#paper-${paper.id}" aria-label="View ${name}">↗</a></div>
+        <a class="detail-button" href="#paper-${paper.id}" aria-label="View ${name}">${ACTION_ARROW}</a></div>
       <p>${escapeHtml(paper.desc)}</p><a class="text-button" href="#paper-${paper.id}">Explore paper</a>
     </article>`;
   }
@@ -103,7 +105,7 @@
     // One DOM update per render; grid-level listeners survive filtering/paging.
     dom.grid.innerHTML = page.total ? page.items.map(productCard).join('') :
       '<div class="empty-state"><h3>No matching papers</h3><p>Try a different name or application.</p>' +
-      '<button class="button" type="button" data-reset-search>Reset search ↗</button></div>';
+      '<button class="button" type="button" data-reset-search>Reset search ' + ACTION_ARROW + '</button></div>';
     dom.grid.scrollLeft = 0;
     renderPagination(page.totalPages);
     dom.count.textContent = page.total ?
@@ -130,7 +132,7 @@
       <h3 class="detail-section-title">Details to discuss</h3>
       <p>Paper weight (GSM), sheet or reel dimensions, finish, printing requirements, quantity and delivery timeline.</p>
       <p class="detail-note">Exact specifications, availability and suitability are confirmed on enquiry.${paper.group === 'wrapping' ? ' Confirm food-contact compliance and temperature suitability for the intended application.' : ''}</p>
-      <button class="button" type="button" data-choose-paper="${paper.id}">Enquire about this paper <span>↗</span></button>`;
+      <button class="button" type="button" data-choose-paper="${paper.id}">Enquire about this paper <span>${ACTION_ARROW}</span></button>`;
     if (!dom.detail.open) dom.detail.showModal();
   }
 
