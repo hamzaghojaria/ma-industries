@@ -3793,10 +3793,11 @@ body.product-modal-open {
   object-fit: cover;
 }
 .founder-portrait-maaz img {
-  object-position: 50% 32%;
-  transform: scale(1.35);
+  object-fit: contain;
 }
 .founder-portrait-mohammed img { object-fit: contain; }
+.founder-portrait-maaz,
+.founder-portrait-mohammed { background: #fff; }
 /* Compact profiles retain aligned portraits and contact actions. */
 .founder-grid .founder-card { padding: 20px; }
 .founder-card .founder-portrait { margin-bottom: 16px; }
