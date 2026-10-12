@@ -3792,10 +3792,10 @@ body.product-modal-open {
   height: 100%;
   object-fit: cover;
 }
-.founder-portrait-maaz img {
-  object-fit: contain;
-}
+.founder-portrait-aadil img,
+.founder-portrait-maaz img,
 .founder-portrait-mohammed img { object-fit: contain; }
+.founder-portrait-aadil,
 .founder-portrait-maaz,
 .founder-portrait-mohammed { background: #fff; }
 /* Compact profiles retain aligned portraits and contact actions. */
