@@ -55,6 +55,7 @@ function applyPublicUrl(html, origin, pagePath = '') {
 }
 
 const pages = new Map();
+const siteOrigin = process.env.SITE_URL || process.env.RENDER_EXTERNAL_URL || 'http://maindustries.in/';
 const publicFiles = new Set(PUBLIC_FILES);
 for (const file of ['index.html', 'about.html']) {
   const html = await readFile(resolve(ROOT, file), 'utf8');
@@ -63,10 +64,21 @@ for (const file of ['index.html', 'about.html']) {
   }
   pages.set(file, applyPublicUrl(
     html,
-    process.env.SITE_URL || process.env.RENDER_EXTERNAL_URL || 'http://maindustries.in/',
+    siteOrigin,
     file === 'index.html' ? '' : file
   ));
 }
+const baseUrl = new URL('/', siteOrigin);
+const organisation = {
+  '@context': 'https://schema.org', '@type': 'Organization',
+  name: 'M&A Industries', url: baseUrl.href,
+  logo: new URL('assets/images/brand-logo.png', baseUrl).href,
+  email: 'info@maindustries.in', telephone: '+91 97696 81761',
+  address: { '@type': 'PostalAddress', addressLocality: 'Mumbai', addressCountry: 'IN' },
+  areaServed: 'Worldwide'
+};
+pages.set('index.html', pages.get('index.html').replace('</head>',
+  '<script type="application/ld+json">' + JSON.stringify(organisation).replaceAll('<', '\\u003c') + '</script>\n</head>'));
 
 // Delete only this generated directory, never the checkout or source assets.
 if (dirname(OUTPUT) !== resolve(ROOT) || basename(OUTPUT) !== 'dist') {
@@ -89,4 +101,10 @@ for (const file of PUBLIC_FILES) {
     await copyFile(resolve(ROOT, file), destination);
   }
 }
+const sitemapUrls = ['', 'about.html'].map(file => new URL(file, baseUrl).href);
+const xmlEscape = value => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('"', '&quot;');
+await writeFile(resolve(OUTPUT, 'sitemap.xml'), '<?xml version="1.0" encoding="UTF-8"?>\n' +
+  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+  sitemapUrls.map(url => '  <url><loc>' + xmlEscape(url) + '</loc></url>').join('\n') + '\n</urlset>\n');
+await writeFile(resolve(OUTPUT, 'robots.txt'), 'User-agent: *\nAllow: /\n\nSitemap: ' + new URL('sitemap.xml', baseUrl).href + '\n');
 console.log('Validated ' + JAVASCRIPT_FILES.length + ' scripts and prepared ' + PUBLIC_FILES.length + ' public assets.');
