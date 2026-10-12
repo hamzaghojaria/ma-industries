@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 import path from 'node:path';
 import {execFileSync} from 'node:child_process';
+import {fixCategoryLinks} from './pdf-category-links.mjs';
 
 const root = process.cwd();
 const context = {window:{}};
@@ -50,6 +51,7 @@ fs.writeFileSync('tmp/pdfs/catalogue.html',`<!doctype html><html><head><meta cha
 execFileSync(edge,['--headless','--no-sandbox','--disable-gpu','--disable-software-rasterizer','--no-pdf-header-footer',`--user-data-dir=${root}/tmp/pdfs/edge-profile`,`--print-to-pdf=${root}/output/pdf/MA-Industries-Paper-Catalogue.pdf`,image('tmp/pdfs/catalogue.html')],{timeout:60000,stdio:'pipe'});
 fs.writeFileSync('tmp/pdfs/preview.html',`<!doctype html><html><head><meta charset="utf-8"><style>${style}body{display:grid;grid-template-columns:repeat(3,210mm);gap:10px}.page{transform-origin:top left}</style></head><body>${pages.join('')}</body></html>`);
 execFileSync(edge,['--headless','--no-sandbox','--disable-gpu','--disable-software-rasterizer',`--user-data-dir=${root}/tmp/pdfs/edge-profile`,'--hide-scrollbars','--window-size=2420,4540',`--screenshot=${root}/tmp/pdfs/catalogue-preview.png`,image('tmp/pdfs/preview.html')],{timeout:60000,stdio:'pipe'});
+fixCategoryLinks('output/pdf/MA-Industries-Paper-Catalogue.pdf',categories);
 fs.mkdirSync('assets/catalogues',{recursive:true});
 fs.copyFileSync('output/pdf/MA-Industries-Paper-Catalogue.pdf','assets/catalogues/MA-Industries-Paper-Catalogue.pdf');
 console.log('Created catalogue: '+papers.length+' products, '+pages.length+' pages.');
