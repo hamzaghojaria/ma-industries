@@ -55,9 +55,14 @@ function applyPublicUrl(html, origin, pagePath = '') {
 }
 
 const pages = new Map();
+const publicFiles = new Set(PUBLIC_FILES);
 for (const file of ['index.html', 'about.html']) {
+  const html = await readFile(resolve(ROOT, file), 'utf8');
+  for (const [, asset] of html.matchAll(/(?:src|href)="(assets\/[^"?#]+)(?:[?#][^"]*)?"/g)) {
+    if (!publicFiles.has(asset)) throw new Error(`${file}: asset missing from build allowlist: ${asset}`);
+  }
   pages.set(file, applyPublicUrl(
-    await readFile(resolve(ROOT, file), 'utf8'),
+    html,
     process.env.SITE_URL || process.env.RENDER_EXTERNAL_URL,
     file === 'index.html' ? '' : file
   ));

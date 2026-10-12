@@ -11,9 +11,10 @@ export function fixCategoryLinks(file, categories) {
   const info = trailer.match(/\/Info\s+(\d+\s+\d+\s+R)/)?.[1];
   let addition = '\n';
   const entries = [];
+  const annotations = [...raw.matchAll(/(\d+) 0 obj\s*(<<\/Type \/Annot[\s\S]*?)\s*endobj/g)];
   for (const category of categories) {
     const destination = raw.match(new RegExp('/' + category.id + '\\s*\\[(\\d+\\s+0\\s+R)\\s+/XYZ'));
-    const annotation = [...raw.matchAll(/(\d+) 0 obj\s*(<<\/Type \/Annot[\s\S]*?)\s*endobj/g)]
+    const annotation = annotations
       .find(match => match[2].includes('/Dest /' + category.id + '\n'));
     if (!destination || !annotation) throw new Error('Missing category destination: ' + category.id);
     const object = Number(annotation[1]);

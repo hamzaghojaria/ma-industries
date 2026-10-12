@@ -61,6 +61,12 @@ Connect this GitHub repository to a **Static Site**, or use `render.yaml` as a B
 
 The build uses Render’s `RENDER_EXTERNAL_URL` for canonical and social-preview URLs. Set `SITE_URL` to your public HTTPS address when using a custom domain. Link previews require public hosting and may be cached by sharing platforms.
 
+## Updating the PDF catalogue
+
+Run `npm run catalogue` on Windows with Microsoft Edge installed. The generator reads the website's product data, reuses compressed images when source images have not changed, checks PDF pages and contact links, and updates both `output/pdf/` and the public copy in `assets/catalogues/`. Run `npm run build` afterwards to include the updated PDF in deployment.
+
+The build also checks that local image, stylesheet, script and catalogue links in both HTML pages are included in the public asset allowlist.
+
 ## Website behaviour
 
 - Category filters and search narrow the catalogue; six products appear per page.

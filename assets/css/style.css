@@ -2776,11 +2776,6 @@ button:active {
   flex-shrink: 0;
 }
 
-.catalogue-actions .catalogue-pdf-link {
-  margin-top: 0;
-  min-height: 46px;
-  padding: 12px 18px;
-}
 
 .catalogue-actions label {
   flex: initial;
@@ -3775,18 +3770,6 @@ body.product-modal-open {
   background: #fff;
   border: 1px solid var(--line);
   border-radius: 8px;
-}
-.founder-monogram {
-  display: grid;
-  place-items: center;
-  width: 68px;
-  height: 68px;
-  margin-bottom: 24px;
-  border-radius: 50%;
-  background: #f6e8e9;
-  color: var(--red);
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 27px;
 }
 .founder-card h3 {
   font-size: 28px;
