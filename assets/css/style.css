@@ -3793,6 +3793,27 @@ body.product-modal-open {
   letter-spacing: -1px;
   margin: 12px 0;
 }
+
+.founder-portrait {
+  aspect-ratio: 4 / 3;
+  width: 100%;
+  flex: none;
+  margin-bottom: 24px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #f4f2ee;
+}
+.founder-portrait img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.founder-portrait-maaz img {
+  object-position: 50% 32%;
+  transform: scale(1.35);
+}
+.founder-portrait-mohammed img { object-fit: contain; }
 .founder-card .text-button {
   display: inline-flex;
   align-items: center;
@@ -3841,6 +3862,13 @@ body.product-modal-open {
   font-weight: 500;
   line-height: 1.5;
   margin: 0 0 18px;
+}
+
+.founder-card > .founder-membership {
+  margin: 0 0 18px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #686a61;
 }
 .founder-swipe-hint {
   display: none;
