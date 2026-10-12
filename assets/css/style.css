@@ -2770,9 +2770,16 @@ button:active {
 
 .catalogue-actions {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-end;
   gap: 12px;
   flex-shrink: 0;
+}
+
+.catalogue-actions .catalogue-pdf-link {
+  margin-top: 0;
+  min-height: 46px;
+  padding: 12px 18px;
 }
 
 .catalogue-actions label {
@@ -4184,6 +4191,9 @@ header nav .nav-cta {
 header nav .nav-cta:hover,
 header nav .nav-cta:focus-visible { background: #80001e; color: #fff; box-shadow: 0 4px 14px #a7002720; }
 header nav .nav-cta:active { background: #680018; }
+/* Keep the active enquiry label visible on its red navigation button. */
+header nav .nav-cta.is-current { color: #fff; }
+.hero-copy .hero-pdf-link { margin-top: 12px; }
 .site-footer .footer-explore .footer-enquiry-link {
  display: inline-flex;
  align-items: center;
