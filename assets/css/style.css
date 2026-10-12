@@ -3814,6 +3814,42 @@ body.product-modal-open {
   transform: scale(1.35);
 }
 .founder-portrait-mohammed img { object-fit: contain; }
+/* Compact profiles retain aligned portraits and contact actions. */
+.founder-grid .founder-card { padding: 20px; }
+.founder-card .founder-portrait { margin-bottom: 16px; }
+.founder-card > .eyebrow { margin: 0; font-size: 10px; line-height: 1.4; }
+.founder-card h3 { margin: 8px 0; font-size: 25px; }
+.founder-grid .founder-card > .founder-qualification {
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 0 0 8px;
+}
+.founder-grid .founder-card > .founder-membership {
+  font-size: 12px;
+  line-height: 1.4;
+  margin: 0 0 8px;
+}
+.founder-card > .founder-bio { margin: 4px 0 16px; font-size: 14px; line-height: 1.5; }
+.founder-grid .founder-card {
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.founder-grid .founder-card:focus-within {
+  border-color: #c68a98;
+  box-shadow: 0 8px 24px #a7002712;
+}
+@media (hover: hover) and (pointer: fine) {
+  .founder-grid .founder-card:hover {
+    transform: translateY(-5px);
+    border-color: #c68a98;
+    box-shadow: 0 12px 28px #a7002718;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .founder-grid .founder-card { transition: none; }
+  .founder-grid .founder-card:hover { transform: none; }
+}
 .founder-card .text-button {
   display: inline-flex;
   align-items: center;
