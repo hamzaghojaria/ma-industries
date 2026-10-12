@@ -3839,6 +3839,14 @@ body.product-modal-open {
   border-color: #c68a98;
   box-shadow: 0 8px 24px #a7002712;
 }
+@media (hover: none) and (pointer: coarse) {
+  .founder-grid .founder-card:active {
+    transform: translateY(-3px);
+    border-color: #c68a98;
+    box-shadow: 0 8px 24px #a7002718;
+    background: #fffafa;
+  }
+}
 @media (hover: hover) and (pointer: fine) {
   .founder-grid .founder-card:hover {
     transform: translateY(-5px);
@@ -3848,7 +3856,8 @@ body.product-modal-open {
 }
 @media (prefers-reduced-motion: reduce) {
   .founder-grid .founder-card { transition: none; }
-  .founder-grid .founder-card:hover { transform: none; }
+  .founder-grid .founder-card:hover,
+  .founder-grid .founder-card:active { transform: none; }
 }
 .founder-card .text-button {
   display: inline-flex;
@@ -3864,7 +3873,10 @@ body.product-modal-open {
 }
 .about-value-grid article > span {
   color: var(--red);
-  font-size: 12px;
+  display: inline-block;
+  font-size: clamp(28px, 3vw, 36px);
+  font-weight: 600;
+  line-height: 1.1;
 }
 .about-value-grid h3 {
   font-size: 22px;
