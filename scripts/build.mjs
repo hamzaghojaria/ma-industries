@@ -21,11 +21,11 @@ const PUBLIC_FILES = [
   'assets/images/favicon-192.png', 'assets/images/apple-touch-icon.png',
   'assets/images/share-preview.png',
   'assets/catalogues/MA-Industries-Paper-Catalogue.pdf',
-  'assets/images/gallery/malu-mill-reference.webp',
+  'assets/images/gallery/paper-mill-line.jpg',
   'assets/images/gallery/malu-production-reference.webp',
   'assets/images/gallery/malu-gallery-03.webp',
   'assets/images/gallery/malu-gallery-04.webp',
-  'assets/images/gallery/malu-gallery-05.webp',
+  'assets/images/gallery/paper-mill-reels.jpg',
   ...PRODUCT_IMAGES.map(file => 'assets/images/products/' + file),
   ...CATEGORY_IMAGES.map(file => 'assets/images/categories/' + file)
 ];
