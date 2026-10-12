@@ -3786,6 +3786,11 @@ body.product-modal-open {
   border-radius: 6px;
   background: #f4f2ee;
 }
+
+.about-hero-copy .founder-name {
+  color: var(--red);
+  font-weight: 600;
+}
 .founder-portrait img {
   display: block;
   width: 100%;
