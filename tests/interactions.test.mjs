@@ -54,7 +54,7 @@ test('enquiry prepares email and WhatsApp links without transmitting messages', 
   const page = boot();
   page.get('paper').value = 'Kraft paper';
   page.get('brief').dispatch('submit', { submitter: { value: 'email' } });
-  assert.ok(page.location.href.startsWith('mailto:info@maengineerings.in?'));
+  assert.ok(page.location.href.startsWith('mailto:info@maindustries.in?'));
   assert.match(new URL(page.location.href).searchParams.get('body'), /Quantity: 500 kg/);
   page.get('brief').dispatch('submit', { submitter: { value: 'whatsapp' } });
   const url = new URL(page.openedLinks[0]);

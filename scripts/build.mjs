@@ -63,7 +63,7 @@ for (const file of ['index.html', 'about.html']) {
   }
   pages.set(file, applyPublicUrl(
     html,
-    process.env.SITE_URL || process.env.RENDER_EXTERNAL_URL,
+    process.env.SITE_URL || process.env.RENDER_EXTERNAL_URL || 'http://maindustries.in/',
     file === 'index.html' ? '' : file
   ));
 }

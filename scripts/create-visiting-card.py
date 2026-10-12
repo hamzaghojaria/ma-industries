@@ -77,7 +77,7 @@ def paper_layers(x, y):
 c.setFillColor(white)
 c.rect(0, 0, W, H, fill=1, stroke=0)
 text(8, 46, DISPLAY_PHONE, 8, 'Helvetica-Bold')
-text(8, 41.5, 'info@maengineerings.in', 7.3, color=SOFT_INK)
+text(8, 41.5, 'info@maindustries.in', 7.3, color=SOFT_INK)
 right(88, 46, NAME, 10, 'Helvetica-Bold')
 right(88, 41.5, 'Managing Director' if args.person == 'mohammed' else 'Director', 7.5, color=MUTED)
 # A white panel preserves the supplied logo's original background.
@@ -90,7 +90,7 @@ centered(48, 7.5, 'Packaging  /  Printing  /  Specialty Papers', 7, color=SOFT_I
 paper_layers(-18, -13)
 paper_layers(79, -13)
 c.linkURL('https://wa.me/' + PHONE, (8*mm,44*mm,42*mm,49*mm))
-c.linkURL('mailto:info@maengineerings.in', (8*mm,40*mm,43*mm,44*mm))
+c.linkURL('mailto:info@maindustries.in', (8*mm,40*mm,43*mm,44*mm))
 c.showPage()
 
 # Back: two equally sized codes with their quiet zones intact.

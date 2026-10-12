@@ -7,7 +7,7 @@
   // SVG keeps action arrows consistent across iOS and desktop font rendering.
   const ACTION_ARROW = "<svg class=\"action-arrow\" viewBox=\"0 0 24 24\" fill=\"none\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M6 18 18 6M6 6h12v12\" /></svg>";
   const PAGE_SIZE = 6;
-  const CONTACT = Object.freeze({ phone: '919769681761', email: 'info@maengineerings.in' });
+  const CONTACT = Object.freeze({ phone: '919769681761', email: 'info@maindustries.in' });
   const byId = id => document.getElementById(id);
   const dom = {
     grid: byId('products'), pagination: byId('pagination'), count: byId('results-count'),
