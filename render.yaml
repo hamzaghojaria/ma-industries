@@ -4,6 +4,9 @@ services:
     runtime: static
     buildCommand: node scripts/build.mjs
     staticPublishPath: ./dist
+    envVars:
+      - key: SITE_URL
+        value: https://maindustries.in
     headers:
       - path: /*
         name: X-Content-Type-Options

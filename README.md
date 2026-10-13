@@ -61,6 +61,14 @@ Connect this GitHub repository to a **Static Site**, or use `render.yaml` as a B
 
 The build uses Render’s `RENDER_EXTERNAL_URL` for canonical and social-preview URLs. Set `SITE_URL` to your public HTTPS address when using a custom domain. Link previews require public hosting and may be cached by sharing platforms.
 
+## Search visibility
+
+The build generates a separate HTML page for each paper family, with unique titles, descriptions, canonical URLs, business and breadcrumb structured data, and links to related papers. The homepage includes a crawlable paper directory. All 38 pages are included in `dist/sitemap.xml`; `dist/robots.txt` allows crawling and advertises the sitemap. Product pages are generated from `catalogue-data.js` and the About page layout, so edits to those sources carry through on the next build.
+
+The confirmed production address is `https://maindustries.in`. `render.yaml` sets `SITE_URL` to this address so Render's service address does not become the canonical URL. For an existing service created outside the Blueprint, set this environment variable in the Render dashboard too. Deploy `dist/` after building.
+
+After deployment, verify the domain in [Google Search Console](https://search.google.com/search-console), submit `https://maindustries.in/sitemap.xml`, and inspect/request indexing for the homepage and representative product pages. Domain verification needs the owner's Google account and DNS access. Check that the live site, sitemap and robots file return HTTP 200 over HTTPS and are accessible without login. Consider a Google Business Profile with accurate business details if eligible. These changes help discovery; Google decides indexing and rankings.
+
 ## Updating the PDF catalogue
 
 Run `npm run catalogue` on Windows with Microsoft Edge installed. The generator reads the website's product data, reuses compressed images when source images have not changed, checks PDF pages and contact links, and updates both `output/pdf/` and the public copy in `assets/catalogues/`. Run `npm run build` afterwards to include the updated PDF in deployment.
