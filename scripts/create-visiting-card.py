@@ -15,14 +15,17 @@ from urllib.parse import urlparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--website', required=True, help='Confirmed public website URL')
-parser.add_argument('--person', choices=['maaz', 'aadil', 'mohammed'], default='maaz')
+parser.add_argument('--person', choices=['maaz', 'aadil', 'mohammed', 'yahya'], default='maaz')
 args = parser.parse_args()
 WEBSITE = args.website
 NAME, PHONE, DISPLAY_PHONE, FILE_NAME = {
     'maaz': ('Maaz Dawa', '919769681761', '+91 97696 81761', 'Maaz'),
     'aadil': ('Aadil Dhukka', '919769554745', '+91 97695 54745', 'Aadil'),
     'mohammed': ('Mohammed Dhukka', '919773233219', '+91 97732 33219', 'Mohammed'),
+    'yahya': ('Mohammed Yahya Seliya', '27844523727', '+27 844523727', 'Yahya'),
 }[args.person]
+EMAIL = 'info@maengineerings.in' if args.person == 'yahya' else 'info@maindustries.in'
+TITLE = 'Business Development Manager' if args.person == 'yahya' else ('Managing Director' if args.person == 'mohammed' else 'Director')
 assert urlparse(WEBSITE).scheme in ('https', 'http') and urlparse(WEBSITE).netloc
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -77,9 +80,9 @@ def paper_layers(x, y):
 c.setFillColor(white)
 c.rect(0, 0, W, H, fill=1, stroke=0)
 text(8, 46, DISPLAY_PHONE, 8, 'Helvetica-Bold')
-text(8, 41.5, 'info@maindustries.in', 7.3, color=SOFT_INK)
-right(88, 46, NAME, 10, 'Helvetica-Bold')
-right(88, 41.5, 'Managing Director' if args.person == 'mohammed' else 'Director', 7.5, color=MUTED)
+text(8, 41.5, EMAIL, 7.3, color=SOFT_INK)
+right(88, 46, NAME, 8.5 if args.person == 'yahya' else 10, 'Helvetica-Bold')
+right(88, 41.5, TITLE, 7.0 if args.person == 'yahya' else 7.5, color=MUTED)
 # A white panel preserves the supplied logo's original background.
 c.setFillColor(white)
 c.roundRect(8*mm, 18*mm, 80*mm, 17*mm, 2*mm, fill=1, stroke=0)
@@ -90,7 +93,7 @@ centered(48, 7.5, 'Packaging  /  Printing  /  Specialty Papers', 7, color=SOFT_I
 paper_layers(-18, -13)
 paper_layers(79, -13)
 c.linkURL('https://wa.me/' + PHONE, (8*mm,44*mm,42*mm,49*mm))
-c.linkURL('mailto:info@maindustries.in', (8*mm,40*mm,43*mm,44*mm))
+c.linkURL('mailto:' + EMAIL, (8*mm,40*mm,43*mm,44*mm))
 c.showPage()
 
 # Back: two equally sized codes with their quiet zones intact.
