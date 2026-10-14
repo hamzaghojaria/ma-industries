@@ -3,6 +3,7 @@ import { readFile, writeFile, mkdir, copyFile, rm } from 'node:fs/promises';
 import { resolve, dirname, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Script } from 'node:vm';
+import { createSeoPages } from './seo-pages.mjs';
 
 const ROOT = fileURLToPath(new URL('../../', import.meta.url));
 const escapeHtml = value => String(value).replace(/[&<>"']/g, character => ({
@@ -21,7 +22,8 @@ const CATEGORY_IMAGES = JSON.parse(await readFile(resolve(ROOT, 'scripts/site/ma
 // An allowlist keeps docs, local caches and credentials out of the hosted site.
 const PUBLIC_FILES = [
   'index.html', 'about.html', 'categories.html', 'products.html', 'assets/css/style.css', ...JAVASCRIPT_FILES,
-  'assets/images/brand-logo.png', 'assets/images/favicon-32.png',
+  'assets/images/brand-logo.png', 'assets/images/engineering-logo.svg', 'assets/images/favicon-32.png',
+  'assets/images/engineering-logo.svg',
   'assets/images/favicon-192.png', 'assets/images/apple-touch-icon.png',
   'assets/images/share-preview.png',
   ...['sugarcane-paper', 'sugarcane-kitchenware', 'sugarcane-bags', 'recycled-household'].map(id => 'assets/images/ranges/' + id + '-photo.jpg'),
@@ -77,6 +79,21 @@ for (const file of ['index.html', 'about.html', 'categories.html', 'products.htm
   ));
 }
 const baseUrl = new URL('/', siteOrigin);
+const seo = await createSeoPages(new URL('../../', import.meta.url), baseUrl, escapeHtml);
+for (const [file, html] of seo.pages) {
+  pages.set(file, applyPublicUrl(html, siteOrigin, file));
+}
+// Plain HTML links expose the full catalogue without requiring JavaScript.
+for (const file of ['categories.html', 'products.html']) {
+  const links = file === 'categories.html' ? seo.categories : seo.papers;
+  const path = file === 'categories.html' ? seo.categoryPath : seo.productPath;
+  const directory = '<section class="collection"><h2>' + (file === 'categories.html' ? 'Category guides' : 'Product specifications and applications') + '</h2><ul>' +
+    links.map(item => '<li><a href="' + path(item) + '">' + escapeHtml(item.name) + '</a></li>').join('') + '</ul></section>';
+  pages.set(file, pages.get(file).replace('</main>', directory + '</main>'));
+}
+for (const file of ['index.html', 'about.html']) {
+  pages.set(file, pages.get(file).replace('<img src="assets/images/categories/packaging.webp"', '<img fetchpriority="high" src="assets/images/categories/packaging.webp"'));
+}
 const organisation = {
   '@context': 'https://schema.org', '@type': 'Organization',
   '@id': new URL('#organization', baseUrl).href,
@@ -90,7 +107,7 @@ for (const [file, html] of pages) {
   const pageUrl = new URL(file === 'index.html' ? '' : file, baseUrl).href;
   const name = html.match(/<title>\s*([\s\S]*?)\s*<\/title>/)[1].replaceAll('&amp;', '&');
   const graph = [organisation, {
-    '@type': file === 'about.html' ? 'AboutPage' : 'WebPage', '@id': pageUrl + '#webpage',
+    '@type': file === 'about.html' ? 'AboutPage' : (file.startsWith('category-') || ['categories.html', 'products.html'].includes(file)) ? 'CollectionPage' : 'WebPage', '@id': pageUrl + '#webpage',
     url: pageUrl, name, inLanguage: 'en',
     publisher: { '@id': organisation['@id'] },
     isPartOf: { '@id': new URL('#website', baseUrl).href }
@@ -107,7 +124,7 @@ if (dirname(OUTPUT) !== resolve(ROOT) || basename(OUTPUT) !== 'dist') {
 await rm(OUTPUT, { recursive: true, force: true });
 await mkdir(OUTPUT, { recursive: true });
 
-for (const file of PUBLIC_FILES) {
+for (const file of new Set([...PUBLIC_FILES, ...pages.keys()])) {
   const destination = resolve(OUTPUT, file);
   await mkdir(dirname(destination), { recursive: true });
   if (pages.has(file)) {
@@ -121,10 +138,10 @@ for (const file of PUBLIC_FILES) {
     await copyFile(resolve(ROOT, file), destination);
   }
 }
-const sitemapUrls = ['', 'about.html', 'categories.html', 'products.html'].map(file => new URL(file, baseUrl).href);
+const sitemapUrls = [...pages.keys()].map(file => new URL(file === 'index.html' ? '' : file, baseUrl).href);
 const xmlEscape = value => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('"', '&quot;');
 await writeFile(resolve(OUTPUT, 'sitemap.xml'), '<?xml version="1.0" encoding="UTF-8"?>\n' +
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
   sitemapUrls.map(url => '  <url><loc>' + xmlEscape(url) + '</loc></url>').join('\n') + '\n</urlset>\n');
 await writeFile(resolve(OUTPUT, 'robots.txt'), 'User-agent: *\nAllow: /\n\nSitemap: ' + new URL('sitemap.xml', baseUrl).href + '\n');
-console.log('Validated ' + JAVASCRIPT_FILES.length + ' scripts and prepared ' + PUBLIC_FILES.length + ' public assets.');
+console.log('Validated ' + JAVASCRIPT_FILES.length + ' scripts and prepared ' + pages.size + ' indexable pages and ' + PUBLIC_FILES.length + ' public assets.');
