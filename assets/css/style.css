@@ -4233,7 +4233,7 @@ a { transition: color .2s ease, text-decoration-color .2s ease; }
 button, summary, select, input[type="button"], input[type="submit"] { cursor: pointer; }
 button:disabled { cursor: not-allowed; }
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  a:not(.directory-card):not(.range-gateway):not(.button):not(.text-button):not(.nav-cta):not(.footer-enquiry-link):not(.card-whatsapp):not(.floating-whatsapp):not(.brand-link):not(.footer-contact-actions a):not(.category-explore-button):not(.gallery-image):hover {
+  a:not(.directory-card):not(.range-gateway):not(.button):not(.text-button):not(.nav-cta):not(.footer-enquiry-link):not(.card-whatsapp):not(.floating-whatsapp):not(.brand-link):not(.brand-card):not(.footer-contact-actions a):not(.category-explore-button):not(.gallery-image):hover {
     color: var(--red);
     text-decoration-color: currentColor;
   }
