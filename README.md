@@ -1,45 +1,61 @@
-# M&A Industries
+# M&A Industries website
 
-A responsive catalogue with 62 products across 12 categories, including dedicated categories and All Products pages and sugarcane-based and recycled ranges, searchable product enquiries, and WhatsApp/email contact actions.
+A responsive product catalogue for M&A Industries, with 62 products across 12 categories, product enquiry dialogs, WhatsApp contact links and a printable catalogue.
 
-## Project structure
+## Project map
 
 ```text
-MA-Industries-Single-Page/
-├── index.html              # Page content, navigation, form and metadata
+.
+├── index.html                 Home page and enquiry form
+├── about.html                 Company and founder information
+├── categories.html            Category directory
+├── products.html              Searchable, paginated product catalogue
 ├── assets/
-│   ├── css/style.css       # Layout, mobile sliders and animations
+│   ├── catalogues/            Current public PDF catalogue
+│   ├── css/style.css           Shared layout, responsive styles and motion
 │   ├── js/
-│   │   ├── catalogue-data.js  # Products and categories
-│   │   ├── catalogue-utils.js # Filtering, paging and message helpers
-│   │   └── app.js             # Page rendering and event handlers
-│   └── images/             # Logos, favicon sizes and social-preview image
+│   │   ├── catalogue-data.js   Product and category source data
+│   │   ├── catalogue-utils.js  Filtering, paging and message helpers
+│   │   ├── app.js              Product rendering and interactions
+│   │   ├── about.js            Shared page navigation
+│   │   └── experience.js       Shared motion and reading progress
+│   └── images/
+│       ├── categories/         Paper category photography
+│       ├── founders/           Founder portraits
+│       ├── gallery/            Factory and production photography
+│       ├── products/            Individual product images
+│       └── ranges/              Collection images
 ├── scripts/
-│   ├── build.mjs           # Validate and package public assets
-│   └── check.mjs           # Check browser-script syntax
-├── tests/                  # Catalogue and page-interaction regression checks
-├── package.json            # Dependency-free build/check commands
-├── render.yaml             # Render Static Site configuration
-├── CLAUDE.md               # Guidance for contributors and coding assistants
-├── README.md
-└── .gitignore
+│   ├── build.mjs               Static deployment build and asset allowlist
+│   ├── create-catalogue.mjs    PDF catalogue entry point
+│   ├── create-range-catalogue.py PDF catalogue layout and export
+│   ├── create-visiting-card.py Print-ready business cards
+│   ├── optimize-*.py           Image conversion helpers
+│   └── *.json                  Image manifests, prompts and source notes
+├── tests/                      Catalogue and interaction checks
+├── output/pdf/                 Generated catalogue and visiting-card files
+├── tmp/                         Local image sources, caches and work files
+├── dist/                        Generated website for deployment
+├── render.yaml                  Render Static Site configuration
+├── CLAUDE.md                    Contributor guidance
+└── package.json                 Project commands and Node version
 ```
 
-## Preview locally
+`dist/` is rebuilt from source and should not be edited directly. The build copies only the files named in its public asset manifests. Keep original image inputs and PDF image caches under the ignored `tmp/` directory; generated QA screenshots can be discarded. Print-ready PDFs are written to `output/pdf/`, while the website downloads its catalogue from `assets/catalogues/`.
 
-Open `index.html` in your browser. Keep the `assets` folder beside it.
+## Local preview
 
-For an HTTP preview, use any static server. For example, with Python installed:
+Open `index.html` directly, or serve the project root over HTTP:
 
 ```sh
 python -m http.server 8000
 ```
 
-Then visit `http://localhost:8000`. Google Fonts use an internet connection; serif and sans-serif fallbacks are included.
+Then open `http://localhost:8000`. Google Fonts require internet access; local fallback fonts are configured.
 
-## Build and check
+## Build and checks
 
-Requires Node.js 20 or newer. There are no runtime or build dependencies to install.
+The website requires Node.js 20 or newer and has no npm dependencies.
 
 ```sh
 npm run check
@@ -47,79 +63,38 @@ npm test
 npm run build
 ```
 
-The build validates all three browser scripts, compacts CSS, and copies only public site assets into `dist/`, retaining their folder paths. Generated output is ignored by Git. Tests exercise catalogue rules and page interactions using a lightweight DOM fixture; they do not replace visual checks in a real browser.
+The check command validates browser JavaScript syntax. Tests cover catalogue data and browser interactions. The build prepares the four main pages and public assets in `dist/`. Product details open in the catalogue dialog; PDF product links return to the matching product.
 
-## Deploy to Render
+## Catalogue and business cards
 
-Connect this GitHub repository to a **Static Site**, or use `render.yaml` as a Blueprint.
+On Windows, `npm run catalogue` generates the 18-page PDF catalogue from `assets/js/catalogue-data.js`. It expects the local Python environment in `tmp/pdf-venv/`; alternatively, set `PYTHON` to a Python executable with Pillow, ReportLab and PyMuPDF installed. The generator caches resized photos so later builds run faster and skips per-page preview rendering by default. Use `npm run catalogue -- --preview` to render the cover and category index for visual review. It writes the PDF to `output/pdf/` and refreshes `assets/catalogues/MA-Industries-Paper-Catalogue.pdf`. Run `npm run build` after updating the PDF so the website copy in `dist/` is current.
+
+Generate one of the visiting cards with:
+
+```sh
+python scripts/create-visiting-card.py --website https://maindustries.in/ --person maaz
+```
+
+Available people are `maaz`, `aadil`, `mohammed` and `yahya`. The card generator needs ReportLab, pypdf, PyMuPDF and Pillow. It saves print-ready PDFs and visual previews in `output/pdf/`.
+
+## Deploy
+
+The Render Static Site uses `render.yaml`:
 
 | Setting | Value |
 | --- | --- |
-| Branch | `main` |
 | Build command | `node scripts/build.mjs` |
 | Publish directory | `dist` |
 
-The build uses Render’s `RENDER_EXTERNAL_URL` for canonical and social-preview URLs. Set `SITE_URL` to your public HTTPS address when using a custom domain. Link previews require public hosting and may be cached by sharing platforms.
+`SITE_URL` supplies canonical and social-preview URLs. The configured production address is `https://maindustries.in`. The build creates `sitemap.xml`, `robots.txt` and structured data for the four main pages.
 
-## Search visibility
+## Updating the site
 
-The build generates a separate HTML page for each paper family, with unique titles, descriptions, canonical URLs, business and breadcrumb structured data, and links to related papers. The homepage includes a crawlable paper directory. All 38 pages are included in `dist/sitemap.xml`; `dist/robots.txt` allows crawling and advertises the sitemap. Product pages are generated from `catalogue-data.js` and the About page layout, so edits to those sources carry through on the next build.
+- Edit product names, descriptions, materials, categories and image paths in `assets/js/catalogue-data.js`.
+- Keep product IDs stable and make sure each product's category ID exists in the same file.
+- Add new public images to `scripts/product-images.json` or `scripts/category-images.json`; the build uses these manifests as an explicit allowlist.
+- Edit page text and structure in the matching root HTML file. Shared styles belong in `assets/css/style.css`.
+- Product images and material descriptions are illustrative. Confirm specifications, composition, price, stock and application suitability with the team before quoting.
+- Enquiry buttons prepare WhatsApp or email drafts for the visitor. The website does not send messages or process form submissions on a server.
 
-The confirmed production address is `https://maindustries.in`. `render.yaml` sets `SITE_URL` to this address so Render's service address does not become the canonical URL. For an existing service created outside the Blueprint, set this environment variable in the Render dashboard too. Deploy `dist/` after building.
-
-After deployment, verify the domain in [Google Search Console](https://search.google.com/search-console), submit `https://maindustries.in/sitemap.xml`, and inspect/request indexing for the homepage and representative product pages. Domain verification needs the owner's Google account and DNS access. Check that the live site, sitemap and robots file return HTTP 200 over HTTPS and are accessible without login. Consider a Google Business Profile with accurate business details if eligible. These changes help discovery; Google decides indexing and rankings.
-
-## Updating the PDF catalogue
-
-Run `npm run catalogue` on Windows with Microsoft Edge installed. The generator reads the website's product data, reuses compressed images when source images have not changed, checks PDF pages and contact links, and updates both `output/pdf/` and the public copy in `assets/catalogues/`. Run `npm run build` afterwards to include the updated PDF in deployment.
-
-The build also checks that local image, stylesheet, script and catalogue links in both HTML pages are included in the public asset allowlist.
-
-## Website behaviour
-
-- Category filters and search narrow the catalogue; six products appear per page.
-- Category and product cards become horizontal swipe strips on phones.
-- Clicking a product opens its details and can preselect it in the enquiry.
-- Paper product uses native autocomplete suggestions; rendering varies by browser.
-- WhatsApp and email buttons prepare messages for visitors to review and send.
-- No server-side form processing, analytics or visitor-data storage is included.
-- Animations respect reduced-motion preferences.
-
-## Editing
-
-- **Content / contact links / metadata:** `index.html`.
-- **Products and category data:** `assets/js/catalogue-data.js`.
-- **Filtering, pagination and enquiry text:** `assets/js/catalogue-utils.js`.
-- **Rendering, navigation and event handlers:** `assets/js/app.js`.
-- **Styles and breakpoints:** `assets/css/style.css`.
-- **Branding assets:** `assets/images/`.
-
-Counts are calculated from catalogue data at startup. If the catalogue changes, also update the static HTML fallback totals, metadata and sharing image where needed. Product descriptions describe paper families; grade specifications, pricing, stock and application suitability must be confirmed with the team.
-
-## Validation before publishing
-
-Run the build/check commands and inspect desktop and mobile layouts. Check category search, paging, product dialogs, enquiry selection, mobile navigation and contact links. Do not send test enquiries to the business.
-
-## Reference material
-
-General paper-family descriptions were informed by [Domtar office papers](https://www.domtar.com/domtar-paper/our-products/office-papers/), [Domtar thermal papers](https://www.domtar.com/domtar-paper/our-products/thermal-papers/), [Avery Dennison liners](https://label.averydennison.com/eu/en/home/products/liners.html), and [Fedrigoni specialty papers](https://specialpapers.fedrigoni.com/).
-
-## Product photography
-
-All 36 products use AI-generated illustrative paper-family samples in `assets/images/products/`. These do not certify the exact colour, finish, grade or stock supplied. Each image is an 800 × 800 WebP, with fixed display bounds and lazy loading in the catalogue. Product details use the same image.
-
-The images were created with the built-in image generation tool using one prompt per product: realistic commercial studio sample photograph, warm white seamless background, three-quarter overhead view, soft upper-left daylight, natural shadows, centred material with clear margins, accurate paper-family form and texture, no text or logos. Product-specific subjects are recorded in `scripts/product-image-prompts.json`.
-
-When replacing a photo, update its `image` path in `catalogue-data.js` and the explicit deployment allowlist in `scripts/product-images.json`.
-
-## Category photography
-
-The eight category cards use separate AI-generated illustrative assortments in `assets/images/categories/`, matching the product photos. Images use lazy loading and fixed 16:10 display bounds; card links, product counts and mobile swipe behavior stay intact. `scripts/category-images.json` lists deployment assets and `scripts/category-image-prompts.json` records generation subjects. Category image paths are in `index.html`.
-
-## About Us page
-
-`about.html` introduces founders Maaz Dawa and Aadil Dhukka, their customer-focused approach and direct WhatsApp contact links. It uses the shared stylesheet and `assets/js/about.js` for mobile navigation. The build packages both pages and gives the About page its own canonical/social URL. Founder biographies avoid unverified awards, dates, clients and numerical claims; add confirmed history when available.
-
-Product GSM values are typical reference guides, not confirmed stock specifications. Edit the `gsm` min/max fields in `assets/js/catalogue-data.js`; use `null` for variable grades. Manufacturer references are recorded in `scripts/gsm-reference-sources.json` and excluded from the public build.
-
-The searchable catalogue lives in `products.html`. New-range category photos are representative AI-generated images, with JPEG assets in `assets/images/ranges/`.
+Before publishing, run the build and review desktop and mobile layouts, category filters, search, pagination, product dialogs and enquiry links. Do not send test enquiries to the business.

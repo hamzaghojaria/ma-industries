@@ -751,7 +751,7 @@
   },
   {
     "id": "sugarcane-copy-paper",
-    "name": "Sugarcane copy paper",
+    "name": "Copy paper",
     "group": "sugarcane-paper",
     "tag": "SUGARCANE PAPER PRODUCTS",
     "desc": "Office documents and everyday printing.",
@@ -770,7 +770,7 @@
   },
   {
     "id": "sugarcane-paper-cups",
-    "name": "Sugarcane paper cups",
+    "name": "Paper cups",
     "group": "sugarcane-paper",
     "tag": "SUGARCANE PAPER PRODUCTS",
     "desc": "Paper cups for beverage service.",
@@ -789,7 +789,7 @@
   },
   {
     "id": "sugarcane-bath-tissues",
-    "name": "Sugarcane bath tissues",
+    "name": "Bath tissues",
     "group": "sugarcane-paper",
     "tag": "SUGARCANE PAPER PRODUCTS",
     "desc": "Tissue products for washrooms and daily use.",
@@ -808,7 +808,7 @@
   },
   {
     "id": "sugarcane-food-containers",
-    "name": "Sugarcane food containers",
+    "name": "Food containers",
     "group": "sugarcane-paper",
     "tag": "SUGARCANE PAPER PRODUCTS",
     "desc": "Pulp containers for takeaway and food service.",
@@ -827,7 +827,7 @@
   },
   {
     "id": "sugarcane-packaging-paper",
-    "name": "Sugarcane packaging paper",
+    "name": "Packaging paper",
     "group": "sugarcane-paper",
     "tag": "SUGARCANE PAPER PRODUCTS",
     "desc": "Paper for wrapping and packaging applications.",
@@ -1093,7 +1093,7 @@
   },
   {
     "id": "sugarcane-plates",
-    "name": "Sugarcane plates",
+    "name": "Plates",
     "group": "sugarcane-paper",
     "tag": "SUGARCANE PAPER PRODUCTS",
     "desc": "Enquire about bagasse plates for serving meals and catered events.",
@@ -1113,7 +1113,7 @@
   },
   {
     "id": "sugarcane-soup-bowls",
-    "name": "Sugarcane soup bowls",
+    "name": "Soup bowls",
     "group": "sugarcane-paper",
     "tag": "SUGARCANE PAPER PRODUCTS",
     "desc": "Explore deep bagasse bowls for soup and other foodservice applications.",
@@ -1133,7 +1133,7 @@
   },
   {
     "id": "sugarcane-serving-trays",
-    "name": "Sugarcane serving trays",
+    "name": "Serving trays",
     "group": "sugarcane-paper",
     "tag": "SUGARCANE PAPER PRODUCTS",
     "desc": "Enquire about bagasse trays for presenting and serving food.",
@@ -2095,7 +2095,7 @@ window.MACatalogueData=Object.freeze({
     },
     {
       "id": "sugarcane-copy-paper",
-      "name": "Sugarcane copy paper",
+      "name": "Copy paper",
       "group": "sugarcane-paper",
       "tag": "SUGARCANE PAPER PRODUCTS",
       "desc": "Office documents and everyday printing.",
@@ -2114,7 +2114,7 @@ window.MACatalogueData=Object.freeze({
     },
     {
       "id": "sugarcane-paper-cups",
-      "name": "Sugarcane paper cups",
+      "name": "Paper cups",
       "group": "sugarcane-paper",
       "tag": "SUGARCANE PAPER PRODUCTS",
       "desc": "Paper cups for beverage service.",
@@ -2133,7 +2133,7 @@ window.MACatalogueData=Object.freeze({
     },
     {
       "id": "sugarcane-bath-tissues",
-      "name": "Sugarcane bath tissues",
+      "name": "Bath tissues",
       "group": "sugarcane-paper",
       "tag": "SUGARCANE PAPER PRODUCTS",
       "desc": "Tissue products for washrooms and daily use.",
@@ -2152,7 +2152,7 @@ window.MACatalogueData=Object.freeze({
     },
     {
       "id": "sugarcane-food-containers",
-      "name": "Sugarcane food containers",
+      "name": "Food containers",
       "group": "sugarcane-paper",
       "tag": "SUGARCANE PAPER PRODUCTS",
       "desc": "Pulp containers for takeaway and food service.",
@@ -2171,7 +2171,7 @@ window.MACatalogueData=Object.freeze({
     },
     {
       "id": "sugarcane-packaging-paper",
-      "name": "Sugarcane packaging paper",
+      "name": "Packaging paper",
       "group": "sugarcane-paper",
       "tag": "SUGARCANE PAPER PRODUCTS",
       "desc": "Paper for wrapping and packaging applications.",
@@ -2437,7 +2437,7 @@ window.MACatalogueData=Object.freeze({
     },
     {
       "id": "sugarcane-plates",
-      "name": "Sugarcane plates",
+      "name": "Plates",
       "group": "sugarcane-paper",
       "tag": "SUGARCANE PAPER PRODUCTS",
       "desc": "Enquire about bagasse plates for serving meals and catered events.",
@@ -2457,7 +2457,7 @@ window.MACatalogueData=Object.freeze({
     },
     {
       "id": "sugarcane-soup-bowls",
-      "name": "Sugarcane soup bowls",
+      "name": "Soup bowls",
       "group": "sugarcane-paper",
       "tag": "SUGARCANE PAPER PRODUCTS",
       "desc": "Explore deep bagasse bowls for soup and other foodservice applications.",
@@ -2477,7 +2477,7 @@ window.MACatalogueData=Object.freeze({
     },
     {
       "id": "sugarcane-serving-trays",
-      "name": "Sugarcane serving trays",
+      "name": "Serving trays",
       "group": "sugarcane-paper",
       "tag": "SUGARCANE PAPER PRODUCTS",
       "desc": "Enquire about bagasse trays for presenting and serving food.",

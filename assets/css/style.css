@@ -4236,7 +4236,7 @@ a { transition: color .2s ease, text-decoration-color .2s ease; }
 button, summary, select, input[type="button"], input[type="submit"] { cursor: pointer; }
 button:disabled { cursor: not-allowed; }
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  a:not(.directory-card):not(.range-gateway):not(.button):not(.card-whatsapp):not(.floating-whatsapp):not(.brand-link):not(.footer-contact-actions a):not(.category-explore-button):not(.gallery-image):hover {
+  a:not(.directory-card):not(.range-gateway):not(.button):not(.nav-cta):not(.footer-enquiry-link):not(.card-whatsapp):not(.floating-whatsapp):not(.brand-link):not(.footer-contact-actions a):not(.category-explore-button):not(.gallery-image):hover {
     color: var(--red);
     text-decoration-color: currentColor;
   }
@@ -4421,11 +4421,14 @@ header nav .nav-cta.is-current { color: #fff; }
 .offering-grid .text-button { margin-top: auto; }
 .requirement-help { display: block; font-size: 11px; font-weight: 400; line-height: 1.6; color: #616853; margin-top: 8px; }
 .enquiry .requirement-help { color: #cbd1c1; }
-.product-actions { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin: 18px 20px 12px; }
+.products-page .products .product { display: flex; flex-direction: column; }
+.products-page .products .product-actions { margin-top: auto; }
+.product-actions { display: flex; align-items: center; justify-content: space-between; flex-wrap: nowrap; gap: 12px; margin: 18px 20px 12px; }
 @media (max-width: 600px) { .product-actions { margin-inline: 18px; } }
 .card-whatsapp { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 44px; padding: 10px 14px; border-radius: 5px; border: 1px solid #167549; color: #12683e; font-size: 12px; font-weight: 600; }
 .card-whatsapp:hover { background: #e3eee4; }
 .card-whatsapp .action-arrow { width: 16px; height: 16px; }
+.card-whatsapp .whatsapp-icon { width: 18px; height: 18px; flex: 0 0 18px; }
 .product-enquiry-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
 .product-enquiry-actions .button { margin-top: 0; max-width: 100%; white-space: normal; }
 .product-enquiry-actions .whatsapp-button { background: #167549; color: #fff; }
@@ -4454,9 +4457,11 @@ header nav .nav-cta.is-current { color: #fff; }
  .products-page .products .detail-button { width: 34px; height: 34px; flex: 0 0 34px; }
  .products-page .products .product-gsm { margin-top: 8px; font-size: 10px; }
  .products-page .products .product p { display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 3; font-size: 12px; line-height: 1.55; margin: 8px 0; }
- .products-page .products .product-actions { display: grid; grid-template-columns: 1fr; gap: 6px; margin: 8px 0 0; }
- .products-page .products .product-actions > a { display: flex; align-items: center; justify-content: center; min-width: 0; min-height: 40px; font-size: 11px; }
- .products-page .products .card-whatsapp { padding: 7px 8px; }
+ .products-page .products .product-actions { display: grid; grid-template-columns: minmax(0, 1fr) 44px; align-items: center; gap: 8px; margin: auto 0 0; }
+ .products-page .products .product-actions > a { display: flex; align-items: center; justify-content: center; min-width: 0; min-height: 44px; font-size: 11px; }
+ .products-page .products .product-actions > .text-button { justify-content: flex-start; }
+ .products-page .products .card-whatsapp { width: 44px; height: 44px; padding: 0; gap: 0; }
+ .products-page .products .card-whatsapp-label { display: none; }
   .product-modal-actions .button { padding: 12px 8px; font-size: 12px; }
   .product-modal-actions .enquiry-full-label { display: none; }
   .product-modal-actions .enquiry-short-label { display: inline; }
@@ -4519,8 +4524,8 @@ header nav a[aria-current="page"] { color: var(--red); font-weight: 600; }
 .directory-image img { width: 100%; height: 100%; display: block; object-fit: cover; }
 .directory-copy { padding: 24px; display: flex; flex-direction: column; flex: 1; }
 .directory-copy .eyebrow { font-size: 10px; letter-spacing: 1.2px; }
-.directory-copy h3 { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: start; gap: 12px; font: 500 25px/1.25 'Playfair Display', Georgia, serif; margin: 18px 0 12px; }
-.directory-copy h3 .directory-title { min-width: 0; overflow-wrap: anywhere; }
+.directory-copy h3 { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: start; gap: 8px; font: 500 23px/1.25 'Playfair Display', Georgia, serif; margin: 18px 0 12px; }
+.directory-copy h3 .directory-title { min-width: 0; overflow-wrap: anywhere; text-wrap: balance; }
 .directory-copy h3 .directory-arrow { color: var(--red); white-space: nowrap; }
 .directory-copy p { font-size: 13px; line-height: 1.75; margin: 0 0 24px; }
 .directory-copy .text-button { margin-top: auto; font-size: 12px; }
@@ -4571,6 +4576,45 @@ header nav a[aria-current="page"] { color: var(--red); font-weight: 600; }
 .site-footer .footer-explore .footer-enquiry-link:focus-visible { background: #80001e; color: #fff; box-shadow: 0 4px 14px #a7002720; text-decoration: none; }
 .site-footer .footer-explore .footer-enquiry-link:active { background: #680018; color: #fff; }
 @media (prefers-reduced-motion: reduce) { header nav .nav-cta { transition: none; } }
+
+/* Give footer links room to breathe on phone-sized screens. */
+@media (max-width: 600px) {
+ .site-footer .footer-explore { text-align: left; }
+ .site-footer .footer-link-groups {
+  grid-template-columns: 1fr;
+  gap: 16px;
+ }
+ .site-footer .footer-link-group h4 { margin-bottom: 7px; }
+ .site-footer .footer-link-group ul {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+ }
+ .site-footer .footer-link-group li a {
+  justify-content: center;
+  min-height: 48px;
+  padding: 8px 7px;
+  border: 1px solid #d8d5cb;
+  border-radius: 5px;
+  background: #fffdf8;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.3;
+  overflow-wrap: normal;
+ }
+ .site-footer .footer-explore .footer-enquiry-link {
+  width: 100%;
+  min-height: 48px;
+  padding: 7px 5px;
+  gap: 4px;
+  font-size: 12px;
+ }
+ .site-footer .footer-explore .footer-enquiry-link .action-arrow { flex: 0 0 auto; }
+}
+
+@media (max-width: 360px) {
+ .site-footer .footer-link-group ul { gap: 5px; }
+ .site-footer .footer-link-group li a { padding-inline: 4px; font-size: 12px; }
+}
 
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   header nav .nav-cta:hover,

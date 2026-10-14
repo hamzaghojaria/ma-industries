@@ -1,15 +1,23 @@
 """Build the complete product catalogue from the website's exported data."""
-from pathlib import Path
-import json, html, shutil
+import argparse
+import html
+import json
+import shutil
 from io import BytesIO
-from PIL import Image
+from pathlib import Path
 from urllib.parse import quote
+
+from PIL import Image
 from reportlab.pdfgen import canvas
 from reportlab.lib.colors import HexColor
 from reportlab.lib.utils import ImageReader
 from reportlab.platypus import Paragraph
 from reportlab.lib.styles import ParagraphStyle
 import pymupdf
+
+parser = argparse.ArgumentParser(description='Generate the M&A Industries product catalogue.')
+parser.add_argument('--preview', action='store_true', help='Render the cover and category index for visual review.')
+args = parser.parse_args()
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'output/pdf'
@@ -102,7 +110,8 @@ for g in DATA['categories']:
             spec=(f"{p['gsm']['min']}-{p['gsm']['max']} GSM / reference" if p.get('gsm') else 'Availability confirmed on enquiry' if p.get('sourcingOnly') else 'Specifications on enquiry')
             para(x+10,top-120-height,spec,227,8,10)
             text(x+10,top-172,'Explore product >',9,'Helvetica-Bold',RED)
-            c.linkURL('http://maindustries.in/paper-'+p['id']+'.html',(x,top-182,x+247,top))
+            product_url='https://maindustries.in/products.html?category='+quote(p['group'])+'#paper-'+p['id']
+            c.linkURL(product_url,(x,top-182,x+247,top))
         c.showPage()
 
 page("LET'S FIND YOUR STARTING POINT")
@@ -124,7 +133,8 @@ assert sum(len(p.get_links()) for p in doc)>=len(DATA['papers'])+len(DATA['categ
 for i,p in enumerate(doc):
     for block in p.get_text('blocks'):
         assert block[0]>=0 and block[1]>=0 and block[2]<=W+1 and block[3]<=H+1, (i,block)
-    p.get_pixmap(matrix=pymupdf.Matrix(1,1),alpha=False).save(TMP/f'catalogue-page-{i+1:02}.png')
+    if args.preview and i < 2:
+        p.get_pixmap(matrix=pymupdf.Matrix(1,1),alpha=False).save(TMP/f'catalogue-page-{i+1:02}.png')
 shutil.copyfile(DEST,OUT/'MA-Industries-Paper-Catalogue.pdf')
 shutil.copyfile(DEST,ROOT/'assets/catalogues/MA-Industries-Paper-Catalogue.pdf')
 print(f'Created and verified {page_number} pages with {len(DATA["papers"])} products.')

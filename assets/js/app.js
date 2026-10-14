@@ -71,7 +71,7 @@
       <div class="product-top"><h3><a href="#paper-${paper.id}">${name}</a></h3>
         <a class="detail-button" href="#paper-${paper.id}" aria-label="View ${name}">${ACTION_ARROW}</a></div>
       <div class="product-gsm"><span>${paper.material ? 'Material' : 'GSM guide'}</span><strong>${escapeHtml(paper.material ? 'View material details' : gsmLabel(paper))}</strong></div>
-      <p>${escapeHtml(paper.desc)}</p><div class="product-actions"><a class="text-button" href="#paper-${paper.id}">Explore product</a><a class="card-whatsapp" href="${escapeHtml(productWhatsAppUrl(paper))}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp about ${name}">WhatsApp ${ACTION_ARROW}</a></div>
+      <p>${escapeHtml(paper.desc)}</p><div class="product-actions"><a class="text-button" href="#paper-${paper.id}">Explore product</a><a class="card-whatsapp" href="${escapeHtml(productWhatsAppUrl(paper))}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp about ${name}">${WHATSAPP_ICON}<span class="card-whatsapp-label">WhatsApp</span></a></div>
     </article>`;
   }
 

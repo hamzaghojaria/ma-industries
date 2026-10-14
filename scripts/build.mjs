@@ -3,9 +3,11 @@ import { readFile, writeFile, mkdir, copyFile, rm } from 'node:fs/promises';
 import { resolve, dirname, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Script } from 'node:vm';
-import { cataloguePages, escapeHtml } from './seo.mjs';
 
 const ROOT = fileURLToPath(new URL('../', import.meta.url));
+const escapeHtml = value => String(value).replace(/[&<>"']/g, character => ({
+  '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+}[character]));
 const OUTPUT = resolve(ROOT, 'dist');
 const JAVASCRIPT_FILES = [
   'assets/js/catalogue-data.js',
@@ -62,11 +64,9 @@ function applyPublicUrl(html, origin, pagePath = '') {
 
 const pages = new Map();
 const siteOrigin = process.env.SITE_URL || process.env.RENDER_EXTERNAL_URL || 'https://maindustries.in/';
-const catalogue = await cataloguePages(new URL('../', import.meta.url), await readFile(resolve(ROOT, 'about.html'), 'utf8'));
-PUBLIC_FILES.push(...catalogue.pages.keys());
 const publicFiles = new Set(PUBLIC_FILES);
-for (const file of ['index.html', 'about.html', 'categories.html', 'products.html', ...catalogue.pages.keys()]) {
-  let html = catalogue.pages.get(file) || await readFile(resolve(ROOT, file), 'utf8');
+for (const file of ['index.html', 'about.html', 'categories.html', 'products.html']) {
+  let html = await readFile(resolve(ROOT, file), 'utf8');
   for (const [, asset] of html.matchAll(/(?:src|href)="(assets\/[^"?#]+)(?:[?#][^"]*)?"/g)) {
     if (!publicFiles.has(asset)) throw new Error(`${file}: asset missing from build allowlist: ${asset}`);
   }
@@ -96,12 +96,6 @@ for (const [file, html] of pages) {
     isPartOf: { '@id': new URL('#website', baseUrl).href }
   }, { '@type': 'WebSite', '@id': new URL('#website', baseUrl).href,
     url: baseUrl.href, name: organisation.name, publisher: { '@id': organisation['@id'] } }];
-  if (catalogue.pages.has(file)) graph.push({
-    '@type': 'BreadcrumbList', itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: baseUrl.href },
-      { '@type': 'ListItem', position: 2, name: catalogue.papers.find(paper => file === `paper-${paper.id}.html`).name, item: pageUrl }
-    ]
-  });
   pages.set(file, html.replace('</head>', '<script type="application/ld+json">' +
     JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replaceAll('<', '\\u003c') + '</script>\n</head>'));
 }
@@ -127,7 +121,7 @@ for (const file of PUBLIC_FILES) {
     await copyFile(resolve(ROOT, file), destination);
   }
 }
-const sitemapUrls = ['', 'about.html', 'categories.html', 'products.html', ...catalogue.pages.keys()].map(file => new URL(file, baseUrl).href);
+const sitemapUrls = ['', 'about.html', 'categories.html', 'products.html'].map(file => new URL(file, baseUrl).href);
 const xmlEscape = value => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('"', '&quot;');
 await writeFile(resolve(OUTPUT, 'sitemap.xml'), '<?xml version="1.0" encoding="UTF-8"?>\n' +
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
