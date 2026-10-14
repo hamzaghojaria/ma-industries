@@ -4,7 +4,7 @@ import { resolve, dirname, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Script } from 'node:vm';
 
-const ROOT = fileURLToPath(new URL('../', import.meta.url));
+const ROOT = fileURLToPath(new URL('../../', import.meta.url));
 const escapeHtml = value => String(value).replace(/[&<>"']/g, character => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
 }[character]));
@@ -16,8 +16,8 @@ const JAVASCRIPT_FILES = [
   'assets/js/about.js',
   'assets/js/experience.js'
 ];
-const PRODUCT_IMAGES = JSON.parse(await readFile(resolve(ROOT, 'scripts/product-images.json'), 'utf8'));
-const CATEGORY_IMAGES = JSON.parse(await readFile(resolve(ROOT, 'scripts/category-images.json'), 'utf8'));
+const PRODUCT_IMAGES = JSON.parse(await readFile(resolve(ROOT, 'scripts/site/manifests/product-images.json'), 'utf8'));
+const CATEGORY_IMAGES = JSON.parse(await readFile(resolve(ROOT, 'scripts/site/manifests/category-images.json'), 'utf8'));
 // An allowlist keeps docs, local caches and credentials out of the hosted site.
 const PUBLIC_FILES = [
   'index.html', 'about.html', 'categories.html', 'products.html', 'assets/css/style.css', ...JAVASCRIPT_FILES,

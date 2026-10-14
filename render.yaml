@@ -2,7 +2,7 @@ services:
   - type: web
     name: ma-industries
     runtime: static
-    buildCommand: node scripts/build.mjs
+    buildCommand: node scripts/site/build.mjs
     staticPublishPath: ./dist
     envVars:
       - key: SITE_URL

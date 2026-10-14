@@ -2,12 +2,12 @@
   "name": "ma-industries",
   "version": "1.0.0",
   "private": true,
-  "description": "M&A Industries paper, packaging and everyday products catalogue",
+  "description": "M&A Industries paper, packaging, sugarcane and recycled products catalogue",
   "type": "module",
   "scripts": {
-    "build": "node scripts/build.mjs",
-    "check": "node scripts/check.mjs",
-    "catalogue": "node scripts/create-catalogue.mjs",
+    "build": "node scripts/site/build.mjs",
+    "check": "node scripts/site/check.mjs",
+    "catalogue": "node scripts/catalogue/create-catalogue.mjs",
     "test": "node --test tests/*.test.mjs"
   },
   "engines": {

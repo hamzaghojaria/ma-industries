@@ -1,100 +1,70 @@
 # M&A Industries website
 
-A responsive product catalogue for M&A Industries, with 62 products across 12 categories, product enquiry dialogs, WhatsApp contact links and a printable catalogue.
+A static product catalogue for M&A Industries, covering paper and packaging, sugarcane-based products, and recycled household goods. The site contains four pages, 12 categories, product enquiry dialogs, WhatsApp links, and a downloadable catalogue.
 
-## Project map
+## Project structure
 
 ```text
 .
-├── index.html                 Home page and enquiry form
-├── about.html                 Company and founder information
-├── categories.html            Category directory
-├── products.html              Searchable, paginated product catalogue
-├── assets/
-│   ├── catalogues/            Current public PDF catalogue
-│   ├── css/style.css           Shared layout, responsive styles and motion
-│   ├── js/
-│   │   ├── catalogue-data.js   Product and category source data
-│   │   ├── catalogue-utils.js  Filtering, paging and message helpers
-│   │   ├── app.js              Product rendering and interactions
-│   │   ├── about.js            Shared page navigation
-│   │   └── experience.js       Shared motion and reading progress
-│   └── images/
-│       ├── categories/         Paper category photography
-│       ├── founders/           Founder portraits
-│       ├── gallery/            Factory and production photography
-│       ├── products/            Individual product images
-│       └── ranges/              Collection images
-├── scripts/
-│   ├── build.mjs               Static deployment build and asset allowlist
-│   ├── create-catalogue.mjs    PDF catalogue entry point
-│   ├── create-range-catalogue.py PDF catalogue layout and export
-│   ├── create-visiting-card.py Print-ready business cards
-│   ├── optimize-*.py           Image conversion helpers
-│   └── *.json                  Image manifests, prompts and source notes
-├── tests/                      Catalogue and interaction checks
-├── output/pdf/                 Generated catalogue and visiting-card files
-├── tmp/                         Local image sources, caches and work files
-├── dist/                        Generated website for deployment
-├── render.yaml                  Render Static Site configuration
-├── CLAUDE.md                    Contributor guidance
-└── package.json                 Project commands and Node version
+|-- index.html, about.html, categories.html, products.html
+|-- assets/
+|   |-- catalogues/          Public PDF catalogue
+|   |-- css/                  Shared responsive styles
+|   |-- js/                   Catalogue data, helpers, and page behavior
+|   `-- images/               Brand, category, product, founder, and mill photos
+|-- scripts/
+|   |-- site/                 Deployment build, syntax check, and asset manifests
+|   |-- catalogue/            PDF catalogue generator
+|   |-- cards/                Visiting-card generator
+|   |-- images/               Image optimization tools
+|   `-- references/           Image prompts and source notes
+|-- tests/                    Catalogue and browser-interaction checks
+|-- output/pdf/               Generated catalogue and visiting cards
+|-- tmp/                      Local image inputs, PDF data, and caches (ignored)
+|-- dist/                     Generated deployment site (ignored)
+|-- render.yaml               Render static-site configuration
+|-- CLAUDE.md                 Contributor guidance
+`-- package.json              Project commands and Node version
 ```
 
-`dist/` is rebuilt from source and should not be edited directly. The build copies only the files named in its public asset manifests. Keep original image inputs and PDF image caches under the ignored `tmp/` directory; generated QA screenshots can be discarded. Print-ready PDFs are written to `output/pdf/`, while the website downloads its catalogue from `assets/catalogues/`.
+The four root HTML files are the website pages. Product information lives in `assets/js/catalogue-data.js`; stable product and category IDs connect filters, dialogs, enquiries, and PDF links. Keep public images listed in the manifests under `scripts/site/manifests/`. The build uses those manifests as an allowlist.
 
-## Local preview
+Generated files belong in `dist/` or `output/pdf/`. Do not edit `dist/` directly. Temporary source images, resized PDF images, and work files belong under `tmp/`.
 
-Open `index.html` directly, or serve the project root over HTTP:
+## Requirements and commands
 
-```sh
-python -m http.server 8000
-```
-
-Then open `http://localhost:8000`. Google Fonts require internet access; local fallback fonts are configured.
-
-## Build and checks
-
-The website requires Node.js 20 or newer and has no npm dependencies.
+The site uses Node.js 20 or newer and has no npm dependencies. Catalogue and visiting-card generation also use the local Python environment and its imaging/PDF libraries.
 
 ```sh
 npm run check
 npm test
 npm run build
+npm run catalogue
+npm run catalogue -- --preview
 ```
 
-The check command validates browser JavaScript syntax. Tests cover catalogue data and browser interactions. The build prepares the four main pages and public assets in `dist/`. Product details open in the catalogue dialog; PDF product links return to the matching product.
+`npm run check` validates browser JavaScript syntax. `npm test` runs the catalogue and interaction checks. `npm run build` creates the four-page deployment site in `dist/`, plus its sitemap and robots file. `npm run catalogue` creates the 18-page PDF, updates `assets/catalogues/MA-Industries-Paper-Catalogue.pdf`, and writes the print-ready copy to `output/pdf/MA-Industries-Catalogue.pdf`. The optional `--preview` flag renders the cover and contents pages for review.
 
-## Catalogue and business cards
+Product links inside the PDF open `products.html` with the relevant category and product selected. The catalogue page reads the product hash and opens its detail dialog.
 
-On Windows, `npm run catalogue` generates the 18-page PDF catalogue from `assets/js/catalogue-data.js`. It expects the local Python environment in `tmp/pdf-venv/`; alternatively, set `PYTHON` to a Python executable with Pillow, ReportLab and PyMuPDF installed. The generator caches resized photos so later builds run faster and skips per-page preview rendering by default. Use `npm run catalogue -- --preview` to render the cover and category index for visual review. It writes the PDF to `output/pdf/` and refreshes `assets/catalogues/MA-Industries-Paper-Catalogue.pdf`. Run `npm run build` after updating the PDF so the website copy in `dist/` is current.
-
-Generate one of the visiting cards with:
+To preview the site locally, open `index.html` or serve the repository root:
 
 ```sh
-python scripts/create-visiting-card.py --website https://maindustries.in/ --person maaz
+python -m http.server 8000
 ```
 
-Available people are `maaz`, `aadil`, `mohammed` and `yahya`. The card generator needs ReportLab, pypdf, PyMuPDF and Pillow. It saves print-ready PDFs and visual previews in `output/pdf/`.
+Then visit `http://localhost:8000`.
 
-## Deploy
+## Deployment
 
-The Render Static Site uses `render.yaml`:
+Render uses `render.yaml` to run `node scripts/site/build.mjs` and publish `dist/`. `SITE_URL` sets canonical and social-preview URLs; the production domain is `https://maindustries.in`.
 
-| Setting | Value |
-| --- | --- |
-| Build command | `node scripts/build.mjs` |
-| Publish directory | `dist` |
+## Catalogue and content updates
 
-`SITE_URL` supplies canonical and social-preview URLs. The configured production address is `https://maindustries.in`. The build creates `sitemap.xml`, `robots.txt` and structured data for the four main pages.
+- Edit product and category records in `assets/js/catalogue-data.js`. Keep IDs stable and group IDs matched to an existing category.
+- Add public product or category images to the corresponding JSON manifest under `scripts/site/manifests/`.
+- Edit page content in the matching root HTML file and shared styles in `assets/css/style.css`.
+- Use the tools under `scripts/images/` to convert supplied source images. They read from `tmp/product-images/` or `tmp/category-images/` and write optimized assets into `assets/images/`.
+- Create a visiting card with `python scripts/cards/create-visiting-card.py --website https://maindustries.in/ --person maaz`. Valid people are `maaz`, `aadil`, `mohammed`, and `yahya`.
 
-## Updating the site
-
-- Edit product names, descriptions, materials, categories and image paths in `assets/js/catalogue-data.js`.
-- Keep product IDs stable and make sure each product's category ID exists in the same file.
-- Add new public images to `scripts/product-images.json` or `scripts/category-images.json`; the build uses these manifests as an explicit allowlist.
-- Edit page text and structure in the matching root HTML file. Shared styles belong in `assets/css/style.css`.
-- Product images and material descriptions are illustrative. Confirm specifications, composition, price, stock and application suitability with the team before quoting.
-- Enquiry buttons prepare WhatsApp or email drafts for the visitor. The website does not send messages or process form submissions on a server.
-
-Before publishing, run the build and review desktop and mobile layouts, category filters, search, pagination, product dialogs and enquiry links. Do not send test enquiries to the business.
+Descriptions and images help visitors explore the range. Confirm item specifications, composition, price, availability, certification, and application suitability with the team before quoting. Enquiry actions prepare WhatsApp or email drafts; the site does not send messages or process submissions on a server.

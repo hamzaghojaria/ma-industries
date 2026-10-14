@@ -2,50 +2,49 @@
 
 ## Overview
 
-M&A Industries is a dependency-free static website. Work from the repository root. The entry point is `index.html`; source assets live under `assets/`. Render publishes generated `dist/` using `scripts/build.mjs`.
+M&A Industries is a static website with four root HTML pages. Product data and browser behavior are shared across the catalogue. Render runs `scripts/site/build.mjs` and publishes generated `dist/`.
 
 ## Commands
 
-- `npm run check`: validate JavaScript syntax.
-- `npm test`: run catalogue and page-interaction regression checks.
-- `npm run build`: validate and prepare deployment assets.
-- No dependency installation is required for the current codebase.
+- `npm run check`: validate browser JavaScript syntax.
+- `npm test`: run catalogue and page-interaction checks.
+- `npm run build`: prepare the deployment site.
+- `npm run catalogue`: regenerate the downloadable PDF catalogue.
 
-## Files
+Node.js 20 or newer is required. No npm packages are used.
 
-- `about.html`: founder profiles, company approach and standalone About page.
-- `assets/js/about.js`: About-page navigation.
-- `index.html`: page structure, contact links, enquiry fields, footer, favicon and social metadata.
-- `assets/js/catalogue-data.js`: product and category records.
-- `assets/js/catalogue-utils.js`: pure validation, filtering, pagination and enquiry-text helpers.
-- `assets/js/app.js`: catalogue rendering, delegated interactions, dialogs, native product autocomplete, enquiry actions and navigation.
-- `tests/`: catalogue and interaction tests with a small DOM fixture.
-- `assets/css/style.css`: branding, layout, responsive breakpoints and motion. Inspect the cascade before adding an override.
-- `assets/images/`: supplied logo, web logo, browser icons and social-preview artwork.
-- `scripts/build.mjs`: explicit public-file allowlist and deployment URL handling.
-- `render.yaml`: static-site deployment settings.
+## Source map
+
+- Root HTML files contain page structure, metadata, copy, navigation, and form markup.
+- `assets/js/catalogue-data.js` contains product and category records. Keep IDs stable and product groups valid.
+- `assets/js/catalogue-utils.js` contains filtering, paging, validation, and enquiry-message helpers.
+- `assets/js/app.js` renders the catalogue, handles filters and product dialogs, and prepares enquiry actions.
+- `assets/js/about.js` and `assets/js/experience.js` provide shared navigation and motion behavior.
+- `assets/css/style.css` contains the shared design system and responsive layout. Inspect the cascade before adding overrides.
+- `scripts/site/` contains the deployment build, browser-script checker, and public asset manifests.
+- `scripts/catalogue/`, `scripts/cards/`, and `scripts/images/` contain the PDF, business-card, and image tools.
+- `scripts/references/` contains image prompts and source notes; it is not published.
+- `tests/` contains catalogue and browser-interaction checks.
+- `render.yaml` configures the static deployment. `dist/` and `tmp/` are generated or local-only directories.
 
 ## Implementation conventions
 
-- Preserve M&A Industries branding, business contact details and the current concise form/footer unless the user requests changes.
-- Keep product IDs unique and stable. Every product group must match an existing category ID.
-- Counts are calculated from data. Keep static HTML fallback totals, metadata and descriptions consistent when editing data.
-- Load classic scripts in data → utilities → app order; this preserves direct-file previews.
-- Prefer delegated handlers for dynamically rendered cards and paging buttons. Comment intent or constraints rather than restating code.
-- Preserve the `paper`, `brief`, `products`, `pagination` and `status` element IDs; JavaScript uses them.
-- Enquiry actions open drafts in WhatsApp/email. Do not silently send messages or claim a message was sent.
-- Keep founder names, roles and contact details accurate. Do not invent biography dates, awards, client names or quantified achievements.
-- Do not invent certifications, stock availability, prices, minimum quantities or response-time promises.
-- Use `textContent` for visitor-supplied content. Catalogue HTML should use only trusted, repository-owned data.
-- Keep mobile touch targets at least 44px and form-input text at least 16px. Preserve keyboard focus states and reduced-motion behaviour.
-- Mobile sliders must scroll within their containers rather than widening the page.
-- Do not add frameworks or dependencies for small changes. Keep paths compatible with direct opening of `index.html` and HTTP hosting.
-- Add new public assets to the build allowlist. Do not put source documentation, credentials or local caches in deployment output.
+- Preserve M&A Industries branding, business contact details, and the current concise form/footer unless requested otherwise.
+- Counts are calculated from data. Keep static fallback totals and descriptions consistent when editing the catalogue.
+- Load classic scripts in data, utilities, app order so direct-file previews continue to work.
+- Prefer delegated event handlers for dynamically rendered cards and paging controls.
+- Preserve the `paper`, `brief`, `products`, `pagination`, and `status` element IDs; JavaScript uses them.
+- Enquiry actions open WhatsApp or email drafts. Do not send messages or claim a message was sent.
+- Do not invent biographies, certifications, availability, prices, minimum quantities, or performance claims.
+- Use `textContent` for visitor-supplied content. Catalogue HTML may use trusted repository data with escaping where needed.
+- Keep mobile touch targets at least 44px and form inputs at least 16px. Preserve keyboard focus and reduced-motion behavior.
+- Keep public files in the build allowlists. Do not publish documentation, prompts, credentials, or local caches.
+- Do not edit generated `dist/` directly; rebuild it from source.
 
 ## Verification and handoff
 
-Run checks appropriate to the change. Inspect mobile and desktop rendering when browser access is available; report any unverified visual behaviour honestly. Exercise filter/search resets, page bounds, dialog selection, mobile menu state and prepared enquiry contents when relevant. Avoid sending live test enquiries.
+Run checks that fit the change. Inspect desktop and mobile rendering when browser access is available, and state any unverified behavior. Exercise catalogue filtering, search, pagination, product dialogs, and enquiry links when relevant. Avoid sending test enquiries.
 
 ## Deployment
 
-Use the user-selected GitHub repository and Render service. Keep secrets out of source and logs. Build metadata uses `SITE_URL` or `RENDER_EXTERNAL_URL`; do not guess a production domain. Do not edit generated `dist/` directly.
+Render publishes `dist/` using the build command in `render.yaml`. Canonical and share-preview URLs use `SITE_URL` or `RENDER_EXTERNAL_URL`. Keep credentials out of source and logs.

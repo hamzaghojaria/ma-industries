@@ -28,7 +28,7 @@ EMAIL = 'info@maengineerings.in' if args.person == 'yahya' else 'info@maindustri
 TITLE = 'Business Development Manager' if args.person == 'yahya' else ('Managing Director' if args.person == 'mohammed' else 'Director')
 assert urlparse(WEBSITE).scheme in ('https', 'http') and urlparse(WEBSITE).netloc
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / 'output' / 'pdf'
 TMP = ROOT / 'tmp' / 'pdfs'
 OUT.mkdir(parents=True, exist_ok=True)

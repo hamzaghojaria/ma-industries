@@ -6,7 +6,7 @@ import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Script, runInNewContext } from 'node:vm';
 
-const ROOT = fileURLToPath(new URL('../', import.meta.url));
+const ROOT = fileURLToPath(new URL('../../', import.meta.url));
 const sourcePath = resolve(ROOT, 'assets/js/catalogue-data.js');
 const dataSource = await readFile(sourcePath, 'utf8');
 new Script(dataSource, { filename: sourcePath });
@@ -31,7 +31,7 @@ try {
   // Use the Python executable on PATH when the local Windows environment is absent.
 }
 
-execFileSync(python, [resolve(ROOT, 'scripts/create-range-catalogue.py'), ...process.argv.slice(2)], {
+execFileSync(python, [resolve(ROOT, 'scripts/catalogue/create-range-catalogue.py'), ...process.argv.slice(2)], {
   cwd: ROOT,
   stdio: 'inherit'
 });

@@ -1,6 +1,6 @@
 from pathlib import Path
 from PIL import Image, ImageOps, ImageDraw
-root=Path(__file__).resolve().parents[1]
+root=Path(__file__).resolve().parents[2]
 source=root/'tmp'/'category-images'
 destination=root/'assets'/'images'/'categories'
 files=sorted(source.glob('*.png'))

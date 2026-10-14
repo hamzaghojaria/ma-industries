@@ -19,7 +19,7 @@ parser = argparse.ArgumentParser(description='Generate the M&A Industries produc
 parser.add_argument('--preview', action='store_true', help='Render the cover and category index for visual review.')
 args = parser.parse_args()
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / 'output/pdf'
 TMP = ROOT / 'tmp/pdfs'
 IMAGE_CACHE = TMP / 'catalogue-image-cache'
@@ -135,6 +135,5 @@ for i,p in enumerate(doc):
         assert block[0]>=0 and block[1]>=0 and block[2]<=W+1 and block[3]<=H+1, (i,block)
     if args.preview and i < 2:
         p.get_pixmap(matrix=pymupdf.Matrix(1,1),alpha=False).save(TMP/f'catalogue-page-{i+1:02}.png')
-shutil.copyfile(DEST,OUT/'MA-Industries-Paper-Catalogue.pdf')
 shutil.copyfile(DEST,ROOT/'assets/catalogues/MA-Industries-Paper-Catalogue.pdf')
 print(f'Created and verified {page_number} pages with {len(DATA["papers"])} products.')
