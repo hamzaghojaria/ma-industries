@@ -1,0 +1,83 @@
+/* Progressive motion: content stays visible if animation support is absent. */
+(() => {
+  'use strict';
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const running = new Set();
+  let observer;
+
+  function enter(element, delay = 0, distance = 20) {
+    if (reducedMotion.matches || !element?.animate) return;
+    const animation = element.animate([
+      { opacity: 0, transform: `translateY(${distance}px)` },
+      { opacity: 1, transform: 'translateY(0)' }
+    ], { duration: 620, delay, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'backwards' });
+    running.add(animation);
+    animation.finished.catch(() => {}).finally(() => running.delete(animation));
+  }
+
+  function enterDialog(dialog) {
+    enter(dialog, 0, 12);
+  }
+  window.MAExperience = Object.freeze({ enterDialog });
+
+  const progress = document.createElement('div');
+  progress.className = 'reading-progress';
+  progress.setAttribute('aria-hidden', 'true');
+  document.body.append(progress);
+  let framePending = false;
+  function updateProgress() {
+    framePending = false;
+    const available = document.documentElement.scrollHeight - window.innerHeight;
+    const value = available > 0 ? Math.max(0, Math.min(1, window.scrollY / available)) : 0;
+    progress.style.transform = `scaleX(${value})`;
+  }
+  function scheduleProgress() {
+    if (framePending) return;
+    framePending = true;
+    window.requestAnimationFrame(updateProgress);
+  }
+  window.addEventListener('scroll', scheduleProgress, { passive: true });
+  window.addEventListener('resize', scheduleProgress);
+  if ('ResizeObserver' in window) new ResizeObserver(scheduleProgress).observe(document.body);
+  updateProgress();
+
+  // A media preference change cancels active motion immediately.
+  reducedMotion.addEventListener('change', () => {
+    if (!reducedMotion.matches) return;
+    observer?.disconnect();
+    for (const animation of running) animation.cancel();
+  });
+  if (reducedMotion.matches || !('IntersectionObserver' in window)) return;
+
+  const watched = new WeakSet();
+  observer = new IntersectionObserver(entries => {
+    let stagger = 0;
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      observer.unobserve(entry.target);
+      enter(entry.target, Math.min(stagger++ * 65, 195));
+    }
+  }, { threshold: .08, rootMargin: '0px 0px -24px 0px' });
+  const selectors = '.range-gateway,.directory-card,.offering-grid>a,.founder-card,.steps article,' +
+    '.material-story>*,.section-heading,.about-story-grid>*,.about-value-grid article,.enquiry>div,' +
+    '.directory-hero>*,.about-hero-copy>*,.about-range-art,.about-cta>*,.paper-guide-grid article,.product';
+  function observeWithin(root) {
+    for (const element of root.querySelectorAll(selectors)) {
+      if (watched.has(element)) continue;
+      watched.add(element);
+      observer.observe(element);
+    }
+  }
+  observeWithin(document);
+  document.querySelectorAll('.hero-copy>*').forEach((element, index) => enter(element, Math.min(index * 65, 260), 16));
+  document.querySelectorAll('.hero-range-art .range-mosaic figure').forEach((element, index) => enter(element, 90 + index * 75, 16));
+  const products = document.getElementById('products');
+  if (products && 'MutationObserver' in window) {
+    new MutationObserver(() => observeWithin(products)).observe(products, { childList: true });
+  }
+  document.addEventListener('toggle', event => {
+    if (event.target.tagName === 'DETAILS' && event.target.open) enter(event.target.querySelector('p'), 0, 6);
+  }, true);
+  const dialog = document.querySelector('dialog[open]');
+  if (dialog) enterDialog(dialog);
+})();

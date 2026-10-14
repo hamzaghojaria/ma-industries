@@ -24,7 +24,7 @@
     const search = query.trim().toLowerCase();
     const matches = papers.filter(paper =>
       (category === 'all' || paper.group === category) &&
-      [paper.name, paper.desc, ...paper.uses].join(' ').toLowerCase().includes(search)
+      [paper.name, paper.desc, paper.tag || '', paper.material || '', ...paper.uses].join(' ').toLowerCase().includes(search)
     );
     // Sort a filtered copy so the original collection order remains unchanged.
     return sort === 'az' ? matches.sort((a, b) => a.name.localeCompare(b.name)) : matches;
@@ -63,7 +63,7 @@
 
   function enquiryText(formData) {
     const labels = {
-      name: 'Name', email: 'Email', paper: 'Paper',
+      name: 'Name', email: 'Email', paper: 'Product',
       quantity: 'Quantity', details: 'Project details'
     };
     return [
@@ -73,12 +73,25 @@
         .filter(([key]) => formData.has(key))
         .map(([key, label]) => label + ': ' + (formData.get(key) || 'Not specified')),
       '', 'Please confirm availability.',
-      'Please confirm grade specifications and suitability for the intended application.'
+      'Please confirm product specifications and suitability for the intended application.'
+    ].join('\n');
+  }
+
+  function productWhatsAppText(product, categoryName) {
+    return [
+      'Hello M&A Industries,', '',
+      "I'm interested in " + product.name + '.',
+      'Category: ' + categoryName, '',
+      'Please share available options, specifications, pricing, minimum order quantity and availability.', '',
+      'Quantity: ',
+      product.material ? 'Size / capacity / colour: ' : 'Size / GSM / finish: ',
+      'Delivery location: ', '',
+      'Thank you.'
     ].join('\n');
   }
 
   // Classic scripts retain compatibility with opening index.html directly.
   window.MACatalogueUtils = Object.freeze({
-    validateCatalogue, gsmLabel, filterPapers, paginate, paginationPages, enquiryText
+    validateCatalogue, gsmLabel, filterPapers, paginate, paginationPages, enquiryText, productWhatsAppText
   });
 })();

@@ -16,6 +16,19 @@ test('catalogue validates groups and rejects duplicate IDs', () => {
   assert.throws(() => utils.validateCatalogue([{ ...papers[0], group: 'missing' }], categories), /Unknown/);
 });
 
+test('product WhatsApp drafts identify the item and ask for relevant specifications', () => {
+  const paper = papers.find(item => item.id === 'kraft-paper');
+  const kitchenware = papers.find(item => item.id === 'cutting-boards');
+  const paperText = utils.productWhatsAppText(paper, 'Packaging & bags');
+  assert.match(paperText, /I'm interested in Kraft paper/);
+  assert.match(paperText, /Category: Packaging & bags/);
+  assert.match(paperText, /Size \/ GSM \/ finish/);
+  const kitchenText = utils.productWhatsAppText(kitchenware, 'Sugarcane Kitchenware');
+  assert.match(kitchenText, /Cutting boards/);
+  assert.match(kitchenText, /Size \/ capacity \/ colour/);
+  assert.doesNotMatch(kitchenText, /GSM/);
+});
+
 test('category and application search combine without mutating collection order', () => {
   const original = papers.map(paper => paper.id).join(',');
   const results = utils.filterPapers(papers, { category: 'labels', query: ' THERMAL ' });
@@ -39,6 +52,13 @@ test('pagination clamps pages after filtering and supports empty results', () =>
   assert.equal(empty.items.length, 0);
 });
 
+test('new collections are searchable by material and category', () => {
+  const films = utils.filterPapers(papers, {category: 'sugarcane-bags', query: 'Bio-PE'});
+  assert.equal(films.length, 7);
+  assert.equal(utils.filterPapers(papers, {query: 'sugarcane kitchenware'}).length, 8);
+  assert.ok(utils.filterPapers(papers, {query: 'PCR PP'}).every(product => product.group === 'recycled-household'));
+});
+
 test('compact page navigation always includes the current page and valid endpoints', () => {
   assert.deepEqual(Array.from(utils.paginationPages(6, 1)), [1, 2, 3, '…', 6]);
   for (const total of [2, 6, 15]) {
@@ -58,7 +78,7 @@ test('enquiry contains entered details, handles general enquiries and does not c
     ['paper', 'Help me choose'], ['quantity', ''], ['details', 'Carry bags']
   ]);
   const text = utils.enquiryText(values);
-  assert.match(text, /Paper: Help me choose/);
+  assert.match(text, /Product: Help me choose/);
   assert.match(text, /Quantity: Not specified/);
   assert.match(text, /Project details: Carry bags/);
   assert.doesNotMatch(text, /Company:|Required by:|enquiry has been sent/i);
@@ -69,7 +89,7 @@ test('GSM guides cover the catalogue and reject invalid ranges', () => {
     assert.ok(Object.hasOwn(paper, 'gsm'));
     assert.match(utils.gsmLabel(paper), paper.gsm ? /^\d+–\d+ GSM$/ : /^Varies by grade$/);
   }
-  assert.equal(papers.filter(paper => paper.gsm === null).length, 1);
+  assert.equal(papers.filter(paper => paper.gsm === null && !paper.material).length, 1);
   assert.equal(papers.find(paper => paper.gsm === null).id, 'scrap-paper');
   for (const gsm of [{min: 0, max: 100}, {min: 100, max: 50}, {min: 50, max: Infinity}]) {
     assert.throws(() => utils.validateCatalogue([{...papers[0], gsm}], categories), /Invalid GSM/);

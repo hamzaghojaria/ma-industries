@@ -11,16 +11,18 @@ const JAVASCRIPT_FILES = [
   'assets/js/catalogue-data.js',
   'assets/js/catalogue-utils.js',
   'assets/js/app.js',
-  'assets/js/about.js'
+  'assets/js/about.js',
+  'assets/js/experience.js'
 ];
 const PRODUCT_IMAGES = JSON.parse(await readFile(resolve(ROOT, 'scripts/product-images.json'), 'utf8'));
 const CATEGORY_IMAGES = JSON.parse(await readFile(resolve(ROOT, 'scripts/category-images.json'), 'utf8'));
 // An allowlist keeps docs, local caches and credentials out of the hosted site.
 const PUBLIC_FILES = [
-  'index.html', 'about.html', 'assets/css/style.css', ...JAVASCRIPT_FILES,
+  'index.html', 'about.html', 'categories.html', 'products.html', 'assets/css/style.css', ...JAVASCRIPT_FILES,
   'assets/images/brand-logo.png', 'assets/images/favicon-32.png',
   'assets/images/favicon-192.png', 'assets/images/apple-touch-icon.png',
   'assets/images/share-preview.png',
+  ...['sugarcane-paper', 'sugarcane-kitchenware', 'sugarcane-bags', 'recycled-household'].map(id => 'assets/images/ranges/' + id + '-photo.jpg'),
   'assets/catalogues/MA-Industries-Paper-Catalogue.pdf',
   'assets/images/founders/aadil-dhukka.jpg',
   'assets/images/founders/maaz-dawa.jpg',
@@ -30,6 +32,9 @@ const PUBLIC_FILES = [
   'assets/images/gallery/malu-gallery-03.webp',
   'assets/images/gallery/malu-gallery-04.webp',
   'assets/images/gallery/paper-mill-reels.jpg',
+  'assets/images/gallery/production-control.webp',
+  'assets/images/gallery/mill-facilities.webp',
+  'assets/images/gallery/mill-utilities.webp',
   ...PRODUCT_IMAGES.map(file => 'assets/images/products/' + file),
   ...CATEGORY_IMAGES.map(file => 'assets/images/categories/' + file)
 ];
@@ -60,7 +65,7 @@ const siteOrigin = process.env.SITE_URL || process.env.RENDER_EXTERNAL_URL || 'h
 const catalogue = await cataloguePages(new URL('../', import.meta.url), await readFile(resolve(ROOT, 'about.html'), 'utf8'));
 PUBLIC_FILES.push(...catalogue.pages.keys());
 const publicFiles = new Set(PUBLIC_FILES);
-for (const file of ['index.html', 'about.html', ...catalogue.pages.keys()]) {
+for (const file of ['index.html', 'about.html', 'categories.html', 'products.html', ...catalogue.pages.keys()]) {
   let html = catalogue.pages.get(file) || await readFile(resolve(ROOT, file), 'utf8');
   for (const [, asset] of html.matchAll(/(?:src|href)="(assets\/[^"?#]+)(?:[?#][^"]*)?"/g)) {
     if (!publicFiles.has(asset)) throw new Error(`${file}: asset missing from build allowlist: ${asset}`);
@@ -122,7 +127,7 @@ for (const file of PUBLIC_FILES) {
     await copyFile(resolve(ROOT, file), destination);
   }
 }
-const sitemapUrls = ['', 'about.html', ...catalogue.pages.keys()].map(file => new URL(file, baseUrl).href);
+const sitemapUrls = ['', 'about.html', 'categories.html', 'products.html', ...catalogue.pages.keys()].map(file => new URL(file, baseUrl).href);
 const xmlEscape = value => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('"', '&quot;');
 await writeFile(resolve(OUTPUT, 'sitemap.xml'), '<?xml version="1.0" encoding="UTF-8"?>\n' +
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +

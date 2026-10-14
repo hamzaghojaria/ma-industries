@@ -3,21 +3,23 @@
   'use strict';
 
   const { papers, categories } = window.MACatalogueData;
-  const { validateCatalogue, gsmLabel, filterPapers, paginate, paginationPages, enquiryText } = window.MACatalogueUtils;
+  const { validateCatalogue, gsmLabel, filterPapers, paginate, paginationPages, enquiryText, productWhatsAppText } = window.MACatalogueUtils;
   // SVG keeps action arrows consistent across iOS and desktop font rendering.
   const ACTION_ARROW = "<svg class=\"action-arrow\" viewBox=\"0 0 24 24\" fill=\"none\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M6 18 18 6M6 6h12v12\" /></svg>";
+  const WHATSAPP_ICON = "<svg class=\"whatsapp-icon\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\">\n        <path d=\"M20.52 3.48A11.86 11.86 0 0 0 12.05 0C5.47 0 .12 5.35 .12 11.93c0 2.1.55 4.15 1.6 5.96L0 24l6.26-1.64a11.9 11.9 0 0 0 5.79 1.48h.01C18.63 23.84 24 18.49 24 11.92a11.85 11.85 0 0 0-3.48-8.44ZM12.06 21.8a9.87 9.87 0 0 1-5.04-1.38l-.36-.21-3.72.98.99-3.63-.24-.38a9.85 9.85 0 0 1-1.51-5.25c0-5.45 4.44-9.88 9.9-9.88a9.8 9.8 0 0 1 7 2.9 9.8 9.8 0 0 1 2.89 6.99c0 5.45-4.44 9.86-9.91 9.86Zm5.42-7.39c-.3-.15-1.76-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61l.44-.52c.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.2 5.09 4.49.71.3 1.27.49 1.7.63.72.23 1.37.2 1.89.12.58-.09 1.76-.72 2.01-1.42.25-.7.25-1.29.17-1.42-.07-.12-.27-.2-.57-.35Z\"/>\n      </svg>";
   const PAGE_SIZE = 6;
   const CONTACT = Object.freeze({ phone: '919769681761', email: 'info@maindustries.in' });
   const byId = id => document.getElementById(id);
   const dom = {
     grid: byId('products'), pagination: byId('pagination'), count: byId('results-count'),
-    search: byId('search'), sort: byId('sort'), reset: byId('reset-catalogue'),
+    categorySelect: byId('category-select'), categoryHeading: byId('active-category'), search: byId('search'), sort: byId('sort'), reset: byId('reset-catalogue'),
     form: byId('brief'), paper: byId('paper'), options: byId('paper-options'),
     status: byId('status'), detail: byId('detail'), detailBody: byId('detail-body'),
     header: document.querySelector('header'), menu: document.querySelector('.menu'),
     navigation: byId('site-navigation'), filters: [...document.querySelectorAll('[data-filter]')]
   };
-  const state = { category: 'all', page: 1 };
+  const requestedCategory = new URLSearchParams(location.search).get('category');
+  const state = { category: categories.some(item => item.id === requestedCategory) ? requestedCategory : 'all', page: 1 };
   const paperById = new Map(papers.map(paper => [paper.id, paper]));
   const categoryById = new Map(categories.map(category => [category.id, category]));
 
@@ -29,10 +31,15 @@
   }[character]));
 
   function syncFilterButtons() {
+    if (dom.categorySelect) dom.categorySelect.value = state.category;
+    if (dom.categoryHeading) dom.categoryHeading.textContent = state.category === 'all' ? 'All products' : categoryById.get(state.category).name;
     for (const button of dom.filters) {
       const active = button.dataset.filter === state.category;
       button.classList.toggle('active', active);
       button.setAttribute('aria-pressed', String(active));
+      const sidebar = button.closest('.catalogue-sidebar');
+      if (active && sidebar) sidebar.scrollTop = Math.max(0, button.offsetTop - sidebar.clientHeight / 2);
+
     }
   }
 
@@ -41,6 +48,7 @@
     state.page = 1;
     syncFilterButtons();
     renderCatalogue();
+    dom.categoryHeading?.scrollIntoView({ block: 'start', behavior: 'instant' });
   }
 
   function resetCatalogue() {
@@ -49,17 +57,21 @@
     setCategory('all');
   }
 
+  function productWhatsAppUrl(paper) {
+    return 'https://wa.me/' + CONTACT.phone + '?text=' + encodeURIComponent(productWhatsAppText(paper, categoryById.get(paper.group).name));
+  }
+
   function productCard(paper) {
     const name = escapeHtml(paper.name);
     return `<article class="product" data-paper-id="${paper.id}" tabindex="0" role="link" aria-label="Explore ${name}">
       <a href="#paper-${paper.id}" class="product-visual" style="--paper:${paper.color};--bg:${paper.bg}" aria-label="Explore ${name}">
         <span class="index">${String(paper.index).padStart(2, '0')} / M&A</span>
-        <img class="product-photo" src="${escapeHtml(paper.image)}" alt="Illustrative ${name.toLowerCase()} sample" width="800" height="800" loading="lazy" decoding="async"><span class="type">${escapeHtml(paper.tag)}</span>
+        <img class="product-photo" src="${escapeHtml(paper.image)}" alt="${paper.illustration ? 'Collection: ' + escapeHtml(categoryById.get(paper.group).name) : name}" width="800" height="800" loading="lazy" decoding="async"><span class="type">${escapeHtml(paper.tag)}</span>
       </a>
       <div class="product-top"><h3><a href="#paper-${paper.id}">${name}</a></h3>
         <a class="detail-button" href="#paper-${paper.id}" aria-label="View ${name}">${ACTION_ARROW}</a></div>
-      <div class="product-gsm"><span>GSM guide</span><strong>${escapeHtml(gsmLabel(paper))}</strong></div>
-      <p>${escapeHtml(paper.desc)}</p><a class="text-button" href="#paper-${paper.id}">Explore paper</a>
+      <div class="product-gsm"><span>${paper.material ? 'Material' : 'GSM guide'}</span><strong>${escapeHtml(paper.material ? 'View material details' : gsmLabel(paper))}</strong></div>
+      <p>${escapeHtml(paper.desc)}</p><div class="product-actions"><a class="text-button" href="#paper-${paper.id}">Explore product</a><a class="card-whatsapp" href="${escapeHtml(productWhatsAppUrl(paper))}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp about ${name}">WhatsApp ${ACTION_ARROW}</a></div>
     </article>`;
   }
 
@@ -105,13 +117,13 @@
     state.page = page.currentPage;
     // One DOM update per render; grid-level listeners survive filtering/paging.
     dom.grid.innerHTML = page.total ? page.items.map(productCard).join('') :
-      '<div class="empty-state"><h3>No matching papers</h3><p>Try a different name or application.</p>' +
+      '<div class="empty-state"><h3>No matching products</h3><p>Try a different name or application.</p>' +
       '<button class="button" type="button" data-reset-search>Reset search ' + ACTION_ARROW + '</button></div>';
     dom.grid.scrollLeft = 0;
     renderPagination(page.totalPages);
     dom.count.textContent = page.total ?
-      `Showing ${page.offset + 1}–${page.offset + page.items.length} of ${page.total} ${page.total === 1 ? 'paper' : 'papers'} · Page ${state.page} of ${page.totalPages}` :
-      'No papers found';
+      `Showing ${page.offset + 1}–${page.offset + page.items.length} of ${page.total} ${page.total === 1 ? 'product' : 'products'} · Page ${state.page} of ${page.totalPages}` :
+      'No products found';
   }
 
   function activateProduct(id) {
@@ -154,20 +166,21 @@
     dom.detailBody.innerHTML = `
       <span class="dialog-tag">${escapeHtml(category.name)} / ${String(paper.index).padStart(2, '0')}</span>
       <h2 id="detail-title">${escapeHtml(paper.name)}</h2>
-      <figure class="detail-photo"><img src="${escapeHtml(paper.image)}" alt="Illustrative ${escapeHtml(paper.name.toLowerCase())} sample" width="800" height="800" decoding="async"><figcaption>Illustrative sample. Actual colour and finish may vary.</figcaption></figure>
+      <figure class="detail-photo"><img src="${escapeHtml(paper.image)}" alt="${paper.illustration ? 'Representative collection: ' + escapeHtml(category.name) : escapeHtml(paper.name)}" width="800" height="800" decoding="async"></figure>
       <p>${escapeHtml(paper.desc)}</p>
-      <div class="detail-gsm"><span>GSM guide</span><strong>${escapeHtml(gsmLabel(paper))}</strong><small>GSM means grams per square metre. Typical reference guide; confirm your required grade on enquiry.</small></div>
+      <div class="detail-gsm"><span>${paper.material ? 'Material' : 'GSM guide'}</span><strong>${escapeHtml(paper.material || gsmLabel(paper))}</strong><small>${paper.material ? 'Confirm composition and specifications for your selected item.' : 'GSM means grams per square metre. Typical reference guide; confirm your required grade on enquiry.'}</small></div>
       ${paper.details ? '<p class="detail-note">' + escapeHtml(paper.details) + '</p>' : ''}
-      <span class="availability">Availability on enquiry</span>
+      <span class="availability">${paper.sourcingOnly ? 'Additional sourcing range — confirm availability' : 'Availability on enquiry'}</span>
       <h3 class="detail-section-title">Applications to explore</h3>
       <ul>${paper.uses.map(use => '<li>' + escapeHtml(use) + '</li>').join('')}</ul>
       <h3 class="detail-section-title">Details to discuss</h3>
-      <p>Paper weight (GSM), sheet or reel dimensions, finish, printing requirements, quantity and delivery timeline.</p>
+      <p>${paper.material ? 'Dimensions, colour, capacity, material composition, pack quantities, care instructions and delivery timeline.' : 'Paper weight (GSM), sheet or reel dimensions, finish, printing requirements, quantity and delivery timeline.'}</p>
       <p class="detail-note">Exact specifications, availability and suitability are confirmed on enquiry.${paper.group === 'wrapping' ? ' Confirm food-contact compliance and temperature suitability for the intended application.' : ''}</p>
-      <button class="button" type="button" data-choose-paper="${paper.id}">Enquire about this paper <span>${ACTION_ARROW}</span></button>`;
+      <div class="product-enquiry-actions product-modal-actions"><button class="button" type="button" data-choose-paper="${paper.id}" aria-label="Enquire about this product"><span class="action-copy enquiry-full-label">Enquire about this product</span><span class="action-copy enquiry-short-label">Enquire product</span></button><a class="button whatsapp-button" href="${escapeHtml(productWhatsAppUrl(paper))}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp connect">${WHATSAPP_ICON}<span class="action-copy">WhatsApp<span class="connect-word"> connect</span></span></a></div>`;
     if (!dom.detail.open) {
       lockPageScroll();
       dom.detail.showModal();
+      window.MAExperience?.enterDialog(dom.detail);
     }
   }
 
@@ -184,6 +197,7 @@
 
   function initializeCatalogue() {
     for (const button of dom.filters) button.addEventListener('click', () => setCategory(button.dataset.filter));
+    dom.categorySelect?.addEventListener('change', () => setCategory(dom.categorySelect.value));
     for (const input of [dom.search, dom.sort]) {
       input.addEventListener(input === dom.search ? 'input' : 'change', () => {
         state.page = 1;
@@ -225,6 +239,7 @@
     }));
     syncFilterButtons();
     renderCatalogue();
+    if (requestedCategory) dom.categoryHeading?.scrollIntoView({ block: 'start', behavior: 'instant' });
   }
 
   function initializeProductDetails() {
@@ -269,7 +284,7 @@
       const channel = event.submitter?.value || 'whatsapp';
       if (channel === 'email') {
         location.href = 'mailto:' + CONTACT.email + '?subject=' +
-          encodeURIComponent('Paper enquiry — ' + dom.paper.value) + '&body=' + encodeURIComponent(text);
+          encodeURIComponent('Product enquiry — ' + dom.paper.value) + '&body=' + encodeURIComponent(text);
         dom.status.textContent = 'Your email app has been requested. Review the prepared enquiry and send it to ' + CONTACT.email + '.';
       } else {
         const link = document.createElement('a');
@@ -324,26 +339,6 @@
     document.querySelectorAll('#categories,#collection,#approach,#enquiry').forEach(section => observer.observe(section));
   }
 
-  function initializeMotion() {
-    if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const materialSections = new Set(document.querySelectorAll('.hero-art,.feature,.approach'));
-    const observer = new IntersectionObserver(entries => {
-      for (const entry of entries) {
-        if (materialSections.has(entry.target)) {
-          entry.target.classList.toggle('motion-in-view', entry.isIntersecting);
-        } else if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
-      }
-    }, { threshold: 0.08 });
-    document.querySelectorAll('.category-card,.section-heading,.steps article,.feature h2,.enquiry>div').forEach(element => {
-      element.classList.add('reveal');
-      observer.observe(element);
-    });
-    for (const section of materialSections) observer.observe(section);
-  }
-
   // Counts come from the catalogue, avoiding drift when product data is edited.
   function initializeCounts() {
     const counts = new Map(categories.map(category => [category.id, papers.filter(paper => paper.group === category.id).length]));
@@ -354,8 +349,10 @@
     document.querySelectorAll('.category-card[data-category-link]').forEach((card, index) => {
       card.querySelector('.eyebrow').textContent = String(index + 1).padStart(2, '0') + ' / ' + counts.get(card.dataset.categoryLink) + ' PRODUCTS';
     });
-    document.querySelector('.hero-foot span').textContent = papers.length + ' PAPERS / ' + categories.length + ' CATEGORIES';
-    document.querySelector('.art-tag b').textContent = '01 — ' + papers.length;
+    const heroCount = document.querySelector('.hero-foot span');
+    if (heroCount) heroCount.textContent = papers.length + ' PRODUCTS / ' + categories.length + ' CATEGORIES';
+    const artCount = document.querySelector('.art-tag b');
+    if (artCount) artCount.textContent = '01 — ' + papers.length;
   }
 
 
@@ -393,8 +390,11 @@
   initializeGallery();
   initializeCounts();
   initializeEnquiry();
-  initializeCatalogue();
-  initializeProductDetails();
+  if (dom.grid) {
+    initializeCatalogue();
+    initializeProductDetails();
+  } else if (location.hash.startsWith('#paper-') || location.hash === '#collection' || requestedCategory) {
+    location.replace('products.html' + location.search + location.hash);
+  }
   initializeNavigation();
-  initializeMotion();
 })();

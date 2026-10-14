@@ -1,4 +1,4 @@
-/* Navigation for the standalone About page; catalogue code stays on the home page. */
+/* Shared navigation for the standalone About and categories pages. */
 (() => {
   'use strict';
   const dom = {
