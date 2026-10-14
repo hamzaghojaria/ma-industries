@@ -4346,7 +4346,7 @@ header nav .nav-cta {
  border-color: var(--red);
  color: #fff;
  border-radius: 5px;
- transition: background .25s, box-shadow .25s;
+ transition: background .25s, box-shadow .25s, transform .25s;
 }
 header nav .nav-cta:hover,
 header nav .nav-cta:focus-visible { background: #80001e; color: #fff; box-shadow: 0 4px 14px #a7002720; }
@@ -4558,17 +4558,28 @@ header nav a[aria-current="page"] { color: var(--red); font-weight: 600; }
 .site-footer .footer-explore .footer-enquiry-link {
  display: inline-flex;
  align-items: center;
+ justify-content: center;
  min-height: 44px;
- padding: 8px 0;
+ padding: 8px 12px;
  border-radius: 5px;
- background: transparent;
- color: var(--red);
+ background: var(--red);
+ color: #fff;
  font-weight: 600;
+ transition: background .25s, box-shadow .25s, transform .25s;
 }
 .site-footer .footer-explore .footer-enquiry-link:hover,
-.site-footer .footer-explore .footer-enquiry-link:focus-visible { background: transparent; color: #80001e; text-decoration: underline; text-underline-offset: 4px; }
-.site-footer .footer-explore .footer-enquiry-link:active { background: transparent; color: #80001e; }
+.site-footer .footer-explore .footer-enquiry-link:focus-visible { background: #80001e; color: #fff; box-shadow: 0 4px 14px #a7002720; text-decoration: none; }
+.site-footer .footer-explore .footer-enquiry-link:active { background: #680018; color: #fff; }
 @media (prefers-reduced-motion: reduce) { header nav .nav-cta { transition: none; } }
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  header nav .nav-cta:hover,
+  .site-footer .footer-explore .footer-enquiry-link:hover { transform: none; }
+  header nav .nav-cta .action-arrow,
+  .site-footer .footer-explore .footer-enquiry-link .action-arrow { transition: transform .22s ease; }
+  header nav .nav-cta:hover .action-arrow,
+  .site-footer .footer-explore .footer-enquiry-link:hover .action-arrow { transform: translate(2px,-2px); }
+}
 
 /* Keep section rhythm compact and consistent across every page. */
 .collection { padding-top: 50px; padding-bottom: 50px; }
