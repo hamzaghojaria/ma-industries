@@ -1046,11 +1046,11 @@
     ],
     "color": "#afb9c3",
     "bg": "#e9ede3",
-    "image": "assets/images/ranges/recycled-household-photo.jpg",
+    "image": "assets/images/products/recycled-hangers-photo.webp",
     "index": 52,
     "gsm": null,
     "material": "Post-consumer recycled polypropylene (PCR PP); confirm content by item",
-    "illustration": true,
+    "illustration": false,
     "details": "Confirm sizes, pack quantities, material composition and application suitability on enquiry. Request product-specific documentation for any food-contact or certification requirement."
   },
   {
@@ -1065,11 +1065,11 @@
     ],
     "color": "#afb9c3",
     "bg": "#e9ede3",
-    "image": "assets/images/ranges/recycled-household-photo.jpg",
+    "image": "assets/images/products/recycled-storage-boxes-photo.webp",
     "index": 53,
     "gsm": null,
     "material": "Post-consumer recycled polypropylene (PCR PP); confirm content by item",
-    "illustration": true,
+    "illustration": false,
     "details": "Confirm sizes, pack quantities, material composition and application suitability on enquiry. Request product-specific documentation for any food-contact or certification requirement."
   },
   {
@@ -1084,11 +1084,11 @@
     ],
     "color": "#afb9c3",
     "bg": "#e9ede3",
-    "image": "assets/images/ranges/recycled-household-photo.jpg",
+    "image": "assets/images/products/recycled-cleaning-tools-photo.webp",
     "index": 54,
     "gsm": null,
     "material": "Post-consumer recycled polypropylene (PCR PP); confirm content by item",
-    "illustration": true,
+    "illustration": false,
     "details": "Confirm sizes, pack quantities, material composition and application suitability on enquiry. Request product-specific documentation for any food-contact or certification requirement."
   },
   {

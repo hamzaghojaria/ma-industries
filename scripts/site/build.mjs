@@ -9,6 +9,7 @@ const ROOT = fileURLToPath(new URL('../../', import.meta.url));
 const escapeHtml = value => String(value).replace(/[&<>"']/g, character => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
 }[character]));
+const normalizeHomeLinks = html => html.replace(/href="index\.html(#[^"]*)?"/g, (_, fragment = '') => `href="/${fragment}"`);
 const OUTPUT = resolve(ROOT, 'dist');
 const JAVASCRIPT_FILES = [
   'assets/js/catalogue-data.js',
@@ -128,7 +129,7 @@ for (const file of new Set([...PUBLIC_FILES, ...pages.keys()])) {
   const destination = resolve(OUTPUT, file);
   await mkdir(dirname(destination), { recursive: true });
   if (pages.has(file)) {
-    await writeFile(destination, pages.get(file));
+    await writeFile(destination, normalizeHomeLinks(pages.get(file)));
   } else if (file.endsWith('.css')) {
     // Source remains readable; deployment removes comments and indentation.
     const css = await readFile(resolve(ROOT, file), 'utf8');
