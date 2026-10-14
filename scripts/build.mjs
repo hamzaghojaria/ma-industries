@@ -62,7 +62,6 @@ PUBLIC_FILES.push(...catalogue.pages.keys());
 const publicFiles = new Set(PUBLIC_FILES);
 for (const file of ['index.html', 'about.html', ...catalogue.pages.keys()]) {
   let html = catalogue.pages.get(file) || await readFile(resolve(ROOT, file), 'utf8');
-  if (file === 'index.html') html = html.replace('<!-- Material-selection process. -->', catalogue.directory + '\n<!-- Material-selection process. -->');
   for (const [, asset] of html.matchAll(/(?:src|href)="(assets\/[^"?#]+)(?:[?#][^"]*)?"/g)) {
     if (!publicFiles.has(asset)) throw new Error(`${file}: asset missing from build allowlist: ${asset}`);
   }

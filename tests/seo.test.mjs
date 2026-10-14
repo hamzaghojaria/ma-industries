@@ -6,13 +6,12 @@ import { cataloguePages, escapeHtml, productPath } from '../scripts/seo.mjs';
 test('every catalogue paper has crawlable content and reachable related pages', async () => {
   const root = new URL('../', import.meta.url);
   const template = await readFile(new URL('about.html', root), 'utf8');
-  const { pages, directory, papers } = await cataloguePages(root, template);
+  const { pages, papers } = await cataloguePages(root, template);
   assert.equal(pages.size, papers.length);
   const titles = new Set();
   for (const paper of papers) {
     const path = productPath(paper);
     const html = pages.get(path);
-    assert.ok(directory.includes(`href="${path}"`));
     assert.ok(html.includes(`<h1>${escapeHtml(paper.name)}</h1>`));
     assert.ok(html.includes(escapeHtml(paper.desc)));
     for (const use of paper.uses) assert.ok(html.includes(`<li>${escapeHtml(use)}</li>`));

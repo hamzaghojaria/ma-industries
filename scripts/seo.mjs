@@ -12,16 +12,6 @@ export async function cataloguePages(root, template) {
   runInNewContext(await readFile(new URL('assets/js/catalogue-data.js', root), 'utf8'), context);
   const { papers, categories } = context.window.MACatalogueData;
   const pages = new Map();
-  const directory = `<section id="paper-directory" class="collection" aria-labelledby="directory-title">
-    <div class="section-heading"><div><p class="eyebrow">PAPER SUPPLIER IN MUMBAI</p>
-    <h2 id="directory-title">Browse our <em>paper range.</em></h2></div></div>
-    <p>Explore paper families for packaging, printing, stationery and specialty applications. Contact M&amp;A Industries in Mumbai for grade specifications, pricing and availability. We supply customers worldwide.</p>
-    <div class="paper-directory">${categories.map(category => `<details><summary>${escapeHtml(category.name)}</summary>
-      <p>${escapeHtml(category.desc)}</p><ul>${papers.filter(paper => paper.group === category.id).map(paper =>
-        `<li><a href="${productPath(paper)}">${escapeHtml(paper.name)}</a> — ${escapeHtml(paper.desc)}</li>`
-      ).join('')}</ul></details>`).join('')}</div>
-    </section>`;
-
   for (const paper of papers) {
     const category = categories.find(item => item.id === paper.group);
     const title = `${paper.name} Supplier in Mumbai | M&A Industries`;
@@ -31,7 +21,7 @@ export async function cataloguePages(root, template) {
     const main = `<main id="main-content" tabindex="-1">
       <section class="about-hero">
         <div class="about-hero-copy">
-          <p><a href="/">Home</a> / <a href="/#paper-directory">Paper range</a> / ${escapeHtml(paper.name)}</p>
+          <p><a href="/">Home</a> / <a href="/#collection">Paper range</a> / ${escapeHtml(paper.name)}</p>
           <p class="eyebrow">${escapeHtml(category.name)} / M&amp;A INDUSTRIES</p>
           <h1>${escapeHtml(paper.name)}</h1>
           <p class="about-lead">${escapeHtml(paper.desc)}</p>
@@ -48,7 +38,7 @@ export async function cataloguePages(root, template) {
       </section>
       <section class="about-section"><h2>More ${escapeHtml(category.name.toLowerCase())} papers</h2>
         <ul>${related.map(item => `<li><a href="${productPath(item)}">${escapeHtml(item.name)}</a></li>`).join('')}</ul>
-        <a href="/#paper-directory">Browse all paper families</a>
+        <a href="/#collection">Browse all paper families</a>
       </section>
     </main>`;
     let html = template.replace(/<main\b[^>]*>[\s\S]*?<\/main>/, main)
@@ -60,5 +50,5 @@ export async function cataloguePages(root, template) {
       .replace(' aria-current="page"', '');
     pages.set(productPath(paper), html);
   }
-  return { pages, directory, papers };
+  return { pages, papers };
 }
