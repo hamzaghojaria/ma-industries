@@ -45,15 +45,16 @@ def para(x,y,value,width,size=10,leading=15,color=MUTED):
 def photo(file,x,y,w,h):
     source_path=ROOT / file
     IMAGE_CACHE.mkdir(parents=True,exist_ok=True)
-    cached=IMAGE_CACHE/(source_path.stem+'.jpg')
+    # Version the cache so changes to resize/quality settings take effect once.
+    cached=IMAGE_CACHE/(source_path.stem+'-v2.jpg')
     if not cached.exists() or cached.stat().st_mtime < source_path.stat().st_mtime:
         with Image.open(source_path) as original:
             original=original.convert('RGB')
-            original.thumbnail((850,850))
-            original.save(cached,format='JPEG',quality=74,optimize=True,progressive=True)
-    image=ImageReader(str(cached)); iw,ih=image.getSize(); scale=max(w/iw,h/ih)
-    c.saveState(); clip=c.beginPath(); clip.rect(x,y,w,h); c.clipPath(clip,stroke=0)
-    c.drawImage(image,x+(w-iw*scale)/2,y+(h-ih*scale)/2,iw*scale,ih*scale,mask='auto'); c.restoreState()
+            original.thumbnail((700,700))
+            original.save(cached,format='JPEG',quality=70,optimize=False,progressive=False)
+    image=ImageReader(str(cached)); iw,ih=image.getSize(); scale=min(w/iw,h/ih)
+    draw_w,draw_h=iw*scale,ih*scale
+    c.drawImage(image,x+(w-draw_w)/2,y+(h-draw_h)/2,draw_w,draw_h,mask='auto')
 
 def page(label):
     global page_number
