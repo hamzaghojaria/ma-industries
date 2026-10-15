@@ -84,14 +84,10 @@ const seo = await createSeoPages(new URL('../../', import.meta.url), baseUrl, es
 for (const [file, html] of seo.pages) {
   pages.set(file, applyPublicUrl(html, siteOrigin, file));
 }
-// Plain HTML links expose the full catalogue without requiring JavaScript.
-for (const file of ['categories.html', 'products.html']) {
-  const links = file === 'categories.html' ? seo.categories : seo.papers;
-  const path = file === 'categories.html' ? seo.categoryPath : seo.productPath;
-  const directory = '<section class="collection"><h2>' + (file === 'categories.html' ? 'Category guides' : 'Product specifications and applications') + '</h2><ul>' +
-    links.map(item => '<li><a href="' + path(item) + '">' + escapeHtml(item.name) + '</a></li>').join('') + '</ul></section>';
-  pages.set(file, pages.get(file).replace('</main>', directory + '</main>'));
-}
+// Plain HTML links expose category guides without requiring JavaScript.
+const categoryDirectory = '<section class="collection"><h2>Category guides</h2><ul>' +
+  seo.categories.map(item => '<li><a href="' + seo.categoryPath(item) + '">' + escapeHtml(item.name) + '</a></li>').join('') + '</ul></section>';
+pages.set('categories.html', pages.get('categories.html').replace('</main>', categoryDirectory + '</main>'));
 for (const file of ['index.html', 'about.html']) {
   pages.set(file, pages.get(file).replace('<img src="assets/images/categories/packaging.webp"', '<img fetchpriority="high" src="assets/images/categories/packaging.webp"'));
 }
