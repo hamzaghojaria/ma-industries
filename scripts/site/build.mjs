@@ -84,10 +84,6 @@ const seo = await createSeoPages(new URL('../../', import.meta.url), baseUrl, es
 for (const [file, html] of seo.pages) {
   pages.set(file, applyPublicUrl(html, siteOrigin, file));
 }
-// Plain HTML links expose category guides without requiring JavaScript.
-const categoryDirectory = '<section class="collection"><h2>Category guides</h2><ul>' +
-  seo.categories.map(item => '<li><a href="' + seo.categoryPath(item) + '">' + escapeHtml(item.name) + '</a></li>').join('') + '</ul></section>';
-pages.set('categories.html', pages.get('categories.html').replace('</main>', categoryDirectory + '</main>'));
 for (const file of ['index.html', 'about.html']) {
   pages.set(file, pages.get(file).replace('<img src="assets/images/categories/packaging.webp"', '<img fetchpriority="high" src="assets/images/categories/packaging.webp"'));
 }
