@@ -1,6 +1,14 @@
 /* Range mosaics, category directories, stories and gallery components.
  * Imported after shared.css at the original cascade position. */
 
+.hero-priority h1 {
+  font-size: clamp(46px, 4.8vw, 74px);
+  line-height: 1.08;
+  letter-spacing: -2px;
+}
+
+.hero-priority h1 em { font-size: .92em; }
+
 .hero-range-art {
   display: flex;
   flex-direction: column;
@@ -521,7 +529,7 @@ header nav a[aria-current="page"] {
 
 .range-gateways {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.15fr .85fr;
   gap: 24px;
 }
 
@@ -539,6 +547,24 @@ header nav a[aria-current="page"] {
   background: #e0e7dc;
   border-color: #bfcdbb;
 }
+
+.range-gateway-featured {
+  border-top: 3px solid #526d47;
+}
+
+.category-guide-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  align-items: center;
+  margin-top: 26px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+}
+
+.category-guide-links > span { font-weight: 700; color: #48583e; }
+.category-guide-links a { display: inline-flex; align-items: center; min-height: 44px; text-underline-offset: 4px; }
 
 .range-gateway h3 {
   position: relative;

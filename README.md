@@ -1,6 +1,10 @@
 # M&A Industries website
 
-A static catalogue for paper and packaging, sugarcane-based products, and recycled household goods. The current catalogue has **66 products in 12 categories**. No database, checkout, backend form submission, or npm dependencies are required.
+A static catalogue led by sugarcane-based essentials and recycled household goods, supported by traditional paper and packaging. The current catalogue has **66 products in 12 categories**. No database, checkout, backend form submission, or npm dependencies are required.
+
+The shared merchandising order is sugarcane household goods, sugarcane food packaging, sugarcane paper, recycled household products, then traditional paper categories. `assets/js/catalogue-data.js` defines that order for products, filters, enquiry suggestions and generated pages. Product IDs and original reference numbers remain stable; card display numbers follow the current browsing order. The existing PDF catalogue is unchanged and will be revised separately.
+
+After adding or replacing a JPEG product photo, run `python scripts/images/create-responsive-images.py` before building. It creates the card previews and responsive candidates; use source photos at least 640 pixels wide. The build rejects missing card-preview entries. Commit the generated files and image manifest together.
 
 See [PERFORMANCE.md](PERFORMANCE.md) for the PageSpeed baseline, performance changes, image/font maintenance, and measurement limits. Range/directory/gallery styles live in `assets/css/ranges.css`; motion refinements live in `assets/css/motion.css`. Keep their import order in `style.css`. Gallery controls live in `assets/js/gallery.js` and load only on the homepage. Local fonts and responsive images are checked in, so deployments need no network downloads or image-processing dependencies.
 
@@ -11,7 +15,7 @@ The homepage Material Studio lets visitors choose an application and updates a m
 | Page | Purpose |
 | --- | --- |
 | `index.html` | Homepage, range introductions, gallery, enquiry form, and two brand cards |
-| `categories.html` | All 12 categories in the Paper & Packaging and Sugarcane & Recycled ranges |
+| `categories.html` | Sugarcane & Recycled categories first, followed by Paper & Packaging, with crawlable material-guide links |
 | `products.html` | Category filters, search, sorting, six products per page, dialogs, enquiries |
 | `about.html` | Company information and founders |
 | `dist/category-*.html` | Generated, crawlable category guides |

@@ -16,23 +16,47 @@ export async function loadCatalogue() {
 }
 
 export function syncCatalogueMarkup(html, { papers, categories }) {
-  const count = id => papers.filter(item => item.group === id).length;
+  const newline = html.includes('\r\n') ? '\r\n' : '\n';
+  const counts = new Map(categories.map(category => [category.id, 0]));
+  for (const product of papers) counts.set(product.group, counts.get(product.group) + 1);
+  const count = id => counts.get(id);
   const names = new Map(categories.map(category => [category.id, category.name]));
+  const positions = new Map(categories.map((category, index) => [category.id, index + 1]));
+  const groups = [
+    { id: 'sugarcane-recycled', name: 'Sugarcane & Recycled', categories: categories.filter(category => category.collection === 'sugarcane-recycled') },
+    { id: 'paper-packaging', name: 'Paper & Packaging', categories: categories.filter(category => category.collection !== 'sugarcane-recycled') }
+  ];
+  // Own the entire grouped control so desktop order cannot drift from mobile/data.
+  html = html.replace(/(<aside class="catalogue-sidebar"[^>]*>)[\s\S]*?(<\/aside>)/,
+    (_, start, end) => start + '<div class="category-desktop"><h2>Browse categories</h2>' +
+      `<button type="button" class="category-all active" data-filter="all">Show all products <small>${papers.length}</small></button>` +
+      groups.map(group => `<div class="category-group"><h3>${escapeHtml(group.name)}</h3>` +
+        group.categories.map(category => `<button type="button" data-filter="${category.id}"><span>${escapeHtml(category.name)}</span><small>${count(category.id)}</small></button>`).join('') + '</div>').join('') + '</div>' + end);
   // IDs stay stable: URLs and product deep links continue to resolve.
-  html = html.replace(/(<button\b[^>]*data-filter="([^"]+)"[^>]*>)([\s\S]*?)(<\/button>)/g,
-    (_, start, id, body, end) => start + (id === 'all'
-      ? body.replace(/<small>\d+<\/small>/, `<small>${papers.length}</small>`)
-      : body.replace(/<span>[\s\S]*?<\/span>/, `<span>${escapeHtml(names.get(id))}</span>`)
-        .replace(/<small>\d+<\/small>/, `<small>${count(id)}</small>`)) + end);
   html = html.replace(/(<select\b[^>]*id="category-select"[^>]*>)[\s\S]*?(<\/select>)/,
-    (_, start, end) => start + '\n' + [
+    (_, start, end) => start + newline + [
       `              <option value="all">All products (${papers.length})</option>`,
       ...categories.map(category => `              <option value="${category.id}">${escapeHtml(category.name)} (${count(category.id)})</option>`)
-    ].join('\n') + '\n            ' + end);
+    ].join(newline) + newline + '            ' + end);
   html = html.replace(/(<a class="directory-card" href="products.html\?category=([^"#]+)#collection">)([\s\S]*?)(<\/a>)/g,
     (_, start, id, body, end) => start + body
       .replace(/(<span class="directory-title">)[\s\S]*?(<\/span>)/, `$1${escapeHtml(names.get(id))}$2`)
-      .replace(/(\d{2} \/ )\d+( PRODUCTS)/, `$1${count(id)}$2`) + end);
+      .replace(/\d{2} \/ \d+( PRODUCTS)/, `${String(positions.get(id)).padStart(2, '0')} / ${count(id)}$1`) + end);
+  // Reorder the cards in each collection while keeping the original destinations.
+  html = html.replace(/<section class="directory-section[^>]*>[\s\S]*?<\/section>/g, section => {
+    const cards = [...section.matchAll(/<a class="directory-card" href="products.html\?category=([^"#]+)#collection">[\s\S]*?<\/a>/g)]
+      .sort((a, b) => positions.get(a[1]) - positions.get(b[1]));
+    let index = 0;
+    return section.replace(/<a class="directory-card" href="products.html\?category=[^"#]+#collection">[\s\S]*?<\/a>/g, () => cards[index++][0]);
+  });
+  for (const group of groups) {
+    const total = group.categories.reduce((sum, category) => sum + count(category.id), 0);
+    const jump = new RegExp(`(href="#${group.id}"[\\s\\S]*?<span class="collection-jump-count">)[\\s\\S]*?(<\\/span>)`);
+    html = html.replace(jump, `$1${total} products &middot; ${group.categories.length} categories$2`);
+    const guides = new RegExp(`(<!-- category-guides:${group.id} -->)[\\s\\S]*?(<!-- /category-guides -->)`);
+    html = html.replace(guides, `$1<nav class="category-guide-links" aria-label="${escapeHtml(group.name)} material guides"><span>Material guides</span>` +
+      group.categories.map(category => `<a href="category-${category.id}.html">${escapeHtml(category.name)}</a>`).join('') + '</nav>$2');
+  }
   html = html.replace(/\b\d+ PRODUCTS \/ \d+ CATEGORIES/g, `${papers.length} PRODUCTS / ${categories.length} CATEGORIES`)
     .replace(/Browse all \d+ paper, packaging/g, `Browse all ${papers.length} paper, packaging`);
   const paperCategories = categories.filter(category => category.collection !== 'sugarcane-recycled');

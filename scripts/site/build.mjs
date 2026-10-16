@@ -58,12 +58,12 @@ function applyPublicUrl(html, origin, pagePath = '') {
   url.pathname = '/';
   url.search = '';
   url.hash = '';
-  const imageUrl = new URL('assets/images/share-preview.png', url).href;
   const pageUrl = new URL(pagePath, url).href;
   return html
     .replace('<link rel="stylesheet"', '<link rel="preload" href="assets/fonts/dm-sans-normal-latin.woff2" as="font" type="font/woff2" crossorigin>\n' +
       '<link rel="preload" href="assets/fonts/playfair-display-normal-latin.woff2" as="font" type="font/woff2" crossorigin>\n<link rel="stylesheet"')
-    .replaceAll('content="assets/images/share-preview.png"', 'content="' + escapeHtml(imageUrl) + '"')
+    .replace(/(<meta (?:property="og:image"|name="twitter:image") content=")(assets\/[^"\s]+)(")/g,
+      (_, start, image, end) => start + escapeHtml(new URL(image, url).href) + end)
     .replace('</head>', '<link rel="canonical" href="' + escapeHtml(pageUrl) + '">\n' +
       '<meta property="og:url" content="' + escapeHtml(pageUrl) + '">\n</head>');
 }
@@ -88,6 +88,11 @@ for (const file of [...JAVASCRIPT_FILES, 'assets/css/style.css']) {
   assetContents.set(file, contents);
 }
 const catalogue = await loadCatalogue();
+for (const product of catalogue.papers) {
+  if (product.cardImage && !publicFiles.has(product.cardImage)) {
+    throw new Error(`Missing preview for ${product.id}; run scripts/images/create-responsive-images.py`);
+  }
+}
 const watermarkContext = { window: {} };
 new Script(await readFile(resolve(ROOT, 'assets/js/catalogue-utils.js'), 'utf8')).runInNewContext(watermarkContext);
 const { watermarkImages } = watermarkContext.window.MACatalogueUtils;
@@ -107,9 +112,6 @@ const seo = await createSeoPages(new URL('../../', import.meta.url), baseUrl, es
 for (const [file, html] of seo.pages) {
   pages.set(file, applyPublicUrl(html, siteOrigin, file));
 }
-for (const file of ['index.html', 'about.html']) {
-  pages.set(file, pages.get(file).replace('<img src="assets/images/categories/packaging.webp"', '<img fetchpriority="high" src="assets/images/categories/packaging.webp"'));
-}
 const organisation = {
   '@context': 'https://schema.org', '@type': 'Organization',
   '@id': new URL('#organization', baseUrl).href,
@@ -117,7 +119,9 @@ const organisation = {
   logo: new URL('assets/images/brand-logo.png', baseUrl).href,
   email: 'info@maindustries.in', telephone: '+91 97696 81761',
   address: { '@type': 'PostalAddress', addressLocality: 'Mumbai', addressCountry: 'IN' },
-  areaServed: 'Worldwide'
+  areaServed: 'Worldwide',
+  description: 'Sugarcane-based essentials and recycled household products, alongside an established paper and packaging range.',
+  knowsAbout: catalogue.categories.map(category => category.name)
 };
 for (const [file, sourceHtml] of pages) {
   const html = responsiveImages(watermarkImages(sourceHtml), RESPONSIVE_IMAGES).replace(/((?:src|href)=")(assets\/(?:js|css)\/[^"?]+)(?:\?[^"\s]*)?(")/g,

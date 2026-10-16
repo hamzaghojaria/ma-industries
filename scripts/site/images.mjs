@@ -12,6 +12,7 @@ export function responsiveImages(html, manifest) {
     if (source.endsWith('/brand-logo.png')) sizes = '(max-width: 600px) 70vw, 400px';
     else if (source.includes('/gallery/')) sizes = '(max-width: 800px) 80vw, 600px';
     else if (source.includes('/founders/')) sizes = '(max-width: 600px) 90vw, 360px';
+    else if (source.includes('/products/')) sizes = '(max-width: 600px) 90vw, 440px';
     const srcset = variants.map(variant => `${variant.src} ${variant.width}w`).join(', ');
     return tag.replace(/>$/, ` srcset="${srcset}"${/\bsizes=/.test(tag) ? '' : ` sizes="${sizes}"`}>`);
   });

@@ -29,6 +29,18 @@ test('catalogue validates groups and rejects duplicate IDs', () => {
   assert.throws(() => utils.validateCatalogue([{ ...papers[0], group: 'missing' }], categories), /Unknown/);
 });
 
+test('sugarcane and recycled products lead the collection without losing paper references', () => {
+  const featured = ['sugarcane-kitchenware', 'sugarcane-bags', 'sugarcane-paper', 'recycled-household'];
+  assert.deepEqual(Array.from(categories.slice(0, 4), category => category.id), featured);
+  const leadingCount = papers.filter(product => featured.includes(product.group)).length;
+  assert.ok(papers.slice(0, leadingCount).every(product => featured.includes(product.group)));
+  assert.ok(papers.slice(leadingCount).every(product => !featured.includes(product.group)));
+  assert.equal(papers[0].id, 'cutting-boards');
+  assert.equal(papers.find(product => product.id === 'duplex-paper').index, 1, 'original reference remains stable');
+  assert.equal(new Set(papers.map(product => product.id)).size, papers.length);
+  assert.equal(utils.filterPapers(papers, {category: 'boards'})[0].id, 'duplex-paper');
+});
+
 test('product WhatsApp drafts identify the item and ask for relevant specifications', () => {
   const paper = papers.find(item => item.id === 'kraft-paper');
   const kitchenware = papers.find(item => item.id === 'cutting-boards');
@@ -104,7 +116,7 @@ test('GSM guides cover the catalogue and reject invalid ranges', () => {
     assert.match(utils.gsmLabel(paper), paper.gsm ? /^\d+–\d+ GSM$/ : /^Varies by grade$/);
   }
   assert.equal(papers.filter(paper => paper.gsm === null && !paper.material).length, 1);
-  assert.equal(papers.find(paper => paper.gsm === null).id, 'scrap-paper');
+  assert.equal(papers.find(paper => paper.gsm === null && !paper.material).id, 'scrap-paper');
   for (const gsm of [{min: 0, max: 100}, {min: 100, max: 50}, {min: 50, max: Infinity}]) {
     assert.throws(() => utils.validateCatalogue([{...papers[0], gsm}], categories), /Invalid GSM/);
   }

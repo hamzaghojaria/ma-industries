@@ -1485,4 +1485,17 @@ const categories=[
     "collection": "sugarcane-recycled"
   }
 ];
+// Merchandising order is shared by browser controls, enquiries and generated pages.
+// Stable IDs and original product references are retained for existing links.
+const featuredOrder = ['sugarcane-kitchenware', 'sugarcane-bags', 'sugarcane-paper', 'recycled-household'];
+const categoryOrder = [...featuredOrder, ...categories.filter(category => !featuredOrder.includes(category.id)).map(category => category.id)];
+const rank = new Map(categoryOrder.map((id, index) => [id, index]));
+categories.sort((a, b) => rank.get(a.id) - rank.get(b.id));
+papers.sort((a, b) => rank.get(a.group) - rank.get(b.group));
+// Card-only WebP previews follow the image generator's naming convention.
+// Full-size originals remain in `image` for dialogs, documents and product pages.
+for (const product of papers) {
+  if (product.image.endsWith('.jpg')) product.cardImage = product.image
+    .replace('assets/images/products/', 'assets/images/responsive/products/').replace('.jpg', '-640.webp');
+}
 window.MACatalogueData=Object.freeze({papers,categories});})();

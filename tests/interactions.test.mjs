@@ -63,7 +63,7 @@ test('catalogue initializes and delegated paging/filter/reset controls stay func
   assert.equal(page.get('paper-options').children.length, page.window.MACatalogueData.papers.length + 1);
   assert.equal((page.get('products').innerHTML.match(/class="product-photo"/g) || []).length, 6);
   assert.match(page.get('products').innerHTML, /loading="lazy"/);
-  assert.match(page.get('products').innerHTML, /alt="Duplex paper"/);
+  assert.match(page.get('products').innerHTML, /alt="Sugarcane cutting boards"/);
   page.get('pagination').dispatch('click', { target: page.get('pagination').children.at(-1) });
   assert.match(page.get('results-count').textContent, /7–12/);
   page.get('filter-labels').click();

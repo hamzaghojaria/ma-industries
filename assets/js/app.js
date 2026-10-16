@@ -20,6 +20,7 @@
   const requestedCategory = new URLSearchParams(location.search).get('category');
   const state = { category: categories.some(item => item.id === requestedCategory) ? requestedCategory : 'all', page: 1 };
   const paperById = new Map(papers.map(paper => [paper.id, paper]));
+  const displayNumberById = new Map(papers.map((paper, index) => [paper.id, index + 1]));
   const categoryById = new Map(categories.map(category => [category.id, category]));
 
   validateCatalogue(papers, categories);
@@ -64,8 +65,8 @@
     const name = escapeHtml(paper.name);
     return watermarkImages(`<article class="product" data-paper-id="${paper.id}" tabindex="0" role="link" aria-label="Explore ${name}">
       <a href="#paper-${paper.id}" class="product-visual" style="--paper:${paper.color};--bg:${paper.bg}" aria-label="Explore ${name}">
-        <span class="index">${String(paper.index).padStart(2, '0')} / M&A</span>
-        <img class="product-photo" src="${escapeHtml(paper.image)}" alt="${paper.illustration ? 'Collection: ' + escapeHtml(categoryById.get(paper.group).name) : name}" width="800" height="800" loading="lazy" decoding="async"><span class="type">${escapeHtml(paper.tag)}</span>
+        <span class="index">${String(displayNumberById.get(paper.id)).padStart(2, '0')} / M&A</span>
+        <img class="product-photo" src="${escapeHtml(paper.cardImage || paper.image)}" alt="${paper.illustration ? 'Collection: ' + escapeHtml(categoryById.get(paper.group).name) : name}" width="800" height="800" loading="lazy" decoding="async"><span class="type">${escapeHtml(paper.tag)}</span>
       </a>
       <div class="product-top"><h3><a href="#paper-${paper.id}">${name}</a></h3>
         <a class="detail-button" href="#paper-${paper.id}" aria-label="View ${name}">${ACTION_ARROW}</a></div>

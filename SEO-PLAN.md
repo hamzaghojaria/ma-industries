@@ -1,5 +1,9 @@
 # SEO implementation and next steps
 
+## Lead collection repositioning
+
+Sugarcane-based and recycled products now lead homepage messaging, imagery, Material Studio, collection directories, product order and filters. About copy explains the paper origins and current everyday-product focus. Titles, descriptions, footer navigation and Organization structured data follow the new positioning. Social previews use the existing sugarcane food-packaging photograph instead of the old paper-only graphic. Each category directory links to its generated material guide in merchandising order; product/category URLs and IDs remain unchanged. The existing PDF catalogue was not regenerated.
+
 ## October 16, 2026 update
 
 - Refined homepage and directory search titles and descriptions around the existing paper, packaging and Mumbai supply content. Removed a hard-coded product count from catalogue metadata so it cannot drift when products change.

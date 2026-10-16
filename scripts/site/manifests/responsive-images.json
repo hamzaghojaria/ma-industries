@@ -326,5 +326,327 @@
       "src": "assets/images/responsive/founders/mohammed-dhukka-700.webp",
       "width": 700
     }
+  ],
+  "assets/images/products/sugarcane-copy-paper-photo.jpg": [
+    {
+      "src": "assets/images/responsive/products/sugarcane-copy-paper-photo-320.webp",
+      "width": 320
+    },
+    {
+      "src": "assets/images/responsive/products/sugarcane-copy-paper-photo-640.webp",
+      "width": 640
+    },
+    {
+      "src": "assets/images/responsive/products/sugarcane-copy-paper-photo-960.webp",
+      "width": 960
+    }
+  ],
+  "assets/images/products/sugarcane-paper-cups-photo.jpg": [
+    {
+      "src": "assets/images/responsive/products/sugarcane-paper-cups-photo-320.webp",
+      "width": 320
+    },
+    {
+      "src": "assets/images/responsive/products/sugarcane-paper-cups-photo-640.webp",
+      "width": 640
+    },
+    {
+      "src": "assets/images/responsive/products/sugarcane-paper-cups-photo-960.webp",
+      "width": 960
+    }
+  ],
+  "assets/images/products/sugarcane-bath-tissues-photo.jpg": [
+    {
+      "src": "assets/images/responsive/products/sugarcane-bath-tissues-photo-320.webp",
+      "width": 320
+    },
+    {
+      "src": "assets/images/responsive/products/sugarcane-bath-tissues-photo-640.webp",
+      "width": 640
+    },
+    {
+      "src": "assets/images/responsive/products/sugarcane-bath-tissues-photo-960.webp",
+      "width": 960
+    }
+  ],
+  "assets/images/products/sugarcane-food-containers-photo.jpg": [
+    {
+      "src": "assets/images/responsive/products/sugarcane-food-containers-photo-320.webp",
+      "width": 320
+    },
+    {
+      "src": "assets/images/responsive/products/sugarcane-food-containers-photo-640.webp",
+      "width": 640
+    },
+    {
+      "src": "assets/images/responsive/products/sugarcane-food-containers-photo-960.webp",
+      "width": 960
+    }
+  ],
+  "assets/images/products/sugarcane-packaging-paper-photo.jpg": [
+    {
+      "src": "assets/images/responsive/products/sugarcane-packaging-paper-photo-320.webp",
+      "width": 320
+    },
+    {
+      "src": "assets/images/responsive/products/sugarcane-packaging-paper-photo-640.webp",
+      "width": 640
+    },
+    {
+      "src": "assets/images/responsive/products/sugarcane-packaging-paper-photo-960.webp",
+      "width": 960
+    }
+  ],
+  "assets/images/products/cutting-boards-photo.jpg": [
+    {
+      "src": "assets/images/responsive/products/cutting-boards-photo-320.webp",
+      "width": 320
+    },
+    {
+      "src": "assets/images/responsive/products/cutting-boards-photo-640.webp",
+      "width": 640
+    },
+    {
+      "src": "assets/images/responsive/products/cutting-boards-photo-960.webp",
+      "width": 960
+    }
+  ],
+  "assets/images/products/reusable-cups-photo.jpg": [
+    {
+      "src": "assets/images/responsive/products/reusable-cups-photo-320.webp",
+      "width": 320
+    },
+    {
+      "src": "assets/images/responsive/products/reusable-cups-photo-640.webp",
+      "width": 640
+    },
+    {
+      "src": "assets/images/responsive/products/reusable-cups-photo-960.webp",
+      "width": 960
+    }
+  ],
+  "assets/images/products/salad-bowls-photo.jpg": [
+    {
+      "src": "assets/images/responsive/products/salad-bowls-photo-320.webp",
+      "width": 320
+    },
+    {
+      "src": "assets/images/responsive/products/salad-bowls-photo-640.webp",
+      "width": 640
+    },
+    {
+      "src": "assets/images/responsive/products/salad-bowls-photo-960.webp",
+      "width": 960
+    }
+  ],
+  "assets/images/products/rice-paddles-photo.jpg": [
+    {
+      "src": "assets/images/responsive/products/rice-paddles-photo-320.webp",
+      "width": 320
+    },
+    {
+      "src": "assets/images/responsive/products/rice-paddles-photo-640.webp",
+      "width": 640
+    },
+    {
+      "src": "assets/images/responsive/products/rice-paddles-photo-960.webp",
+      "width": 960
+    }
+  ],
+  "assets/images/products/glass-airtight-containers-photo.jpg": [
+    {
+      "src": "assets/images/responsive/products/glass-airtight-containers-photo-320.webp",
+      "width": 320
+    },
+    {
+      "src": "assets/images/responsive/products/glass-airtight-containers-photo-640.webp",
+      "width": 640
+    },
+    {
+      "src": "assets/images/responsive/products/glass-airtight-containers-photo-960.webp",
+      "width": 960
+    }
+  ],
+  "assets/images/products/double-zipper-bags-photo.jpg": [
+    {
+      "src": "assets/images/responsive/products/double-zipper-bags-photo-320.webp",
+      "width": 320
+    },
+    {
+      "src": "assets/images/responsive/products/double-zipper-bags-photo-640.webp",
+      "width": 640
+    },
+    {
+      "src": "assets/images/responsive/products/double-zipper-bags-photo-960.webp",
+      "width": 960
+    }
+  ],
+  "assets/images/products/disposable-gloves-photo.jpg": [
+    {
+      "src": "assets/images/responsive/products/disposable-gloves-photo-320.webp",
+      "width": 320
+    },
+    {
+      "src": "assets/images/responsive/products/disposable-gloves-photo-640.webp",
+      "width": 640
+    },
+    {
+      "src": "assets/images/responsive/products/disposable-gloves-photo-960.webp",
+      "width": 960
+    }
+  ],
+  "assets/images/products/easy-cut-cling-wraps-photo.jpg": [
+    {
+      "src": "assets/images/responsive/products/easy-cut-cling-wraps-photo-320.webp",
+      "width": 320
+    },
+    {
+      "src": "assets/images/responsive/products/easy-cut-cling-wraps-photo-640.webp",
+      "width": 640
+    },
+    {
+      "src": "assets/images/responsive/products/easy-cut-cling-wraps-photo-960.webp",
+      "width": 960
+    }
+  ],
+  "assets/images/products/food-storage-roll-bags-photo.jpg": [
+    {
+      "src": "assets/images/responsive/products/food-storage-roll-bags-photo-320.webp",
+      "width": 320
+    },
+    {
+      "src": "assets/images/responsive/products/food-storage-roll-bags-photo-640.webp",
+      "width": 640
+    },
+    {
+      "src": "assets/images/responsive/products/food-storage-roll-bags-photo-960.webp",
+      "width": 960
+    }
+  ],
+  "assets/images/products/food-storage-pop-up-bags-photo.jpg": [
+    {
+      "src": "assets/images/responsive/products/food-storage-pop-up-bags-photo-320.webp",
+      "width": 320
+    },
+    {
+      "src": "assets/images/responsive/products/food-storage-pop-up-bags-photo-640.webp",
+      "width": 640
+    },
+    {
+      "src": "assets/images/responsive/products/food-storage-pop-up-bags-photo-960.webp",
+      "width": 960
+    }
+  ],
+  "assets/images/products/sugarcane-plates-photo.jpg": [
+    {
+      "src": "assets/images/responsive/products/sugarcane-plates-photo-320.webp",
+      "width": 320
+    },
+    {
+      "src": "assets/images/responsive/products/sugarcane-plates-photo-640.webp",
+      "width": 640
+    },
+    {
+      "src": "assets/images/responsive/products/sugarcane-plates-photo-960.webp",
+      "width": 960
+    }
+  ],
+  "assets/images/products/sugarcane-soup-bowls-photo.jpg": [
+    {
+      "src": "assets/images/responsive/products/sugarcane-soup-bowls-photo-320.webp",
+      "width": 320
+    },
+    {
+      "src": "assets/images/responsive/products/sugarcane-soup-bowls-photo-640.webp",
+      "width": 640
+    },
+    {
+      "src": "assets/images/responsive/products/sugarcane-soup-bowls-photo-960.webp",
+      "width": 960
+    }
+  ],
+  "assets/images/products/sugarcane-serving-trays-photo.jpg": [
+    {
+      "src": "assets/images/responsive/products/sugarcane-serving-trays-photo-320.webp",
+      "width": 320
+    },
+    {
+      "src": "assets/images/responsive/products/sugarcane-serving-trays-photo-640.webp",
+      "width": 640
+    },
+    {
+      "src": "assets/images/responsive/products/sugarcane-serving-trays-photo-960.webp",
+      "width": 960
+    }
+  ],
+  "assets/images/products/bio-based-reusable-cutlery-photo.jpg": [
+    {
+      "src": "assets/images/responsive/products/bio-based-reusable-cutlery-photo-320.webp",
+      "width": 320
+    },
+    {
+      "src": "assets/images/responsive/products/bio-based-reusable-cutlery-photo-640.webp",
+      "width": 640
+    },
+    {
+      "src": "assets/images/responsive/products/bio-based-reusable-cutlery-photo-960.webp",
+      "width": 960
+    }
+  ],
+  "assets/images/products/reusable-drinking-straws-photo.jpg": [
+    {
+      "src": "assets/images/responsive/products/reusable-drinking-straws-photo-320.webp",
+      "width": 320
+    },
+    {
+      "src": "assets/images/responsive/products/reusable-drinking-straws-photo-640.webp",
+      "width": 640
+    },
+    {
+      "src": "assets/images/responsive/products/reusable-drinking-straws-photo-960.webp",
+      "width": 960
+    }
+  ],
+  "assets/images/products/bio-based-food-storage-containers-photo.jpg": [
+    {
+      "src": "assets/images/responsive/products/bio-based-food-storage-containers-photo-320.webp",
+      "width": 320
+    },
+    {
+      "src": "assets/images/responsive/products/bio-based-food-storage-containers-photo-640.webp",
+      "width": 640
+    },
+    {
+      "src": "assets/images/responsive/products/bio-based-food-storage-containers-photo-960.webp",
+      "width": 960
+    }
+  ],
+  "assets/images/products/bio-pe-carry-bags-photo.jpg": [
+    {
+      "src": "assets/images/responsive/products/bio-pe-carry-bags-photo-320.webp",
+      "width": 320
+    },
+    {
+      "src": "assets/images/responsive/products/bio-pe-carry-bags-photo-640.webp",
+      "width": 640
+    },
+    {
+      "src": "assets/images/responsive/products/bio-pe-carry-bags-photo-960.webp",
+      "width": 960
+    }
+  ],
+  "assets/images/products/bio-pe-bin-liners-photo.jpg": [
+    {
+      "src": "assets/images/responsive/products/bio-pe-bin-liners-photo-320.webp",
+      "width": 320
+    },
+    {
+      "src": "assets/images/responsive/products/bio-pe-bin-liners-photo-640.webp",
+      "width": 640
+    },
+    {
+      "src": "assets/images/responsive/products/bio-pe-bin-liners-photo-960.webp",
+      "width": 960
+    }
   ]
 }

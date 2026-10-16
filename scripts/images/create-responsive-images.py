@@ -13,12 +13,17 @@ manifest = {}
 sources = [ROOT / 'assets/images/brand-logo.png']
 for folder in ('ranges', 'gallery', 'categories', 'founders'):
     sources.extend(sorted((ROOT / 'assets/images' / folder).iterdir()))
+# JPEG catalogue photos now lead the collection; keep their cards lightweight.
+product_files = json.loads((ROOT / 'scripts/site/manifests/product-images.json').read_text(encoding='utf-8'))
+sources.extend(ROOT / 'assets/images/products' / name for name in product_files if name.endswith('.jpg'))
 for source in sources:
     if source.suffix.lower() not in ('.jpg', '.jpeg', '.png', '.webp'):
         continue
     with Image.open(source) as original:
         image = ImageOps.exif_transpose(original)
         image = image.convert('RGBA' if 'A' in image.getbands() else 'RGB')
+        if source.parent.name == 'products' and image.width < 640:
+            raise ValueError(f'Product preview requires a source at least 640px wide: {source.name}')
         variants = []
         # Never upscale a small source; descriptors always match actual pixels.
         for width in sorted({min(size, image.width) for size in (320, 640, 960)}):

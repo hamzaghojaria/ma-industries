@@ -12,10 +12,10 @@ test('application choices update one recommendation, its destination and the ima
   const result = page.get('result');
   const image = page.get('image');
   const link = page.get('link');
-  const choices = ['pack', 'serve', 'store', 'organise'].map(key => {
+  const choices = ['serve', 'store', 'organise', 'pack'].map(key => {
     const button = page.get(key);
     button.dataset.materialChoice = key;
-    button.setAttribute('aria-pressed', String(key === 'pack'));
+    button.setAttribute('aria-pressed', String(key === 'serve'));
     return button;
   });
   const parts = {
@@ -31,10 +31,10 @@ test('application choices update one recommendation, its destination and the ima
   vm.runInNewContext(source, page.globals);
   assert.equal(page.get('choices').hidden, false);
   for (const [key, destination, imagePart] of [
-    ['serve', 'sugarcane-kitchenware', 'sugarcane-kitchenware'],
     ['store', 'sugarcane-bags', 'sugarcane-bags'],
     ['organise', 'recycled-household', 'recycled-household'],
-    ['pack', 'categories.html#paper-packaging', 'packaging']
+    ['pack', 'categories.html#paper-packaging', 'packaging'],
+    ['serve', 'sugarcane-kitchenware', 'sugarcane-kitchenware']
   ]) {
     image.setAttribute('srcset', 'previous-image.webp 640w');
     page.get(key).click();

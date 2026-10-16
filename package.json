@@ -2,7 +2,7 @@
   "name": "ma-industries",
   "version": "1.0.0",
   "private": true,
-  "description": "M&A Industries paper, packaging, sugarcane and recycled products catalogue",
+  "description": "M&A Industries sugarcane-based and recycled everyday products, paper and packaging catalogue",
   "type": "module",
   "scripts": {
     "build": "node scripts/site/build.mjs",

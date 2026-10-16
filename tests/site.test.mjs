@@ -21,6 +21,17 @@ test('all source pages use one shared navigation script and valid local asset pa
   }
 });
 
+test('lightweight product card previews exist alongside their full-size originals', async () => {
+  for (const product of catalogue.papers) {
+    await access(new URL(product.image, ROOT));
+    if (product.image.endsWith('.jpg')) {
+      assert.ok(product.cardImage.endsWith('-640.webp'), product.id);
+      await access(new URL(product.cardImage, ROOT));
+      assert.notEqual(product.cardImage, product.image, 'dialog image stays separate');
+    }
+  }
+});
+
 test('all twelve category cards, desktop filters and mobile options agree with catalogue data', () => {
   for (const [name, html] of pages) assert.equal(syncCatalogueMarkup(html, catalogue), html, `${name}: run npm run sync:catalogue`);
   const products = pages.get('products.html');
@@ -41,11 +52,32 @@ test('all twelve category cards, desktop filters and mobile options agree with c
 });
 
 test('static category fallbacks update when data changes', () => {
-  const updated = { ...catalogue, papers: [...catalogue.papers, { ...catalogue.papers[0], id: 'test-only-extra' }] };
+  const board = catalogue.papers.find(product => product.group === 'boards');
+  const updated = { ...catalogue, papers: [...catalogue.papers, { ...board, id: 'test-only-extra' }] };
   const html = syncCatalogueMarkup(pages.get('products.html'), updated);
   assert.ok(html.includes('All products (' + updated.papers.length + ')'));
   assert.match(html, /value="boards">Boards &amp; cartons \(6\)/);
   assert.equal(syncCatalogueMarkup(html, updated), html, 'sync is idempotent');
+});
+
+test('lead collections are consistent across source content, controls and crawlable guides', async () => {
+  const home = pages.get('index.html');
+  const directory = pages.get('categories.html');
+  const products = pages.get('products.html');
+  const firstGroups = Array.from(catalogue.categories.slice(0, 4), category => category.id);
+  assert.ok(home.includes('<h1>Sugarcane &amp; recycled.'));
+  assert.match(home, /data-material-choice="serve" aria-pressed="true"/);
+  assert.ok(home.indexOf('href="categories.html#sugarcane-recycled"') < home.indexOf('href="categories.html#paper-packaging"'));
+  assert.ok(directory.indexOf('id="sugarcane-recycled"') < directory.indexOf('id="paper-packaging"'));
+  const controls = [...products.matchAll(/data-filter="([^"]+)"/g)].map(match => match[1]);
+  assert.deepEqual(controls.slice(1, 5), firstGroups);
+  for (const category of catalogue.categories) assert.ok(directory.includes(`href="category-${category.id}.html"`));
+  for (const [name, html] of pages) {
+    assert.match(html, /property="og:image" content="assets\/images\/ranges\/sugarcane-bags-photo.jpg"/, name);
+    assert.match(html, /class="footer-summary">Sugarcane-based essentials and recycled household goods/, name);
+  }
+  const seo = await createSeoPages(ROOT, new URL('https://maindustries.in/'), text => String(text).replaceAll('&', '&amp;'));
+  assert.deepEqual([...seo.pages.keys()].slice(0, 4), firstGroups.map(id => `category-${id}.html`));
 });
 
 test('local CSS modules compile into one stylesheet with no unresolved local imports', async () => {
