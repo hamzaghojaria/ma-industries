@@ -19,6 +19,8 @@ The report had no real-user field data. These are lab results for the deployed h
 
 ## Changes made locally
 
+Creative interaction follow-up: the Material Studio application finder adds a recommendation preview, a decorative rotating SVG seal, and optional pointer lighting/tilt. It uses existing local imagery and no animation library. Hero text remains visible; touch and reduced-motion visitors can use the same application controls without pointer effects. The live PageSpeed baseline above predates these additions; deployment and fresh measurements are needed to quantify their impact. All 32 tests pass after this addition, including application selection and clearing pointer effects on a motion-preference change. Browser checks covered all four root pages at 320, 800 and 1440 pixels, plus mobile keyboard selection of an application.
+
 - Replaced the nested Google Fonts request with locally hosted Latin WOFF2 subsets and their OFL licenses. Two normal fonts preload in production. `font-display: optional` keeps fallback text readable immediately and avoids late font swaps on slow connections; a first visit may use the fallback font.
 - Removed entrance animations from the hero text and images. The report identified `.hero-copy .intro` as the mobile LCP element, with substantial render delay.
 - Added WebP variants and responsive source hints for range, category, gallery, founder and logo images. Originals remain untouched. The build publishes only variants in the manifest; source files continue to work when opened directly.

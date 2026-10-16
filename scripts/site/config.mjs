@@ -7,5 +7,6 @@ export const JAVASCRIPT_FILES = [
   'assets/js/app.js',
   'assets/js/gallery.js',
   'assets/js/navigation.js',
-  'assets/js/experience.js'
+  'assets/js/experience.js',
+  'assets/js/studio.js'
 ];

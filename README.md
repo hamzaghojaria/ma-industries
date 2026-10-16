@@ -6,6 +6,8 @@ See [PERFORMANCE.md](PERFORMANCE.md) for the PageSpeed baseline, performance cha
 
 ## Pages and visitor flow
 
+The homepage Material Studio lets visitors choose an application and updates a material preview, recommendation and catalogue link. Its behavior lives in `assets/js/studio.js` and styles in `assets/css/studio.css`. The default recommendation remains usable without JavaScript. Shared pointer lighting and subtle card tilt activate only for fine pointers with motion allowed; switching to reduced motion clears them immediately. Keep hero text visible on its first paint when adding motion.
+
 | Page | Purpose |
 | --- | --- |
 | `index.html` | Homepage, range introductions, gallery, enquiry form, and two brand cards |
