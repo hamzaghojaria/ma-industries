@@ -27,7 +27,7 @@ const PUBLIC_FILES = [
   ...Object.values(RESPONSIVE_IMAGES).flat().map(variant => variant.src),
   'assets/images/brand-logo.png', 'assets/images/engineering-logo.svg', 'assets/images/favicon-32.png',
   'assets/images/favicon-192.png', 'assets/images/apple-touch-icon.png',
-  'assets/images/share-preview.png',
+  'assets/images/share-preview-sugarcane.jpg',
   ...['sugarcane-paper', 'sugarcane-kitchenware', 'sugarcane-bags', 'recycled-household'].map(id => 'assets/images/ranges/' + id + '-photo.jpg'),
   'assets/catalogues/MA-Industries-Paper-Catalogue.pdf',
   'assets/images/founders/aadil-dhukka.jpg',

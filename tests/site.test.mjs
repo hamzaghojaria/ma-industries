@@ -74,7 +74,10 @@ test('lead collections stay consistent without separate material-guide links or 
   assert.doesNotMatch(directory, /category-guide-links|href="category-[^"]+\.html"|Material guides/);
   for (const category of catalogue.categories) assert.ok(directory.includes(`href="products.html?category=${category.id}#collection"`));
   for (const [name, html] of pages) {
-    assert.match(html, /property="og:image" content="assets\/images\/ranges\/sugarcane-bags-photo.jpg"/, name);
+    assert.match(html, /property="og:image" content="assets\/images\/share-preview-sugarcane.jpg"/, name);
+    assert.match(html, /name="twitter:image" content="assets\/images\/share-preview-sugarcane.jpg"/, name);
+    assert.match(html, /property="og:image:width" content="1200"/, name);
+    assert.match(html, /property="og:image:height" content="630"/, name);
     assert.match(html, /class="footer-summary">Sugarcane-based essentials and recycled household goods/, name);
   }
   const seo = await createSeoPages(ROOT, new URL('https://maindustries.in/'), text => String(text).replaceAll('&', '&amp;'));
