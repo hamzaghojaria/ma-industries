@@ -3,7 +3,6 @@ import assert from 'node:assert/strict';
 import { access, readFile } from 'node:fs/promises';
 import { PAGES, ROOT, loadCatalogue, syncCatalogueMarkup } from '../scripts/site/catalogue-markup.mjs';
 import { bundleStyles } from '../scripts/site/styles.mjs';
-import { createSeoPages } from '../scripts/site/seo-pages.mjs';
 
 const catalogue = await loadCatalogue();
 const pages = new Map(await Promise.all(PAGES.map(async name => [name, await readFile(new URL(name, ROOT), 'utf8')])));
@@ -80,8 +79,7 @@ test('lead collections stay consistent without separate material-guide links or 
     assert.match(html, /property="og:image:height" content="630"/, name);
     assert.match(html, /class="footer-summary">Sugarcane-based essentials and recycled household goods/, name);
   }
-  const seo = await createSeoPages(ROOT, new URL('https://maindustries.in/'), text => String(text).replaceAll('&', '&amp;'));
-  assert.deepEqual([...seo.pages.keys()].slice(0, 4), Array.from(catalogue.papers.slice(0, 4), product => `product-${product.id}.html`));
+
 });
 
 test('local CSS modules compile into one stylesheet with no unresolved local imports', async () => {
@@ -92,32 +90,24 @@ test('local CSS modules compile into one stylesheet with no unresolved local imp
   assert.match(css, /font-display: optional/);
 });
 
-test('generated product pages link back to filtered browsing without removed category pages', async () => {
-  const escape = text => String(text).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('"', '&quot;');
-  const seo = await createSeoPages(ROOT, new URL('https://maindustries.in/'), escape);
-  assert.equal(seo.pages.size, catalogue.papers.length);
-  assert.ok([...seo.pages.keys()].every(path => path.startsWith('product-')));
+test('the catalogue fallback retains product content without separate product-page links', () => {
+  const fallback = pages.get('products.html').match(/<!-- catalogue-fallback:start -->([\s\S]*?)<!-- catalogue-fallback:end -->/)[1];
+  assert.match(fallback, /<noscript>/);
+  assert.doesNotMatch(fallback, /href="product-[^"]+\.html"/);
   for (const product of catalogue.papers) {
-    const html = seo.pages.get(`product-${product.id}.html`);
-    assert.ok(html.includes(`products.html?category=${product.group}#paper-${product.id}`));
-    assert.ok(html.includes(`<h1>${escape(product.name)}</h1>`));
-    assert.ok(html.includes(product.image));
-    assert.ok(html.includes(`href="products.html?category=${product.group}#collection"`));
-    assert.doesNotMatch(html, /category-[a-z-]+\.html/);
-    if (product.sourcingOnly) {
-      assert.ok(html.includes('Sourcing Enquiries | M&amp;A Industries'));
-      assert.ok(html.includes('Additional sourcing range: availability and specifications are confirmed on enquiry.'));
-    }
+    assert.ok(fallback.includes(`id="fallback-${product.id}"`));
+    assert.ok(fallback.includes(encodeForTest(product.name)));
+    for (const use of product.uses) assert.ok(fallback.includes(encodeForTest(use)));
   }
 });
+const encodeForTest = text => String(text).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
 
-test('the catalogue fallback links every product to a real detail page without JavaScript', () => {
-  const html = pages.get('products.html');
-  const fallback = html.match(/<!-- catalogue-fallback:start -->([\s\S]*?)<!-- catalogue-fallback:end -->/)[1];
-  assert.match(fallback, /<noscript>/);
-  const links = [...fallback.matchAll(/href="(product-[^"]+\.html)"/g)].map(match => match[1]);
-  assert.equal(new Set(links).size, catalogue.papers.length);
-  assert.deepEqual(links, Array.from(catalogue.papers, product => `product-${product.id}.html`));
+test('legacy product URLs redirect to matching catalogue popups on Render', async () => {
+  const routes = await readFile(new URL('render.yaml', ROOT), 'utf8');
+  for (const product of catalogue.papers) {
+    assert.ok(routes.includes(`source: /product-${product.id}.html`));
+    assert.ok(routes.includes(`destination: "/products.html?category=${product.group}#paper-${product.id}"`));
+  }
 });
 
 test('brand cards retain separate website/profile actions and an inactive Industries profile', () => {

@@ -4,7 +4,6 @@ import { resolve, dirname, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Script } from 'node:vm';
 import { createHash } from 'node:crypto';
-import { createSeoPages } from './seo-pages.mjs';
 import { bundleStyles } from './styles.mjs';
 import { responsiveImages } from './images.mjs';
 import { loadCatalogue, syncCatalogueMarkup } from './catalogue-markup.mjs';
@@ -101,10 +100,6 @@ for (const file of PAGES) {
   ));
 }
 const baseUrl = new URL('/', siteOrigin);
-const seo = await createSeoPages(new URL('../../', import.meta.url), baseUrl, escapeHtml);
-for (const [file, html] of seo.pages) {
-  pages.set(file, applyPublicUrl(html, siteOrigin, file));
-}
 const organisation = {
   '@context': 'https://schema.org', '@type': 'Organization',
   '@id': new URL('#organization', baseUrl).href,
@@ -126,7 +121,6 @@ for (const [file, sourceHtml] of pages) {
     url: pageUrl, name, inLanguage: 'en',
     description: html.match(/<meta name="description" content="([^"]+)"/)[1]
       .replaceAll('&amp;', '&').replaceAll('&quot;', '"').replaceAll('&#39;', "'"),
-    ...(file.startsWith('product-') ? { mainEntity: { '@id': pageUrl + '#product' } } : {}),
     publisher: { '@id': organisation['@id'] },
     isPartOf: { '@id': new URL('#website', baseUrl).href }
   }, { '@type': 'WebSite', '@id': new URL('#website', baseUrl).href,
@@ -145,7 +139,7 @@ for (const [file, sourceHtml] of pages) {
       numberOfItems: catalogue.papers.length,
       itemListElement: catalogue.papers.map((product, index) => ({
         '@type': 'ListItem', position: index + 1, name: product.name,
-        url: new URL(`product-${product.id}.html`, baseUrl).href
+        url: new URL(`products.html?category=${product.group}#paper-${product.id}`, baseUrl).href
       })) });
   }
   pages.set(file, html.replace('</head>', '<script type="application/ld+json">' +

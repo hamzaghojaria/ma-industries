@@ -26,12 +26,17 @@ export function syncCatalogueMarkup(html, { papers, categories }) {
     { id: 'sugarcane-recycled', name: 'Sugarcane & Recycled', categories: categories.filter(category => category.collection === 'sugarcane-recycled') },
     { id: 'paper-packaging', name: 'Paper & Packaging', categories: categories.filter(category => category.collection !== 'sugarcane-recycled') }
   ];
-  // Real product URLs remain discoverable and usable without JavaScript.
+  // Keep product information available on the catalogue itself without JavaScript.
   html = html.replace(/<!-- catalogue-fallback:start -->[\s\S]*?<!-- catalogue-fallback:end -->/,
-    '<!-- catalogue-fallback:start --><noscript><section class="catalogue-fallback"><h2>Browse product details</h2><p>Open a product page for applications, specifications and enquiry options.</p>' +
-    categories.map(category => `<h3>${escapeHtml(category.name)}</h3><ul>` +
+    '<!-- catalogue-fallback:start --><noscript><section class="catalogue-fallback"><h2>Product information</h2><p>Browse applications and specifications below. Enable JavaScript to use product popups and filters.</p>' +
+    categories.map(category => `<h3>${escapeHtml(category.name)}</h3>` +
       papers.filter(product => product.group === category.id).map(product =>
-        `<li><a href="product-${product.id}.html">${escapeHtml(product.name)}</a> — ${escapeHtml(product.desc)}</li>`).join('') + '</ul>').join('') +
+        `<article id="fallback-${product.id}"><h4>${escapeHtml(product.name)}</h4><p>${escapeHtml(product.desc)}</p>` +
+        `<p><strong>Material:</strong> ${escapeHtml(product.material || 'Paper / board; confirm grade and composition.')}</p>` +
+        `<p><strong>Uses:</strong> ${product.uses.map(escapeHtml).join('; ')}</p>` +
+        (product.gsm ? `<p><strong>Paper weight:</strong> ${product.gsm.min}-${product.gsm.max} GSM (indicative)</p>` : '') +
+        (product.specifications?.length ? '<ul>' + product.specifications.map(spec => `<li>${escapeHtml(typeof spec === 'object' ? spec.label + ': ' + spec.value : spec)}</li>`).join('') + '</ul>' : '') +
+        `<p><a href="index.html#enquiry">Enquire about ${escapeHtml(product.name)}</a></p></article>`).join('')).join('') +
     '</section></noscript><!-- catalogue-fallback:end -->');
   // Own the entire grouped control so desktop order cannot drift from mobile/data.
   html = html.replace(/(<aside class="catalogue-sidebar"[^>]*>)[\s\S]*?(<\/aside>)/,

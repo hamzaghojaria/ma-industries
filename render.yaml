@@ -11,3 +11,205 @@ services:
       - path: /*
         name: X-Content-Type-Options
         value: nosniff
+    routes:
+      - type: redirect
+        source: /product-duplex-paper.html
+        destination: "/products.html?category=boards#paper-duplex-paper"
+      - type: redirect
+        source: /product-white-bag-paper.html
+        destination: "/products.html?category=packaging#paper-white-bag-paper"
+      - type: redirect
+        source: /product-kraft-paper.html
+        destination: "/products.html?category=packaging#paper-kraft-paper"
+      - type: redirect
+        source: /product-golden-paper.html
+        destination: "/products.html?category=creative#paper-golden-paper"
+      - type: redirect
+        source: /product-scrap-paper.html
+        destination: "/products.html?category=everyday#paper-scrap-paper"
+      - type: redirect
+        source: /product-butter-paper.html
+        destination: "/products.html?category=wrapping#paper-butter-paper"
+      - type: redirect
+        source: /product-natural-paper.html
+        destination: "/products.html?category=creative#paper-natural-paper"
+      - type: redirect
+        source: /product-sack-kraft-paper.html
+        destination: "/products.html?category=packaging#paper-sack-kraft-paper"
+      - type: redirect
+        source: /product-kraft-liner-paper.html
+        destination: "/products.html?category=boards#paper-kraft-liner-paper"
+      - type: redirect
+        source: /product-fluting-paper.html
+        destination: "/products.html?category=boards#paper-fluting-paper"
+      - type: redirect
+        source: /product-folding-boxboard.html
+        destination: "/products.html?category=boards#paper-folding-boxboard"
+      - type: redirect
+        source: /product-sbs-board.html
+        destination: "/products.html?category=boards#paper-sbs-board"
+      - type: redirect
+        source: /product-uncoated-printing-paper.html
+        destination: "/products.html?category=creative#paper-uncoated-printing-paper"
+      - type: redirect
+        source: /product-coated-art-paper.html
+        destination: "/products.html?category=creative#paper-coated-art-paper"
+      - type: redirect
+        source: /product-tissue-wrapping-paper.html
+        destination: "/products.html?category=everyday#paper-tissue-wrapping-paper"
+      - type: redirect
+        source: /product-greaseproof-paper.html
+        destination: "/products.html?category=wrapping#paper-greaseproof-paper"
+      - type: redirect
+        source: /product-cupstock-board.html
+        destination: "/products.html?category=wrapping#paper-cupstock-board"
+      - type: redirect
+        source: /product-recycled-wrapping-paper.html
+        destination: "/products.html?category=everyday#paper-recycled-wrapping-paper"
+      - type: redirect
+        source: /product-copier-paper.html
+        destination: "/products.html?category=office#paper-copier-paper"
+      - type: redirect
+        source: /product-bond-writing-paper.html
+        destination: "/products.html?category=office#paper-bond-writing-paper"
+      - type: redirect
+        source: /product-coloured-copier-paper.html
+        destination: "/products.html?category=office#paper-coloured-copier-paper"
+      - type: redirect
+        source: /product-envelope-paper.html
+        destination: "/products.html?category=office#paper-envelope-paper"
+      - type: redirect
+        source: /product-ledger-paper.html
+        destination: "/products.html?category=office#paper-ledger-paper"
+      - type: redirect
+        source: /product-drawing-paper.html
+        destination: "/products.html?category=office#paper-drawing-paper"
+      - type: redirect
+        source: /product-thermal-receipt-paper.html
+        destination: "/products.html?category=labels#paper-thermal-receipt-paper"
+      - type: redirect
+        source: /product-direct-thermal-label-paper.html
+        destination: "/products.html?category=labels#paper-direct-thermal-label-paper"
+      - type: redirect
+        source: /product-semi-gloss-label-paper.html
+        destination: "/products.html?category=labels#paper-semi-gloss-label-paper"
+      - type: redirect
+        source: /product-uncoated-label-paper.html
+        destination: "/products.html?category=labels#paper-uncoated-label-paper"
+      - type: redirect
+        source: /product-glassine-release-liner.html
+        destination: "/products.html?category=labels#paper-glassine-release-liner"
+      - type: redirect
+        source: /product-clay-coated-kraft-liner.html
+        destination: "/products.html?category=labels#paper-clay-coated-kraft-liner"
+      - type: redirect
+        source: /product-translucent-paper.html
+        destination: "/products.html?category=specialty#paper-translucent-paper"
+      - type: redirect
+        source: /product-textured-paper.html
+        destination: "/products.html?category=specialty#paper-textured-paper"
+      - type: redirect
+        source: /product-dyed-through-coloured-paper.html
+        destination: "/products.html?category=specialty#paper-dyed-through-coloured-paper"
+      - type: redirect
+        source: /product-metallic-finish-paper.html
+        destination: "/products.html?category=specialty#paper-metallic-finish-paper"
+      - type: redirect
+        source: /product-pearlescent-paper.html
+        destination: "/products.html?category=specialty#paper-pearlescent-paper"
+      - type: redirect
+        source: /product-cotton-content-paper.html
+        destination: "/products.html?category=specialty#paper-cotton-content-paper"
+      - type: redirect
+        source: /product-sugarcane-copy-paper.html
+        destination: "/products.html?category=sugarcane-paper#paper-sugarcane-copy-paper"
+      - type: redirect
+        source: /product-sugarcane-paper-cups.html
+        destination: "/products.html?category=sugarcane-paper#paper-sugarcane-paper-cups"
+      - type: redirect
+        source: /product-sugarcane-bath-tissues.html
+        destination: "/products.html?category=sugarcane-paper#paper-sugarcane-bath-tissues"
+      - type: redirect
+        source: /product-sugarcane-food-containers.html
+        destination: "/products.html?category=sugarcane-paper#paper-sugarcane-food-containers"
+      - type: redirect
+        source: /product-sugarcane-packaging-paper.html
+        destination: "/products.html?category=sugarcane-paper#paper-sugarcane-packaging-paper"
+      - type: redirect
+        source: /product-cutting-boards.html
+        destination: "/products.html?category=sugarcane-kitchenware#paper-cutting-boards"
+      - type: redirect
+        source: /product-reusable-cups.html
+        destination: "/products.html?category=sugarcane-kitchenware#paper-reusable-cups"
+      - type: redirect
+        source: /product-ribbed-travel-tumbler.html
+        destination: "/products.html?category=sugarcane-kitchenware#paper-ribbed-travel-tumbler"
+      - type: redirect
+        source: /product-salad-bowls.html
+        destination: "/products.html?category=sugarcane-kitchenware#paper-salad-bowls"
+      - type: redirect
+        source: /product-rice-paddles.html
+        destination: "/products.html?category=sugarcane-kitchenware#paper-rice-paddles"
+      - type: redirect
+        source: /product-glass-airtight-containers.html
+        destination: "/products.html?category=sugarcane-kitchenware#paper-glass-airtight-containers"
+      - type: redirect
+        source: /product-double-zipper-bags.html
+        destination: "/products.html?category=sugarcane-bags#paper-double-zipper-bags"
+      - type: redirect
+        source: /product-disposable-gloves.html
+        destination: "/products.html?category=sugarcane-bags#paper-disposable-gloves"
+      - type: redirect
+        source: /product-easy-cut-cling-wraps.html
+        destination: "/products.html?category=sugarcane-bags#paper-easy-cut-cling-wraps"
+      - type: redirect
+        source: /product-food-storage-roll-bags.html
+        destination: "/products.html?category=sugarcane-bags#paper-food-storage-roll-bags"
+      - type: redirect
+        source: /product-food-storage-pop-up-bags.html
+        destination: "/products.html?category=sugarcane-bags#paper-food-storage-pop-up-bags"
+      - type: redirect
+        source: /product-recycled-hangers.html
+        destination: "/products.html?category=recycled-household#paper-recycled-hangers"
+      - type: redirect
+        source: /product-recycled-storage-boxes.html
+        destination: "/products.html?category=recycled-household#paper-recycled-storage-boxes"
+      - type: redirect
+        source: /product-recycled-cleaning-tools.html
+        destination: "/products.html?category=recycled-household#paper-recycled-cleaning-tools"
+      - type: redirect
+        source: /product-sugarcane-plates.html
+        destination: "/products.html?category=sugarcane-paper#paper-sugarcane-plates"
+      - type: redirect
+        source: /product-sugarcane-soup-bowls.html
+        destination: "/products.html?category=sugarcane-paper#paper-sugarcane-soup-bowls"
+      - type: redirect
+        source: /product-sugarcane-serving-trays.html
+        destination: "/products.html?category=sugarcane-paper#paper-sugarcane-serving-trays"
+      - type: redirect
+        source: /product-bio-based-reusable-cutlery.html
+        destination: "/products.html?category=sugarcane-kitchenware#paper-bio-based-reusable-cutlery"
+      - type: redirect
+        source: /product-reusable-drinking-straws.html
+        destination: "/products.html?category=sugarcane-kitchenware#paper-reusable-drinking-straws"
+      - type: redirect
+        source: /product-bio-based-food-storage-containers.html
+        destination: "/products.html?category=sugarcane-kitchenware#paper-bio-based-food-storage-containers"
+      - type: redirect
+        source: /product-bio-pe-carry-bags.html
+        destination: "/products.html?category=sugarcane-bags#paper-bio-pe-carry-bags"
+      - type: redirect
+        source: /product-bio-pe-bin-liners.html
+        destination: "/products.html?category=sugarcane-bags#paper-bio-pe-bin-liners"
+      - type: redirect
+        source: /product-sugarcane-a3-paper.html
+        destination: "/products.html?category=sugarcane-paper#paper-sugarcane-a3-paper"
+      - type: redirect
+        source: /product-grippy-cutting-board.html
+        destination: "/products.html?category=sugarcane-kitchenware#paper-grippy-cutting-board"
+      - type: redirect
+        source: /product-sugarcane-toothbrushes.html
+        destination: "/products.html?category=sugarcane-kitchenware#paper-sugarcane-toothbrushes"
+      - type: redirect
+        source: /product-sugarcane-hangers.html
+        destination: "/products.html?category=sugarcane-kitchenware#paper-sugarcane-hangers"

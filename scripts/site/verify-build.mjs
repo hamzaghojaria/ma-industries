@@ -1,9 +1,12 @@
 /** Check every deployed HTML asset, page link and static anchor without network requests. */
 import { access, readFile, readdir } from 'node:fs/promises';
-import { ROOT } from './config.mjs';
+import { ROOT, PAGES } from './config.mjs';
 
 const output = new URL('dist/', ROOT);
 const files = (await readdir(output)).filter(file => file.endsWith('.html'));
+if (files.length !== PAGES.length || files.some(file => !PAGES.includes(file))) {
+  throw new Error('Deployment must contain only the four main pages; product details belong in popups');
+}
 const pages = new Map(await Promise.all(files.map(async file => [file, await readFile(new URL(file, output), 'utf8')])));
 let links = 0;
 const titles = new Set();

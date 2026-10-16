@@ -1,6 +1,6 @@
 # M&A Industries website
 
-A static catalogue led by sugarcane-based essentials and recycled household goods, supported by traditional paper and packaging. The current catalogue has **66 products in 12 categories**. No database, checkout, backend form submission, or npm dependencies are required.
+A static catalogue led by sugarcane-based essentials and recycled household goods, supported by traditional paper and packaging. The current catalogue has **67 products in 12 categories**. No database, checkout, backend form submission, or npm dependencies are required.
 
 The shared merchandising order is sugarcane household goods, sugarcane food packaging, sugarcane paper, recycled household products, then traditional paper categories. `assets/js/catalogue-data.js` defines that order for products, filters, enquiry suggestions and generated pages. Product IDs and original reference numbers remain stable; card display numbers follow the current browsing order. The existing PDF catalogue is unchanged and will be revised separately.
 
@@ -18,7 +18,6 @@ The homepage Material Studio lets visitors choose an application and updates a m
 | `categories.html` | Sugarcane & Recycled categories first, followed by Paper & Packaging; cards open the filtered catalogue |
 | `products.html` | Category filters, search, sorting, six products per page, dialogs, enquiries |
 | `about.html` | Company information and founders |
-| `dist/product-*.html` | Generated, crawlable product details |
 
 Category cards open `products.html?category=<category-id>#collection`. Desktop visitors use the sidebar; at 900px and below, a category dropdown appears above search. Both controls share the same category state and counts. The selected category description appears inline above the products. Selecting a category or changing search/sort returns to page one. Reset clears category, search, and sorting.
 
@@ -54,7 +53,6 @@ The homepage brand cards have separate website/profile actions. M&A Engineerings
 |   |   |-- catalogue-markup.mjs Synchronize static catalogue labels and counts
 |   |   |-- styles.mjs         Bundle local CSS modules in declared order
 |   |   |-- build.mjs          Deployment, metadata, sitemap, robots.txt
-|   |   |-- seo-pages.mjs      Generated category/product pages
 |   |   |-- verify-build.mjs   Deployed local links, assets, anchors, structured data
 |   |   `-- manifests/        Public product/category image allowlists
 |   |-- catalogue/             PDF data export and generation
@@ -152,7 +150,7 @@ The cleanup was compared against preceding layout measurements for all four page
 
 ## Deployment
 
-Render runs `node scripts/site/build.mjs` and publishes `dist/`. `SITE_URL` sets the canonical origin; production is `https://maindustries.in`. The build resolves share-image URLs, adds canonical URLs/structured data, and generates sitemap/robots files. Currently it produces 70 HTML pages: four root pages and 66 product pages. Separate category-guide pages are no longer generated.
+Render runs `node scripts/site/build.mjs` and publishes `dist/`. `SITE_URL` sets the canonical origin; production is `https://maindustries.in`. The build resolves share-image URLs, adds canonical URLs/structured data, and generates sitemap/robots files. It produces only the four main HTML pages. Individual product and category-guide pages are not generated. Old product URLs are mapped to catalogue popups by the redirect rules in render.yaml; apply the Blueprint routing changes when deploying.
 
 Only allowlisted public files are deployed. Keep image manifests and the build public-file list current. CSS source modules are bundled into `dist/assets/css/style.css`. Documentation, internal tools, prompts, temporary files, and credentials are not published. Never edit generated `dist/` directly.
 
