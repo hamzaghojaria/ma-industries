@@ -57,7 +57,7 @@ function applyPublicUrl(html, origin, pagePath = '') {
       '<link rel="preload" href="assets/fonts/playfair-display-normal-latin.woff2" as="font" type="font/woff2" crossorigin>\n<link rel="stylesheet"')
     .replace(/(<meta (?:property="og:image"|name="twitter:image") content=")(assets\/[^"\s]+)(")/g,
       (_, start, image, end) => start + escapeHtml(new URL(image, url).href) + end)
-    .replace('</head>', '<link rel="canonical" href="' + escapeHtml(pageUrl) + '">\n' +
+    .replace('</head>', '<meta name="robots" content="index,follow,max-image-preview:large">\n<link rel="canonical" href="' + escapeHtml(pageUrl) + '">\n' +
       '<meta property="og:url" content="' + escapeHtml(pageUrl) + '">\n</head>');
 }
 
@@ -137,6 +137,15 @@ for (const [file, sourceHtml] of pages) {
       itemListElement: catalogue.categories.map((category, index) => ({
         '@type': 'ListItem', position: index + 1, name: category.name,
         url: new URL(`products.html?category=${category.id}#collection`, baseUrl).href
+      })) });
+  }
+  if (file === 'products.html') {
+    graph[1].mainEntity = { '@id': pageUrl + '#catalogue' };
+    graph.push({ '@type': 'ItemList', '@id': pageUrl + '#catalogue', name: 'M&A Industries product catalogue',
+      numberOfItems: catalogue.papers.length,
+      itemListElement: catalogue.papers.map((product, index) => ({
+        '@type': 'ListItem', position: index + 1, name: product.name,
+        url: new URL(`product-${product.id}.html`, baseUrl).href
       })) });
   }
   pages.set(file, html.replace('</head>', '<script type="application/ld+json">' +

@@ -104,7 +104,20 @@ test('generated product pages link back to filtered browsing without removed cat
     assert.ok(html.includes(product.image));
     assert.ok(html.includes(`href="products.html?category=${product.group}#collection"`));
     assert.doesNotMatch(html, /category-[a-z-]+\.html/);
+    if (product.sourcingOnly) {
+      assert.ok(html.includes('Sourcing Enquiries | M&amp;A Industries'));
+      assert.ok(html.includes('Additional sourcing range: availability and specifications are confirmed on enquiry.'));
+    }
   }
+});
+
+test('the catalogue fallback links every product to a real detail page without JavaScript', () => {
+  const html = pages.get('products.html');
+  const fallback = html.match(/<!-- catalogue-fallback:start -->([\s\S]*?)<!-- catalogue-fallback:end -->/)[1];
+  assert.match(fallback, /<noscript>/);
+  const links = [...fallback.matchAll(/href="(product-[^"]+\.html)"/g)].map(match => match[1]);
+  assert.equal(new Set(links).size, catalogue.papers.length);
+  assert.deepEqual(links, Array.from(catalogue.papers, product => `product-${product.id}.html`));
 });
 
 test('brand cards retain separate website/profile actions and an inactive Industries profile', () => {

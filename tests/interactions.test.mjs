@@ -15,6 +15,23 @@ function boot(search = '') {
   return page;
 }
 
+test('product page links keep quick view on a normal click and preserve modifier navigation', () => {
+  const page = boot();
+  const product = page.window.MACatalogueData.papers[0];
+  assert.ok(page.get('products').innerHTML.includes(`href="product-${product.id}.html"`));
+  const card = {dataset: {paperId: product.id}};
+  const link = {getAttribute: () => `product-${product.id}.html`};
+  const target = {closest: selector => selector === '[data-paper-id]' ? card : selector === 'a' ? link : null};
+  let prevented = 0;
+  page.get('products').dispatch('click', {target, preventDefault() { prevented++; }});
+  assert.equal(prevented, 1);
+  assert.equal(page.location.hash, '#paper-' + product.id);
+  for (const modifier of ['ctrlKey', 'metaKey', 'shiftKey', 'altKey']) {
+    page.get('products').dispatch('click', {target, [modifier]: true, preventDefault() { prevented++; }});
+  }
+  assert.equal(prevented, 1, 'modified clicks retain browser navigation');
+});
+
 test('every mobile category option can select products and reset to the full catalogue', () => {
   const page = boot();
   const data = page.window.MACatalogueData;

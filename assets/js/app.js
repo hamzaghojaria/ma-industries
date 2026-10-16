@@ -67,15 +67,25 @@
 
   function productCard(paper) {
     const name = escapeHtml(paper.name);
+    const material = paper.material || 'Paper / board; confirm the selected grade';
+    const uses = paper.uses.slice(0, 2).join(' · ');
+    const firstSpecification = paper.specifications?.length ? specificationFields(paper)[0] : null;
+    const specification = paper.gsm ? gsmLabel(paper) + ' (indicative)' : firstSpecification
+      ? `${firstSpecification.label}: ${firstSpecification.value}` : 'Sizes and options confirmed on enquiry';
     return watermarkImages(`<article class="product" data-paper-id="${paper.id}" tabindex="0" role="link" aria-label="Explore ${name}">
       <a href="#paper-${paper.id}" class="product-visual" style="--paper:${paper.color};--bg:${paper.bg}" aria-label="Explore ${name}">
         <span class="index">${String(displayNumberById.get(paper.id)).padStart(2, '0')} / M&A</span>
         <img class="product-photo" src="${escapeHtml(paper.cardImage || paper.image)}" alt="${paper.illustration ? 'Collection: ' + escapeHtml(categoryById.get(paper.group).name) : name}" width="800" height="800" loading="lazy" decoding="async"><span class="type">${escapeHtml(paper.tag)}</span>
       </a>
-      <div class="product-top"><h3><a href="#paper-${paper.id}">${name}</a></h3>
+      <div class="product-top"><h3><a href="product-${paper.id}.html">${name}</a></h3>
         <a class="detail-button" href="#paper-${paper.id}" aria-label="View ${name}">${ACTION_ARROW}</a></div>
-      <div class="product-gsm"><span>${paper.material ? 'Material' : 'GSM guide'}</span><strong>${escapeHtml(paper.material ? 'View material details' : gsmLabel(paper))}</strong></div>
-      <p>${escapeHtml(paper.desc)}</p><div class="product-actions"><a class="text-button" href="#paper-${paper.id}">Explore product</a><a class="card-whatsapp" href="${escapeHtml(productWhatsAppUrl(paper))}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp about ${name}">${WHATSAPP_ICON}<span class="card-whatsapp-label">WhatsApp</span></a></div>
+      <p class="product-card-overview">${escapeHtml(paper.desc)}</p>
+      <dl class="product-card-facts">
+        <div><dt>Material</dt><dd title="${escapeHtml(material)}">${escapeHtml(material)}</dd></div>
+        <div><dt>Main uses</dt><dd title="${escapeHtml(uses)}">${escapeHtml(uses)}</dd></div>
+        <div><dt>Specifications</dt><dd title="${escapeHtml(specification)}">${escapeHtml(specification)}</dd></div>
+      </dl>
+      <div class="product-actions"><a class="text-button" href="#paper-${paper.id}">Explore product</a><a class="card-whatsapp" href="${escapeHtml(productWhatsAppUrl(paper))}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp about ${name}">${WHATSAPP_ICON}<span class="card-whatsapp-label">WhatsApp</span></a></div>
     </article>`);
   }
 
@@ -179,6 +189,7 @@
         ${paper.details ? '<p>' + escapeHtml(paper.details) + '</p>' : ''}
         <h3>Specifications</h3><dl class="product-specifications">${specifications.map(item => '<div><dt>' + escapeHtml(item.label) + '</dt><dd>' + escapeHtml(item.value) + '</dd></div>').join('')}</dl>
         <p><strong>What to share:</strong> ${paper.material ? 'Size, capacity, colour, material, pack quantity and delivery location.' : 'Sheet or reel size, GSM, finish, printing needs, quantity and delivery location.'}</p>
+        <p><a href="product-${paper.id}.html">View full product page</a></p>
       </details>
       <p class="detail-note">${paper.sourcingOnly ? 'Additional sourcing range — confirm availability. Specifications confirmed on enquiry.' : 'Specifications and availability confirmed on enquiry.'}${paper.group === 'wrapping' ? ' Confirm food-contact and temperature suitability.' : ''}</p>
       <div class="product-enquiry-actions product-modal-actions"><button class="button" type="button" data-choose-paper="${paper.id}" aria-label="Enquire about this product"><span class="action-copy enquiry-full-label">Enquire about this product</span><span class="action-copy enquiry-short-label">Enquire product</span></button><a class="button whatsapp-button" href="${escapeHtml(productWhatsAppUrl(paper))}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp connect">${WHATSAPP_ICON}<span class="action-copy">WhatsApp<span class="connect-word"> connect</span></span></a></div>`);
@@ -237,6 +248,14 @@
       if (!card) return;
       const link = event.target.closest('a');
       if (link) {
+        // Real page links support discovery and opening in another tab;
+        // ordinary clicks keep the existing quick-view experience.
+        if (link.getAttribute('href') === `product-${card.dataset.paperId}.html` &&
+            !event.ctrlKey && !event.metaKey && !event.shiftKey && !event.altKey) {
+          event.preventDefault();
+          activateProduct(card.dataset.paperId);
+          return;
+        }
         // Let normal links retain modifier-click behaviour and hash navigation.
         if (location.hash === link.getAttribute('href')) openProduct(card.dataset.paperId);
       } else if (!window.getSelection()?.toString()) activateProduct(card.dataset.paperId);

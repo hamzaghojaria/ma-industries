@@ -26,6 +26,13 @@ export function syncCatalogueMarkup(html, { papers, categories }) {
     { id: 'sugarcane-recycled', name: 'Sugarcane & Recycled', categories: categories.filter(category => category.collection === 'sugarcane-recycled') },
     { id: 'paper-packaging', name: 'Paper & Packaging', categories: categories.filter(category => category.collection !== 'sugarcane-recycled') }
   ];
+  // Real product URLs remain discoverable and usable without JavaScript.
+  html = html.replace(/<!-- catalogue-fallback:start -->[\s\S]*?<!-- catalogue-fallback:end -->/,
+    '<!-- catalogue-fallback:start --><noscript><section class="catalogue-fallback"><h2>Browse product details</h2><p>Open a product page for applications, specifications and enquiry options.</p>' +
+    categories.map(category => `<h3>${escapeHtml(category.name)}</h3><ul>` +
+      papers.filter(product => product.group === category.id).map(product =>
+        `<li><a href="product-${product.id}.html">${escapeHtml(product.name)}</a> — ${escapeHtml(product.desc)}</li>`).join('') + '</ul>').join('') +
+    '</section></noscript><!-- catalogue-fallback:end -->');
   // Own the entire grouped control so desktop order cannot drift from mobile/data.
   html = html.replace(/(<aside class="catalogue-sidebar"[^>]*>)[\s\S]*?(<\/aside>)/,
     (_, start, end) => start + '<div class="category-desktop"><h2>Browse categories</h2>' +

@@ -2,6 +2,45 @@
  * Rule order within each breakpoint is intentional. Production bundles these modules. */
 
 /* Search, sorting and reset controls. Use explicit classes, not child positions. */
+/* Shared card anatomy keeps paper and household ranges easy to compare.
+ * Full descriptions and specifications remain in quick view and detail pages. */
+.product {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.product > .product-visual { flex-shrink: 0; }
+.product-top { min-height: 54px; gap: 12px; }
+.product-top .detail-button { flex-shrink: 0; }
+.product .product-card-overview {
+  min-height: 5.1em;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+.product-card-facts { margin: 0 0 18px; }
+.product-card-facts > div {
+  display: grid;
+  grid-template-columns: 82px minmax(0, 1fr);
+  gap: 10px;
+  padding: 9px 0;
+  border-top: 1px solid var(--line);
+  font-size: 11px;
+  line-height: 1.6;
+}
+.product-card-facts dt { color: var(--ink-soft); font-weight: 600; }
+.product-card-facts dd {
+  margin: 0;
+  min-height: 3.2em;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
+.product > .product-actions { margin-top: auto; }
+
 /* Product popup: concise overview, with item-specific notes available on demand. */
 .detail-uses { font-size: 13px; line-height: 1.7; }
 .product-extra-details { margin: 14px 0; border-bottom: 1px solid var(--line); }

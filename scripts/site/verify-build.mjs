@@ -31,6 +31,10 @@ for (const [file, html] of pages) {
   if (!sitemapUrls.includes(canonical.href)) throw new Error(`${file}: canonical absent from sitemap`);
   if (!robots.includes(`Sitemap: ${canonical.origin}/sitemap.xml`)) throw new Error('robots.txt sitemap origin differs from canonical');
   if (!html.includes(`<meta property="og:url" content="${canonical.href}">`)) throw new Error(`${file}: social URL differs from canonical`);
+  const shareImage = html.match(/<meta property="og:image" content="([^"]+)"/)?.[1];
+  if (!shareImage || !shareImage.startsWith(canonical.origin + '/')) throw new Error(`${file}: missing absolute share image`);
+  await access(new URL(new URL(shareImage).pathname.slice(1), output));
+  if (!html.includes('max-image-preview:large')) throw new Error(`${file}: missing image preview directive`);
   const ids = [...html.matchAll(/\sid="([^"]+)"/g)].map(match => match[1]);
   if (ids.length !== new Set(ids).size) throw new Error(`${file}: duplicate element ID`);
   for (const [, raw] of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
