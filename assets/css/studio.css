@@ -114,11 +114,13 @@
   .directory-card.is-pointer-active::after, .brand-card.is-pointer-active::after,
   .founder-card.is-pointer-active::after, .product.is-pointer-active::after { opacity: 1; }
   .range-mosaic figure.is-pointer-active, .range-gateway.is-pointer-active, .directory-card.is-pointer-active,
-  .brand-card.is-pointer-active, .founder-card.is-pointer-active, .product.is-pointer-active {
+  .brand-card.is-pointer-active, .founder-card.is-pointer-active {
     transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateY(-4px);
   }
   .studio-art.is-pointer-active .studio-photo { transform: translateY(-4px); }
   .range-gateway.is-pointer-active { transform: translateY(-4px); }
+  /* Keep product text and watermarks level while the pointer light follows. */
+  .product.is-pointer-active { transform: translateY(-4px); }
 }
 @keyframes seal-turn { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: no-preference) {
