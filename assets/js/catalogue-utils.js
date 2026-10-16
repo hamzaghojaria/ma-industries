@@ -20,11 +20,44 @@
     return paper.gsm ? paper.gsm.min + '–' + paper.gsm.max + ' GSM' : 'Varies by grade';
   }
 
+  function specificationFields(paper) {
+    const fields = [];
+    const add = (label, value) => {
+      if (value && !fields.some(field => field.label.toLowerCase() === label.toLowerCase() && field.value === value)) fields.push({ label, value });
+    };
+    for (const item of paper.specifications || []) {
+      if (typeof item === 'object' && item.label && item.value) add(item.label, item.value);
+      else {
+        const text = String(item);
+        const separator = text.indexOf(':');
+        add(separator > 0 ? text.slice(0, separator).trim() : 'Available variant', separator > 0 ? text.slice(separator + 1).trim() : text);
+      }
+    }
+    if (paper.gsm) {
+      add('Paper weight', gsmLabel(paper) + ' indicative range');
+      add('Supply format', 'Sheets or reels; confirm the required format');
+      add('Dimensions', 'Confirm sheet size or reel width on enquiry');
+      if (paper.group === 'boards' || paper.group === 'packaging') add('Strength / grade', 'Confirm burst factor, compression or construction requirements');
+      else if (paper.group === 'labels') add('Converting details', 'Confirm face stock, adhesive, liner and print process');
+      else if (paper.group === 'wrapping') add('Food-contact use', 'Confirm coating, temperature range and required certification');
+      else add('Finish / colour', 'Confirm grade, shade and surface finish');
+      add('Order quantity', 'Confirm pack, reel or minimum order quantity');
+    } else {
+      add('Material', paper.material || 'Confirm item-specific composition');
+      add('Dimensions / capacity', 'Confirm the required size or selected variant');
+      add('Colour / finish', 'Confirm available options on enquiry');
+      if (paper.group === 'recycled-household') add('Recycled content', 'Confirm item-specific recycled percentage and composition');
+      add('Pack quantity', 'Confirm pack size and minimum order quantity');
+    }
+    return fields;
+  }
+
   function filterPapers(papers, { category = 'all', query = '', sort = 'collection' } = {}) {
     const search = query.trim().toLowerCase();
     const matches = papers.filter(paper =>
       (category === 'all' || paper.group === category) &&
-      [paper.name, paper.desc, paper.tag || '', paper.material || '', ...paper.uses].join(' ').toLowerCase().includes(search)
+      [paper.name, paper.desc, paper.tag || '', paper.material || '', ...paper.uses,
+        ...specificationFields(paper).flatMap(field => [field.label, field.value])].join(' ').toLowerCase().includes(search)
     );
     // Sort a filtered copy so the original collection order remains unchanged.
     return sort === 'az' ? matches.sort((a, b) => a.name.localeCompare(b.name)) : matches;
@@ -101,6 +134,6 @@
 
   // Classic scripts retain compatibility with opening index.html directly.
   window.MACatalogueUtils = Object.freeze({
-    validateCatalogue, gsmLabel, filterPapers, paginate, paginationPages, enquiryText, productWhatsAppText, watermarkImages
+    validateCatalogue, gsmLabel, specificationFields, filterPapers, paginate, paginationPages, enquiryText, productWhatsAppText, watermarkImages
   });
 })();

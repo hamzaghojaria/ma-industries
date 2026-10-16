@@ -5,6 +5,9 @@ export async function createSeoPages(root, baseUrl, escape) {
   const context = { window: {} };
   runInNewContext(await readFile(new URL('assets/js/catalogue-data.js', root), 'utf8'), context);
   const { papers, categories } = context.window.MACatalogueData;
+  const utilsContext = { window: { MACatalogueData: context.window.MACatalogueData } };
+  runInNewContext(await readFile(new URL('assets/js/catalogue-utils.js', root), 'utf8'), utilsContext);
+  const { specificationFields } = utilsContext.window.MACatalogueUtils;
   const template = await readFile(new URL('about.html', root), 'utf8');
   const pages = new Map();
   const productPath = item => `product-${item.id}.html`;
@@ -39,9 +42,7 @@ export async function createSeoPages(root, baseUrl, escape) {
   }
   for (const item of papers) {
     const category = categories.find(category => category.id === item.group);
-    const properties = [];
-    if (item.gsm) properties.push({ '@type': 'PropertyValue', name: 'Indicative paper weight', value: `${item.gsm.min}–${item.gsm.max} GSM` });
-    if (item.material) properties.push({ '@type': 'PropertyValue', name: 'Material', value: item.material });
+    const properties = specificationFields(item).map(specification => ({ '@type': 'PropertyValue', name: specification.label, value: specification.value }));
     const description = fitDescription(`${item.name}: ${item.desc} Enquire with M&A Industries in Mumbai about specifications and quantities.`);
     render(productPath(item), `${item.name} Supplier in Mumbai | M&A Industries`, description,
       `<div><nav aria-label="Breadcrumb"><a href="index.html">Home</a> / <a href="${categoryPath(category)}">${escape(category.name)}</a> / ${escape(item.name)}</nav><p class="eyebrow">${escape(category.name)} · MUMBAI</p><h1>${escape(item.name)}</h1><p>${escape(item.desc)}</p><img src="${escape(item.image)}" alt="${escape(item.name)}${item.illustration ? ' collection illustration' : ''}" width="800" height="800" style="width:100%;max-width:440px;height:auto" fetchpriority="high" decoding="async"><h2>Applications</h2><ul>${item.uses.map(use => `<li>${escape(use)}</li>`).join('')}</ul><h2>Specifications and sourcing</h2>${properties.map(property => `<p><strong>${escape(property.name)}:</strong> ${escape(property.value)}</p>`).join('')}${item.details ? `<p>${escape(item.details)}</p>` : ''}<p>Confirm the specific grade, dimensions, quantity, price and availability before ordering. ${item.gsm ? 'GSM ranges are indicative guides; confirm the required weight and finish for your application.' : 'Ask for item-specific composition, care and suitability documentation where relevant.'}</p><h2>Enquire about ${escape(item.name)}</h2><p>Contact M&amp;A Industries in Mumbai with your intended use, quantity and delivery destination.</p><a class="button" href="https://wa.me/919769681761?text=${encodeURIComponent(`Hello M&A Industries, I am interested in ${item.name}. Please share specifications, pricing and availability.`)}" target="_blank" rel="noopener noreferrer">Enquire on WhatsApp</a> <a class="button" href="products.html?category=${item.group}#paper-${item.id}">View in catalogue</a><h2>Related products</h2>${list(papers.filter(other => other.group === item.group && other.id !== item.id))}</div>`,

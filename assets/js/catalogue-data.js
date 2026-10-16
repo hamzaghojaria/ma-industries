@@ -751,10 +751,10 @@
   },
   {
     "id": "sugarcane-copy-paper",
-    "name": "Copy paper",
+    "name": "A4 sugarcane paper",
     "group": "sugarcane-paper",
-    "tag": "SUGARCANE PAPER PRODUCTS",
-    "desc": "Office documents and everyday printing.",
+    "tag": "SUGARCANE PAPER",
+    "desc": "A4 sheets made from sugarcane paper for documents and everyday printing.",
     "uses": [
       "Office printing",
       "Documents"
@@ -766,13 +766,17 @@
     "gsm": null,
     "material": "Sugarcane paper / bagasse pulp; composition varies by product",
     "illustration": false,
-    "details": "Confirm sizes, pack quantities, material composition and application suitability on enquiry. Request product-specific documentation for any food-contact or certification requirement."
+    "details": "Available as A4 sheets. Pack quantity and paper weight are confirmed on enquiry.",
+    "specifications": [
+      "Format: A4 sheets",
+      "Material: Sugarcane paper"
+    ]
   },
   {
     "id": "sugarcane-paper-cups",
     "name": "Paper cups",
     "group": "sugarcane-paper",
-    "tag": "SUGARCANE PAPER PRODUCTS",
+    "tag": "SUGARCANE PAPER",
     "desc": "Paper cups for beverage service.",
     "uses": [
       "Beverage service",
@@ -791,7 +795,7 @@
     "id": "sugarcane-bath-tissues",
     "name": "Bath tissues",
     "group": "sugarcane-paper",
-    "tag": "SUGARCANE PAPER PRODUCTS",
+    "tag": "SUGARCANE PAPER",
     "desc": "Tissue products for washrooms and daily use.",
     "uses": [
       "Washrooms",
@@ -810,7 +814,7 @@
     "id": "sugarcane-food-containers",
     "name": "Food containers",
     "group": "sugarcane-paper",
-    "tag": "SUGARCANE PAPER PRODUCTS",
+    "tag": "SUGARCANE PAPER",
     "desc": "Pulp containers for takeaway and food service.",
     "uses": [
       "Takeaway packaging",
@@ -827,10 +831,10 @@
   },
   {
     "id": "sugarcane-packaging-paper",
-    "name": "Packaging paper",
+    "name": "Sugarcane paper rolls",
     "group": "sugarcane-paper",
-    "tag": "SUGARCANE PAPER PRODUCTS",
-    "desc": "Paper for wrapping and packaging applications.",
+    "tag": "SUGARCANE PAPER",
+    "desc": "Sugarcane paper supplied in roll format for converting and packaging applications.",
     "uses": [
       "Wrapping",
       "Packaging"
@@ -842,13 +846,17 @@
     "gsm": null,
     "material": "Sugarcane paper / bagasse pulp; composition varies by product",
     "illustration": false,
-    "details": "Confirm sizes, pack quantities, material composition and application suitability on enquiry. Request product-specific documentation for any food-contact or certification requirement."
+    "details": "Available in roll format. Roll width, paper weight and order quantity are confirmed on enquiry.",
+    "specifications": [
+      "Format: Roll",
+      "Material: Sugarcane paper"
+    ]
   },
   {
     "id": "cutting-boards",
-    "name": "Cutting boards",
+    "name": "Sugarcane cutting boards",
     "group": "sugarcane-kitchenware",
-    "tag": "SUGARCANE KITCHENWARE",
+    "tag": "SUGARCANE HOUSEHOLD GOODS",
     "desc": "Boards for everyday kitchen preparation.",
     "uses": [
       "Food preparation",
@@ -859,15 +867,19 @@
     "image": "assets/images/products/cutting-boards-photo.jpg",
     "index": 42,
     "gsm": null,
-    "material": "Bio-PE / Bio-PP range; confirm composition for the selected item",
+    "material": "BIO-PE + PP; 25% biomass content",
     "illustration": false,
-    "details": "Confirm sizes, pack quantities, material composition and application suitability on enquiry. Request product-specific documentation for any food-contact or certification requirement."
+    "details": "Available in mint and pink.",
+    "specifications": [
+      "Large: 1 × 27.5 × 37.5 cm; 1 pc; 810 g",
+      "Medium: 1 × 20.7 × 33.5 cm; 1 pc; 564 g"
+    ]
   },
   {
     "id": "reusable-cups",
     "name": "Reusable cups",
     "group": "sugarcane-kitchenware",
-    "tag": "SUGARCANE KITCHENWARE",
+    "tag": "SUGARCANE HOUSEHOLD GOODS",
     "desc": "Reusable drinkware for everyday routines.",
     "uses": [
       "Reusable drinkware",
@@ -884,10 +896,10 @@
   },
   {
     "id": "salad-bowls",
-    "name": "Salad bowls",
+    "name": "Sugarcane mixing bowl",
     "group": "sugarcane-kitchenware",
-    "tag": "SUGARCANE KITCHENWARE",
-    "desc": "Bowls for preparation and serving.",
+    "tag": "SUGARCANE HOUSEHOLD GOODS",
+    "desc": "A bio-based mixing bowl for everyday food preparation.",
     "uses": [
       "Salad preparation",
       "Serving"
@@ -897,15 +909,19 @@
     "image": "assets/images/products/salad-bowls-photo.jpg",
     "index": 44,
     "gsm": null,
-    "material": "Bio-PE / Bio-PP range; confirm composition for the selected item",
+    "material": "BIO-PE + PP; 25% biomass content",
     "illustration": false,
-    "details": "Confirm sizes, pack quantities, material composition and application suitability on enquiry. Request product-specific documentation for any food-contact or certification requirement."
+    "details": "Available in peach, mustard and blue.",
+    "specifications": [
+      "Size: 5 × 24.7 × 12 cm",
+      "Pack: 1 pc; 646 g"
+    ]
   },
   {
     "id": "rice-paddles",
-    "name": "Rice paddles",
+    "name": "Sugarcane rice paddles",
     "group": "sugarcane-kitchenware",
-    "tag": "SUGARCANE KITCHENWARE",
+    "tag": "SUGARCANE HOUSEHOLD GOODS",
     "desc": "Practical utensils for serving rice.",
     "uses": [
       "Serving rice",
@@ -916,15 +932,21 @@
     "image": "assets/images/products/rice-paddles-photo.jpg",
     "index": 45,
     "gsm": null,
-    "material": "Bio-PE / Bio-PP range; confirm composition for the selected item",
+    "material": "BIO-PE + PP; 25% biomass content",
     "illustration": false,
-    "details": "Confirm sizes, pack quantities, material composition and application suitability on enquiry. Request product-specific documentation for any food-contact or certification requirement."
+    "details": "Available in white, lime green, pink, papaya and mint.",
+    "specifications": [
+      "Fish: 8 × 20 × 2 cm; 1 pc; 75 g",
+      "Squirrel: 7 × 21 × 2 cm; 1 pc; 70 g",
+      "Hippo: 10.2 × 18.5 × 2 cm; 1 pc; 78 g",
+      "Lion: 9 × 19 × 2 cm; 1 pc; 66 g"
+    ]
   },
   {
     "id": "glass-airtight-containers",
     "name": "Glass airtight containers",
     "group": "sugarcane-kitchenware",
-    "tag": "SUGARCANE KITCHENWARE",
+    "tag": "SUGARCANE HOUSEHOLD GOODS",
     "desc": "Glass storage containers with lids; confirm lid material and seal specifications.",
     "uses": [
       "Food storage",
@@ -941,9 +963,9 @@
   },
   {
     "id": "double-zipper-bags",
-    "name": "Double zipper bags",
+    "name": "Sugarcane zipper bags",
     "group": "sugarcane-bags",
-    "tag": "SUGARCANE BAGS & WRAPS",
+    "tag": "SUGARCANE FOOD PACKAGING",
     "desc": "Resealable bags for organised food storage.",
     "uses": [
       "Food storage",
@@ -954,15 +976,19 @@
     "image": "assets/images/products/double-zipper-bags-photo.jpg",
     "index": 47,
     "gsm": null,
-    "material": "Bio-polyethylene (Bio-PE); confirm bio-based content and formulation",
+    "material": "BIO-PE + PE; 25% biomass content",
     "illustration": false,
-    "details": "Confirm sizes, pack quantities, material composition and application suitability on enquiry. Request product-specific documentation for any food-contact or certification requirement."
+    "details": "Resealable bags supplied in large and medium sizes.",
+    "specifications": [
+      "Large: 55 μm; 25 × 30 cm; 20 pcs; 240 g",
+      "Medium: 55 μm; 18 × 20 cm; 20 pcs; 126 g"
+    ]
   },
   {
     "id": "disposable-gloves",
-    "name": "Disposable gloves",
+    "name": "Sugarcane sanitary gloves",
     "group": "sugarcane-bags",
-    "tag": "SUGARCANE BAGS & WRAPS",
+    "tag": "SUGARCANE FOOD PACKAGING",
     "desc": "Single-use gloves for everyday handling tasks.",
     "uses": [
       "Food handling",
@@ -973,15 +999,20 @@
     "image": "assets/images/products/disposable-gloves-photo.jpg",
     "index": 48,
     "gsm": null,
-    "material": "Bio-polyethylene (Bio-PE); confirm bio-based content and formulation",
+    "material": "BIO-PE + PE; 25% biomass content",
     "illustration": false,
-    "details": "Confirm sizes, pack quantities, material composition and application suitability on enquiry. Request product-specific documentation for any food-contact or certification requirement."
+    "details": "Available in standard adult and kids formats.",
+    "specifications": [
+      "Standard 100 pcs: 22 μm; 23 × 27 cm; 234 g",
+      "Standard 50 pcs: 22 μm; 23 × 27 cm; 112 g",
+      "Kids 30 pcs: 22 μm; 21 × 24 cm; 64 g"
+    ]
   },
   {
     "id": "easy-cut-cling-wraps",
-    "name": "Easy-cut cling wraps",
+    "name": "Sugarcane cling wrap",
     "group": "sugarcane-bags",
-    "tag": "SUGARCANE BAGS & WRAPS",
+    "tag": "SUGARCANE FOOD PACKAGING",
     "desc": "Cling film rolls for covering and wrapping.",
     "uses": [
       "Food covering",
@@ -992,15 +1023,19 @@
     "image": "assets/images/products/easy-cut-cling-wraps-photo.jpg",
     "index": 49,
     "gsm": null,
-    "material": "Bio-polyethylene (Bio-PE); confirm bio-based content and formulation",
+    "material": "BIO-PE + PE; 25% biomass content",
     "illustration": false,
-    "details": "Confirm sizes, pack quantities, material composition and application suitability on enquiry. Request product-specific documentation for any food-contact or certification requirement."
+    "details": "Cling film supplied in 100-metre rolls.",
+    "specifications": [
+      "20 cm roll: 12 μm; 100 m; 1 pc; 360 g",
+      "30 cm roll: 12 μm; 100 m; 1 pc; 556 g"
+    ]
   },
   {
     "id": "food-storage-roll-bags",
-    "name": "Food storage roll bags",
+    "name": "Sugarcane roll bags",
     "group": "sugarcane-bags",
-    "tag": "SUGARCANE BAGS & WRAPS",
+    "tag": "SUGARCANE FOOD PACKAGING",
     "desc": "Bags on a roll for convenient storage.",
     "uses": [
       "Food storage",
@@ -1011,16 +1046,22 @@
     "image": "assets/images/products/food-storage-roll-bags-photo.jpg",
     "index": 50,
     "gsm": null,
-    "material": "Bio-polyethylene (Bio-PE); confirm bio-based content and formulation",
+    "material": "BIO-PE + PE; 25% biomass content",
     "illustration": false,
-    "details": "Confirm sizes, pack quantities, material composition and application suitability on enquiry. Request product-specific documentation for any food-contact or certification requirement."
+    "details": "All variants have an 11 μm thickness and contain 200 bags.",
+    "specifications": [
+      "Extra large: 35 × 45 cm; 655 g",
+      "Large: 30 × 40 cm; 482 g",
+      "Medium: 25 × 35 cm; 388 g",
+      "Small: 17 × 25 cm; 218 g"
+    ]
   },
   {
     "id": "food-storage-pop-up-bags",
-    "name": "Food storage pop-up bags",
+    "name": "Sugarcane sanitary bags",
     "group": "sugarcane-bags",
-    "tag": "SUGARCANE BAGS & WRAPS",
-    "desc": "Easy-access bags for everyday storage.",
+    "tag": "SUGARCANE FOOD PACKAGING",
+    "desc": "Pull-and-use bags available in standard and premium material options.",
     "uses": [
       "Food storage",
       "Convenient dispensing"
@@ -1030,9 +1071,17 @@
     "image": "assets/images/products/food-storage-pop-up-bags-photo.jpg",
     "index": 51,
     "gsm": null,
-    "material": "Bio-polyethylene (Bio-PE); confirm bio-based content and formulation",
+    "material": "BIO-PE + PE or BIO-PE; 25% or 100% biomass content",
     "illustration": false,
-    "details": "Confirm sizes, pack quantities, material composition and application suitability on enquiry. Request product-specific documentation for any food-contact or certification requirement."
+    "details": "All variants have an 11 μm thickness and contain 100 bags.",
+    "specifications": [
+      "Standard large: 30 × 40 cm; 292 g",
+      "Standard medium: 25 × 35 cm; 226 g",
+      "Standard small: 17 × 25 cm; 106 g",
+      "Premium large: 30 × 40 cm; 302 g",
+      "Premium medium: 25 × 35 cm; 232 g",
+      "Premium small: 17 × 25 cm; 110 g"
+    ]
   },
   {
     "id": "recycled-hangers",
@@ -1095,7 +1144,7 @@
     "id": "sugarcane-plates",
     "name": "Plates",
     "group": "sugarcane-paper",
-    "tag": "SUGARCANE PAPER PRODUCTS",
+    "tag": "SUGARCANE PAPER",
     "desc": "Enquire about bagasse plates for serving meals and catered events.",
     "uses": [
       "Meal service",
@@ -1115,7 +1164,7 @@
     "id": "sugarcane-soup-bowls",
     "name": "Soup bowls",
     "group": "sugarcane-paper",
-    "tag": "SUGARCANE PAPER PRODUCTS",
+    "tag": "SUGARCANE PAPER",
     "desc": "Explore deep bagasse bowls for soup and other foodservice applications.",
     "uses": [
       "Soup service",
@@ -1135,7 +1184,7 @@
     "id": "sugarcane-serving-trays",
     "name": "Serving trays",
     "group": "sugarcane-paper",
-    "tag": "SUGARCANE PAPER PRODUCTS",
+    "tag": "SUGARCANE PAPER",
     "desc": "Enquire about bagasse trays for presenting and serving food.",
     "uses": [
       "Food presentation",
@@ -1155,7 +1204,7 @@
     "id": "bio-based-reusable-cutlery",
     "name": "Bio-based reusable cutlery",
     "group": "sugarcane-kitchenware",
-    "tag": "SUGARCANE KITCHENWARE",
+    "tag": "SUGARCANE HOUSEHOLD GOODS",
     "desc": "Explore reusable fork, spoon and knife sets made with bio-based material options.",
     "uses": [
       "Reusable dining utensils",
@@ -1175,7 +1224,7 @@
     "id": "reusable-drinking-straws",
     "name": "Reusable drinking straws",
     "group": "sugarcane-kitchenware",
-    "tag": "SUGARCANE KITCHENWARE",
+    "tag": "SUGARCANE HOUSEHOLD GOODS",
     "desc": "Enquire about reusable drinking straws and the available bio-based formulations.",
     "uses": [
       "Beverage service",
@@ -1195,7 +1244,7 @@
     "id": "bio-based-food-storage-containers",
     "name": "Bio-based food-storage containers",
     "group": "sugarcane-kitchenware",
-    "tag": "SUGARCANE KITCHENWARE",
+    "tag": "SUGARCANE HOUSEHOLD GOODS",
     "desc": "Explore reusable storage containers with bio-based plastic bodies and fitted lids.",
     "uses": [
       "Kitchen organisation",
@@ -1215,7 +1264,7 @@
     "id": "bio-pe-carry-bags",
     "name": "Bio-PE carry bags",
     "group": "sugarcane-bags",
-    "tag": "SUGARCANE BAGS & WRAPS",
+    "tag": "SUGARCANE FOOD PACKAGING",
     "desc": "Enquire about sugarcane-based polyethylene carry bags for retail and everyday use.",
     "uses": [
       "Retail carry bags",
@@ -1235,7 +1284,7 @@
     "id": "bio-pe-bin-liners",
     "name": "Bio-PE bin liners",
     "group": "sugarcane-bags",
-    "tag": "SUGARCANE BAGS & WRAPS",
+    "tag": "SUGARCANE FOOD PACKAGING",
     "desc": "Explore bin-liner options using sugarcane-based polyethylene formulations.",
     "uses": [
       "Household waste collection",
@@ -1250,6 +1299,100 @@
     "illustration": false,
     "sourcingOnly": true,
     "details": "Additional sourcing range. Product availability, material composition, sizes and pack quantities are confirmed on enquiry. Request item-specific documentation for food-contact, temperature or care requirements where relevant."
+  },
+  {
+    "id": "sugarcane-a3-paper",
+    "name": "A3 sugarcane paper",
+    "group": "sugarcane-paper",
+    "tag": "SUGARCANE PAPER",
+    "desc": "A3 sheets made from sugarcane paper for documents and larger-format printing.",
+    "uses": [
+      "Office printing",
+      "Large-format documents"
+    ],
+    "color": "#d4c8a8",
+    "bg": "#e9ede3",
+    "image": "assets/images/products/sugarcane-a3-paper-photo.webp",
+    "index": 63,
+    "gsm": null,
+    "material": "Sugarcane paper",
+    "illustration": false,
+    "details": "Available as A3 sheets. Pack quantity and paper weight are confirmed on enquiry.",
+    "specifications": [
+      "Format: A3 sheets",
+      "Material: Sugarcane paper"
+    ]
+  },
+  {
+    "id": "grippy-cutting-board",
+    "name": "Sugarcane grippy cutting board",
+    "group": "sugarcane-kitchenware",
+    "tag": "SUGARCANE HOUSEHOLD GOODS",
+    "desc": "A cutting board with non-slip feet for everyday food preparation.",
+    "uses": [
+      "Food preparation",
+      "Kitchen use"
+    ],
+    "color": "#a7b9a1",
+    "bg": "#e9ede3",
+    "image": "assets/images/products/grippy-cutting-board-photo.webp",
+    "index": 64,
+    "gsm": null,
+    "material": "BIO-PE + PP; 25% biomass content",
+    "illustration": false,
+    "details": "Available in mint, mustard, orange and deep blue.",
+    "specifications": [
+      "Large: 1 × 27.5 × 37.5 cm",
+      "Pack: 1 pc; 814 g"
+    ]
+  },
+  {
+    "id": "sugarcane-toothbrushes",
+    "name": "Sugarcane toothbrushes",
+    "group": "sugarcane-kitchenware",
+    "tag": "SUGARCANE HOUSEHOLD GOODS",
+    "desc": "Compact-head toothbrushes offered in single and multipack formats.",
+    "uses": [
+      "Daily oral care",
+      "Household essentials"
+    ],
+    "color": "#a7b9a1",
+    "bg": "#e9ede3",
+    "image": "assets/images/products/sugarcane-toothbrushes-photo.webp",
+    "index": 65,
+    "gsm": null,
+    "material": "BIO-PE + PP; 25% biomass content",
+    "illustration": false,
+    "details": "Available in pink, orange, mint and blue.",
+    "specifications": [
+      "Single: 2 × 1.3 × 19 cm; 1 pc; 17 g",
+      "Four-pack: 2 × 1.3 × 19 cm; 4 pcs; 61 g",
+      "Eight-pack: 2 × 1.3 × 19 cm; 8 pcs; 122 g"
+    ]
+  },
+  {
+    "id": "sugarcane-hangers",
+    "name": "Sugarcane hangers",
+    "group": "sugarcane-kitchenware",
+    "tag": "SUGARCANE HOUSEHOLD GOODS",
+    "desc": "Bio-based hangers in standard, round and recycled-content variants.",
+    "uses": [
+      "Clothing storage",
+      "Wardrobe organisation"
+    ],
+    "color": "#a7b9a1",
+    "bg": "#e9ede3",
+    "image": "assets/images/products/sugarcane-hangers-photo.webp",
+    "index": 66,
+    "gsm": null,
+    "material": "BIO-PE + PP; 25% biomass content",
+    "illustration": false,
+    "details": "Available in white and black. Each variant is supplied as a five-pack.",
+    "specifications": [
+      "Recycled: 0.5 × 40 × 20 cm; 5 pcs; 323 g",
+      "Standard: 1.2 × 40 × 22 cm; 5 pcs; 300 g",
+      "Round: 2.2 × 40 × 23 cm; 5 pcs; 350 g"
+    ]
   }
 ];
 const categories=[
@@ -1311,25 +1454,25 @@ const categories=[
   },
   {
     "id": "sugarcane-paper",
-    "name": "Sugarcane Paper Products",
+    "name": "Sugarcane Paper",
     "line": "A new chapter for sugarcane.",
-    "desc": "Bagasse paper, plates, bowls and trays for office, packaging and foodservice enquiries.",
+    "desc": "Sugarcane paper in sheet and roll formats, alongside paper-based foodservice products.",
     "color": "#d4c8a8",
     "collection": "sugarcane-recycled"
   },
   {
     "id": "sugarcane-kitchenware",
-    "name": "Sugarcane Kitchenware",
-    "line": "Made for the everyday table.",
-    "desc": "Reusable cups, bowls, boards, cutlery, straws and food-storage essentials.",
+    "name": "Sugarcane Household Goods",
+    "line": "Useful forms for everyday routines.",
+    "desc": "Bio-based kitchen, dining, personal-care and household essentials.",
     "color": "#a7b9a1",
     "collection": "sugarcane-recycled"
   },
   {
     "id": "sugarcane-bags",
-    "name": "Sugarcane Bags & Wraps",
+    "name": "Sugarcane Food Packaging",
     "line": "Keep the everyday covered.",
-    "desc": "Explore Bio-PE storage bags, wraps, gloves, carry bags and bin liners.",
+    "desc": "BIO-PE zipper bags, wraps, roll bags, gloves and sanitary bags.",
     "color": "#b7c9ba",
     "collection": "sugarcane-recycled"
   },

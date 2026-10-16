@@ -7,6 +7,12 @@
 .product-extra-details { margin: 14px 0; border-bottom: 1px solid var(--line); }
 .product-extra-details summary { min-height: 44px; padding: 12px 0; cursor: pointer; font-size: 13px; font-weight: 600; }
 .product-extra-details p { padding-bottom: 12px; font-size: 13px; line-height: 1.7; }
+.product-extra-details h3 { margin: 4px 0 8px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+.product-specifications { margin: 0 0 14px; border-top: 1px solid var(--line); }
+.product-specifications div { display: grid; grid-template-columns: minmax(105px, .72fr) minmax(0, 1.55fr); gap: 14px; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 12px; line-height: 1.55; }
+.product-specifications dt { color: var(--ink-soft); font-weight: 600; }
+.product-specifications dd { margin: 0; color: var(--ink); }
+@media (max-width: 420px) { .product-specifications div { grid-template-columns: 1fr; gap: 2px; } }
 
 .catalogue-tools {
   display: flex;

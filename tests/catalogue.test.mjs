@@ -108,3 +108,16 @@ test('GSM guides cover the catalogue and reject invalid ranges', () => {
     assert.throws(() => utils.validateCatalogue([{...papers[0], gsm}], categories), /Invalid GSM/);
   }
 });
+
+test('every catalogue product has useful, non-fabricated specification fields', () => {
+  for (const paper of papers) {
+    const fields = Array.from(utils.specificationFields(paper));
+    assert.ok(fields.length >= 4, paper.id + ' should expose at least four specification fields');
+    assert.ok(fields.every(field => field.label && field.value));
+    assert.ok(fields.some(field => /dimension|size|paper weight/i.test(field.label)), paper.id + ' should ask for size or weight');
+  }
+  const clingWrap = papers.find(paper => paper.id === 'sugarcane-cling-wrap');
+  const exactValues = utils.specificationFields(clingWrap).map(field => field.value).join(' ');
+  assert.match(exactValues, /12 μm/);
+  assert.match(exactValues, /20 cm × 100 m/);
+});
