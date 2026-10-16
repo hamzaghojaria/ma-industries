@@ -196,6 +196,16 @@
   }
 
   function initializeCatalogue() {
+    if (dom.categorySelect) {
+      const options = document.createDocumentFragment();
+      options.append(new Option('All products (' + papers.length + ')', 'all'));
+      for (const category of categories) {
+        const count = papers.filter(paper => paper.group === category.id).length;
+        options.append(new Option(category.name + ' (' + count + ')', category.id));
+      }
+      dom.categorySelect.replaceChildren(options);
+      dom.categorySelect.value = state.category;
+    }
     for (const button of dom.filters) button.addEventListener('click', () => setCategory(button.dataset.filter));
     dom.categorySelect?.addEventListener('change', () => setCategory(dom.categorySelect.value));
     for (const input of [dom.search, dom.sort]) {

@@ -4601,23 +4601,20 @@ header nav a[aria-current="page"] { color: var(--red); font-weight: 600; }
 .site-footer .footer-explore .footer-enquiry-link:active { background: #680018; color: #fff; }
 @media (prefers-reduced-motion: reduce) { header nav .nav-cta { transition: none; } }
 
-/* Center phone footer links in rows of three, two, then the enquiry action. */
+/* Distribute phone footer links evenly in two equal columns. */
 @media (max-width: 600px) {
  .site-footer .footer-explore { text-align: center; }
  .site-footer .footer-explore ul.footer-nav-links {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   justify-content: center;
   align-items: center;
-  gap: 4px 0;
+  gap: 8px 16px;
  }
- .site-footer .footer-nav-links li { grid-column: span 2; }
- .site-footer .footer-nav-links li:nth-child(4) { grid-column: 2 / span 2; }
- .site-footer .footer-nav-links li:nth-child(5) { grid-column: 4 / span 2; }
- .site-footer .footer-nav-links li:last-child { grid-column: 1 / -1; }
+ .site-footer .footer-nav-links li { min-width: 0; }
  .site-footer .footer-nav-links li a:not(.footer-enquiry-link) {
   justify-content: center;
-  min-height: 46px;
+  min-height: 48px;
   padding: 10px 2px;
   border: 0;
   border-radius: 0;
@@ -4628,10 +4625,10 @@ header nav a[aria-current="page"] { color: var(--red); font-weight: 600; }
   white-space: normal;
  }
  .site-footer .footer-explore .footer-enquiry-link {
-  width: fit-content;
-  min-width: 132px;
+  width: 100%;
+  min-width: 0;
   min-height: 48px;
-  margin: 8px auto 0;
+  margin: 0;
   padding: 7px 14px;
   gap: 9px;
   font-size: 12px;
@@ -4870,4 +4867,29 @@ header nav a[aria-current="page"] { color: var(--red); font-weight: 600; }
 @media (prefers-reduced-motion: reduce) {
   .site-footer .footer-contact-actions a[href^="https://wa.me/"],
   .site-footer .footer-contact-actions a[href^="mailto:"] { transform: none; }
+}
+
+.brand-card-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; padding-top: 14px; border-top: 1px solid #e7e4db; }
+.brand-card-actions .brand-card-link { flex: 1 1 auto; gap: 8px; min-height: 44px; padding-top: 0; border-top: 0; text-decoration: none; }
+.brand-card-actions .brand-card-link:focus-visible { outline: 2px solid var(--red); outline-offset: 4px; }
+
+/* Keep the two brand cards aligned across their different logo proportions. */
+.brands-grid .brand-card { grid-template-rows: auto 1fr auto; }
+.brands-grid .brand-card-logo { height: 104px; }
+.brands-grid .brand-card-logo img { max-height: 100%; object-fit: contain; }
+.brands-grid .brand-card-actions { align-self: end; }
+.brand-card-actions .brand-card-link:hover { color: var(--red); }
+@media (max-width: 600px) {
+  .brands-grid .brand-card-logo { height: 76px; }
+}
+.brand-card-actions .brand-card-link-disabled, .brand-card-actions .brand-card-link-disabled:hover { color: #85867f; cursor: not-allowed; }
+
+/* Compact category control replaces the sidebar on phones and tablets. */
+.catalogue-tools > .mobile-category-filter { display: none; }
+@media (max-width: 900px) {
+  .catalogue-main .catalogue-tools { flex-wrap: wrap; gap: 16px; }
+  .catalogue-tools > .mobile-category-filter { display: block; flex: 0 0 100%; max-width: none; min-width: 0; }
+  .mobile-category-filter select { display: block; width: 100%; min-width: 0; min-height: 48px; margin-top: 6px; font: inherit; font-size: 16px; border-radius: 6px; }
+  .mobile-category-filter select:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+  .catalogue-main .catalogue-tools > label:not(.mobile-category-filter) { flex: 1 1 100%; max-width: none; }
 }
