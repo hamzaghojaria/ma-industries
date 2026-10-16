@@ -915,7 +915,7 @@
     "gsm": null,
     "material": "Confirm the selected item's composition and bio-based content on enquiry",
     "illustration": true,
-    "details": "AI-generated product illustration based on reference photographs; actual finish and details may vary. Enquire about bulk quantities, gift packaging and logo personalisation for corporate orders; options are subject to supplier confirmation. Confirm beverage temperature suitability, lid performance and care instructions before use.",
+    "details": "Enquire about bulk quantities, gift packaging and logo personalisation for corporate orders; options are subject to supplier confirmation. Confirm beverage temperature suitability, lid performance and care instructions before use.",
     "specifications": [
       "Design: tall tumbler with matching lid and a ribbed lower body",
       "Reference colours: brown and cream; confirm availability",
@@ -1007,7 +1007,7 @@
     "gsm": null,
     "material": "BIO-PE + PE; 25% biomass content",
     "illustration": true,
-    "details": "Resealable bags supplied in large and medium sizes. AI-generated product illustration based on reference photographs, showing frosted pouches with blue and orange zipper seals; actual colours, finish and details are confirmed on enquiry.",
+    "details": "Resealable bags supplied in large and medium sizes. Confirm available colours and finish on enquiry.",
     "specifications": [
       "Large: 55 μm; 25 × 30 cm; 20 pcs; 240 g",
       "Medium: 55 μm; 18 × 20 cm; 20 pcs; 126 g"

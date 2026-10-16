@@ -11,6 +11,9 @@ services:
       - path: /*
         name: X-Content-Type-Options
         value: nosniff
+      - path: /assets/catalogues/MA-Industries-Paper-Catalogue.pdf
+        name: Content-Disposition
+        value: 'attachment; filename="MA-Industries-Paper-Catalogue.pdf"'
     routes:
       - type: redirect
         source: /product-duplex-paper.html

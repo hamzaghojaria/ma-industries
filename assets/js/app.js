@@ -75,7 +75,7 @@
     return watermarkImages(`<article class="product" data-paper-id="${paper.id}" tabindex="0" role="link" aria-label="Explore ${name}">
       <a href="#paper-${paper.id}" class="product-visual" style="--paper:${paper.color};--bg:${paper.bg}" aria-label="Explore ${name}">
         <span class="index">${String(displayNumberById.get(paper.id)).padStart(2, '0')} / M&A</span>
-        <img class="product-photo" src="${escapeHtml(paper.cardImage || paper.image)}" alt="${paper.illustration ? 'Collection: ' + escapeHtml(categoryById.get(paper.group).name) : name}" width="800" height="800" loading="lazy" decoding="async"><span class="type">${escapeHtml(paper.tag)}</span>
+        <img class="product-photo" src="${escapeHtml(paper.cardImage || paper.image)}" alt="${name}" width="800" height="800" loading="lazy" decoding="async"><span class="type">${escapeHtml(paper.tag)}</span>
       </a>
       <div class="product-top"><h3><a href="#paper-${paper.id}">${name}</a></h3>
         <a class="detail-button" href="#paper-${paper.id}" aria-label="View ${name}">${ACTION_ARROW}</a></div>
