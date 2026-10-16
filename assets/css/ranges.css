@@ -41,6 +41,7 @@
 }
 
 .range-mosaic figure {
+  position: relative;
   margin: 0;
   min-width: 0;
   background: #f8f5eb;
@@ -66,6 +67,33 @@
   background: #f8f5eb;
   font: 600 11px/1.5 'DM Sans', Arial, sans-serif;
   letter-spacing: .4px;
+}
+
+/* Stretch the caption link over its tile while keeping one keyboard stop. */
+.range-mosaic-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.range-mosaic-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  border-radius: inherit;
+}
+
+.range-mosaic-link:focus-visible {
+  outline: none;
+}
+
+.range-mosaic-link:focus-visible::after {
+  outline: 3px solid #394334;
+  outline-offset: -4px;
 }
 
 .range-image-caption {
