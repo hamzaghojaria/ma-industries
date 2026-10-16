@@ -15,8 +15,7 @@
     categorySelect: byId('category-select'), categoryHeading: byId('active-category'), search: byId('search'), sort: byId('sort'), reset: byId('reset-catalogue'),
     form: byId('brief'), paper: byId('paper'), options: byId('paper-options'),
     status: byId('status'), detail: byId('detail'), detailBody: byId('detail-body'),
-    header: document.querySelector('header'), menu: document.querySelector('.menu'),
-    navigation: byId('site-navigation'), filters: [...document.querySelectorAll('[data-filter]')]
+    filters: [...document.querySelectorAll('[data-filter]')]
   };
   const requestedCategory = new URLSearchParams(location.search).get('category');
   const state = { category: categories.some(item => item.id === requestedCategory) ? requestedCategory : 'all', page: 1 };
@@ -307,48 +306,6 @@
     });
   }
 
-  function setNavigationOpen(open) {
-    dom.navigation.classList.toggle('open', open);
-    dom.menu.setAttribute('aria-expanded', String(open));
-    dom.menu.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
-  }
-
-  function initializeNavigation() {
-    dom.menu.addEventListener('click', () => setNavigationOpen(!dom.navigation.classList.contains('open')));
-    dom.navigation.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setNavigationOpen(false)));
-    document.addEventListener('click', event => { if (!event.target.closest('header')) setNavigationOpen(false); });
-    document.addEventListener('keydown', event => {
-      if (event.key === 'Escape' && dom.navigation.classList.contains('open')) {
-        setNavigationOpen(false);
-        dom.menu.focus();
-      }
-    });
-    window.matchMedia('(min-width: 801px)').addEventListener('change', event => {
-      if (event.matches) setNavigationOpen(false);
-    });
-    const updateHeader = () => dom.header.classList.toggle('scrolled', window.scrollY > 12);
-    let scheduled = false;
-    window.addEventListener('scroll', () => {
-      if (scheduled) return;
-      scheduled = true;
-      window.requestAnimationFrame(() => { updateHeader(); scheduled = false; });
-    }, { passive: true });
-    updateHeader();
-    if (!('IntersectionObserver' in window)) return;
-    const observer = new IntersectionObserver(entries => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        dom.navigation.querySelectorAll('a').forEach(link => {
-          const active = link.getAttribute('href') === '#' + entry.target.id;
-          link.classList.toggle('is-current', active);
-          if (active) link.setAttribute('aria-current', 'location');
-          else link.removeAttribute('aria-current');
-        });
-      }
-    }, { rootMargin: '-15% 0px -60% 0px', threshold: 0 });
-    document.querySelectorAll('#categories,#collection,#approach,#enquiry').forEach(section => observer.observe(section));
-  }
-
   // Counts come from the catalogue, avoiding drift when product data is edited.
   function initializeCounts() {
     const counts = new Map(categories.map(category => [category.id, papers.filter(paper => paper.group === category.id).length]));
@@ -406,5 +363,4 @@
   } else if (location.hash.startsWith('#paper-') || location.hash === '#collection' || requestedCategory) {
     location.replace('products.html' + location.search + location.hash);
   }
-  initializeNavigation();
 })();

@@ -4,6 +4,9 @@ import { resolve, dirname, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Script } from 'node:vm';
 import { createSeoPages } from './seo-pages.mjs';
+import { bundleStyles } from './styles.mjs';
+import { loadCatalogue, syncCatalogueMarkup } from './catalogue-markup.mjs';
+import { PAGES, JAVASCRIPT_FILES } from './config.mjs';
 
 const ROOT = fileURLToPath(new URL('../../', import.meta.url));
 const escapeHtml = value => String(value).replace(/[&<>"']/g, character => ({
@@ -11,20 +14,12 @@ const escapeHtml = value => String(value).replace(/[&<>"']/g, character => ({
 }[character]));
 const normalizeHomeLinks = html => html.replace(/href="index\.html(#[^"]*)?"/g, (_, fragment = '') => `href="/${fragment}"`);
 const OUTPUT = resolve(ROOT, 'dist');
-const JAVASCRIPT_FILES = [
-  'assets/js/catalogue-data.js',
-  'assets/js/catalogue-utils.js',
-  'assets/js/app.js',
-  'assets/js/about.js',
-  'assets/js/experience.js'
-];
 const PRODUCT_IMAGES = JSON.parse(await readFile(resolve(ROOT, 'scripts/site/manifests/product-images.json'), 'utf8'));
 const CATEGORY_IMAGES = JSON.parse(await readFile(resolve(ROOT, 'scripts/site/manifests/category-images.json'), 'utf8'));
 // An allowlist keeps docs, local caches and credentials out of the hosted site.
 const PUBLIC_FILES = [
-  'index.html', 'about.html', 'categories.html', 'products.html', 'assets/css/style.css', ...JAVASCRIPT_FILES,
+  ...PAGES, 'assets/css/style.css', ...JAVASCRIPT_FILES,
   'assets/images/brand-logo.png', 'assets/images/engineering-logo.svg', 'assets/images/favicon-32.png',
-  'assets/images/engineering-logo.svg',
   'assets/images/favicon-192.png', 'assets/images/apple-touch-icon.png',
   'assets/images/share-preview.png',
   ...['sugarcane-paper', 'sugarcane-kitchenware', 'sugarcane-bags', 'recycled-household'].map(id => 'assets/images/ranges/' + id + '-photo.jpg'),
@@ -68,13 +63,14 @@ function applyPublicUrl(html, origin, pagePath = '') {
 const pages = new Map();
 const siteOrigin = process.env.SITE_URL || process.env.RENDER_EXTERNAL_URL || 'https://maindustries.in/';
 const publicFiles = new Set(PUBLIC_FILES);
-for (const file of ['index.html', 'about.html', 'categories.html', 'products.html']) {
+const catalogue = await loadCatalogue();
+for (const file of PAGES) {
   let html = await readFile(resolve(ROOT, file), 'utf8');
   for (const [, asset] of html.matchAll(/(?:src|href)="(assets\/[^"?#]+)(?:[?#][^"]*)?"/g)) {
     if (!publicFiles.has(asset)) throw new Error(`${file}: asset missing from build allowlist: ${asset}`);
   }
   pages.set(file, applyPublicUrl(
-    html,
+    syncCatalogueMarkup(html, catalogue),
     siteOrigin,
     file === 'index.html' ? '' : file
   ));
@@ -124,7 +120,7 @@ for (const file of new Set([...PUBLIC_FILES, ...pages.keys()])) {
     await writeFile(destination, normalizeHomeLinks(pages.get(file)));
   } else if (file.endsWith('.css')) {
     // Source remains readable; deployment removes comments and indentation.
-    const css = await readFile(resolve(ROOT, file), 'utf8');
+    const css = await bundleStyles(new URL('../../' + file, import.meta.url));
     const compact = css.replace(/\/\*[\s\S]*?\*\//g, '').split('\n').map(line => line.trim()).join('');
     await writeFile(destination, compact);
   } else {

@@ -42,7 +42,7 @@ export function createPageFixture() {
     click() { if (this.href) openedLinks.push(this.href); else this.dispatch('click'); }
   }
   function get(id) { if (!elements.has(id)) elements.set(id, new Element(id)); return elements.get(id); }
-  const filters = ['all', 'packaging', 'boards', 'creative', 'wrapping', 'everyday', 'office', 'labels', 'specialty'].map(category => {
+  const filters = ['all', 'packaging', 'boards', 'creative', 'wrapping', 'everyday', 'office', 'labels', 'specialty', 'sugarcane-paper', 'sugarcane-kitchenware', 'sugarcane-bags', 'recycled-household'].map(category => {
     const button = get('filter-' + category); button.dataset.filter = category; button.badge = new Element(); return button;
   });
   const categoryCards = filters.slice(1).map(button => {

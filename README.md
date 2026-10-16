@@ -1,70 +1,163 @@
 # M&A Industries website
 
-A static product catalogue for M&A Industries, covering paper and packaging, sugarcane-based products, and recycled household goods. The site contains four pages, 12 categories, product enquiry dialogs, WhatsApp links, and a downloadable catalogue.
+A static catalogue for paper and packaging, sugarcane-based products, and recycled household goods. The current catalogue has **62 products in 12 categories**. No database, checkout, backend form submission, or npm dependencies are required.
 
-## Project structure
+## Pages and visitor flow
+
+| Page | Purpose |
+| --- | --- |
+| `index.html` | Homepage, range introductions, gallery, enquiry form, and two brand cards |
+| `categories.html` | All 12 categories in the Paper & Packaging and Sugarcane & Recycled ranges |
+| `products.html` | Category filters, search, sorting, six products per page, dialogs, enquiries |
+| `about.html` | Company information and founders |
+| `dist/category-*.html` | Generated, crawlable category guides |
+| `dist/product-*.html` | Generated, crawlable product details |
+
+Category cards open `products.html?category=<category-id>#collection`. Desktop visitors use the sidebar; at 900px and below, a category dropdown appears above search. Both controls share the same category state and counts. Selecting a category or changing search/sort returns to page one. Reset clears category, search, and sorting.
+
+Product cards open a native dialog at `#paper-<product-id>`. Choosing a product fills the enquiry form. WhatsApp and email actions prepare drafts in the visitor's app for review and sending. The website itself never sends a message.
+
+The homepage brand cards have separate website/profile actions. M&A Engineerings uses the supplied Google Business Profile link. The Industries profile remains grey and disabled until its URL is supplied; preserve `aria-disabled="true"` while inactive.
+
+## Directory map
 
 ```text
 .
 |-- index.html, about.html, categories.html, products.html
 |-- assets/
-|   |-- catalogues/          Public PDF catalogue
-|   |-- css/                  Shared responsive styles
-|   |-- js/                   Catalogue data, helpers, and page behavior
-|   `-- images/               Brand, category, product, founder, and mill photos
+|   |-- css/
+|   |   |-- style.css          Entry point; imports four CSS modules
+|   |   |-- shared.css         Tokens, header, page sections, products, dialogs, motion
+|   |   |-- catalogue.css      Sidebar, category dropdown, search, sort, reset, layout
+|   |   |-- footer.css         Footer links, contact actions, responsive layout
+|   |   `-- brands.css         Homepage brand cards and their actions
+|   |-- js/
+|   |   |-- catalogue-data.js  Product/category data; canonical names and stable IDs
+|   |   |-- catalogue-utils.js Filtering, pagination, validation, enquiry helpers
+|   |   |-- app.js             Catalogue, gallery, dialogs, enquiry behavior
+|   |   |-- navigation.js      Shared header/menu behavior on every page
+|   |   `-- experience.js      Progressive animation and reading progress
+|   |-- images/                Brand, product, category, founder, mill photos
+|   `-- catalogues/            Published PDF catalogue
 |-- scripts/
-|   |-- site/                 Deployment build, syntax check, and asset manifests
-|   |-- catalogue/            PDF catalogue generator
-|   |-- cards/                Visiting-card generator
-|   |-- images/               Image optimization tools
-|   `-- references/           Image prompts and source notes
-|-- tests/                    Catalogue and browser-interaction checks
-|-- output/pdf/               Generated catalogue and visiting cards
-|-- tmp/                      Local image inputs, PDF data, and caches (ignored)
-|-- dist/                     Generated deployment site (ignored)
-|-- render.yaml               Render static-site configuration
-|-- CLAUDE.md                 Contributor guidance
-`-- package.json              Project commands and Node version
+|   |-- site/
+|   |   |-- config.mjs         Shared page and browser-script lists
+|   |   |-- check.mjs          Browser JavaScript syntax checks
+|   |   |-- catalogue-markup.mjs Synchronize static catalogue labels and counts
+|   |   |-- styles.mjs         Bundle local CSS modules in declared order
+|   |   |-- build.mjs          Deployment, metadata, sitemap, robots.txt
+|   |   |-- seo-pages.mjs      Generated category/product pages
+|   |   |-- verify-build.mjs   Deployed local links, assets, anchors, structured data
+|   |   `-- manifests/        Public product/category image allowlists
+|   |-- catalogue/             PDF data export and generation
+|   |-- cards/                 Visiting-card generator
+|   |-- images/                Image optimization utilities
+|   `-- references/            Prompts and research notes; not deployed
+|-- tests/                     Data, interaction, motion, page-integrity checks
+|-- output/pdf/                Generated catalogue/visiting-card artifacts
+|-- tmp/                       Local source images, migration scripts, caches; ignored
+|-- dist/                      Generated deployment; ignored
+|-- render.yaml                Render static-site configuration
+`-- SEO-PLAN.md                SEO rollout and post-deployment tasks
 ```
-
-The four root HTML files are the website pages. Product information lives in `assets/js/catalogue-data.js`; stable product and category IDs connect filters, dialogs, enquiries, and PDF links. Keep public images listed in the manifests under `scripts/site/manifests/`. The build uses those manifests as an allowlist.
-
-Generated files belong in `dist/` or `output/pdf/`. Do not edit `dist/` directly. Temporary source images, resized PDF images, and work files belong under `tmp/`.
 
 ## Requirements and commands
 
-The site uses Node.js 20 or newer and has no npm dependencies. Catalogue and visiting-card generation also use the local Python environment and its imaging/PDF libraries.
+Use **Node.js 20 or newer**, with npm on your PATH. No `npm install` is needed. Python is needed for preview serving, image tools, and PDF/card generation. PDF tools use Pillow, ReportLab, and PyMuPDF.
 
-```sh
-npm run check
-npm test
+| Command | Purpose |
+| --- | --- |
+| `npm run check` | Browser-script syntax and stale source category names/counts |
+| `npm run sync:catalogue` | Refresh source HTML category labels, dropdown options, and counts |
+| `npm test` | All automated regression tests |
+| `npm run build` | Generate deployment into `dist/` |
+| `npm run verify:build` | Check existing deployment links, assets, anchors, IDs, and JSON-LD |
+| `npm run validate` | Run check, tests, build, and deployment verification in sequence |
+| `npm run catalogue` | Regenerate the downloadable PDF catalogue |
+| `npm run catalogue -- --preview` | Also render the PDF cover and contents pages |
+
+Preview production output locally:
+
+```powershell
 npm run build
-npm run catalogue
-npm run catalogue -- --preview
+python -m http.server 8000 --bind 127.0.0.1 --directory dist
 ```
 
-`npm run check` validates browser JavaScript syntax. `npm test` runs the catalogue and interaction checks. `npm run build` creates the four-page deployment site in `dist/`, plus its sitemap and robots file. `npm run catalogue` creates the 18-page PDF, updates `assets/catalogues/MA-Industries-Paper-Catalogue.pdf`, and writes the print-ready copy to `output/pdf/MA-Industries-Catalogue.pdf`. The optional `--preview` flag renders the cover and contents pages for review.
+Open `http://127.0.0.1:8000`. Serve the root without `--directory dist` for source preview. Classic browser scripts also support directly opening root HTML files. Source preview loads the CSS modules; deployment bundles them into one stylesheet.
 
-Product links inside the PDF open `products.html` with the relevant category and product selected. The catalogue page reads the product hash and opens its detail dialog.
+If a runtime command is not recognized, install/configure it and restart the VS Code terminal. VS Code can run different shells. Windows PowerShell 5 does not support `&&`; npm's scripts still run through npm's command shell.
 
-To preview the site locally, open `index.html` or serve the repository root:
+## Editing catalogue content
 
-```sh
-python -m http.server 8000
-```
+1. Edit `assets/js/catalogue-data.js`. Category `name` is the canonical label. Preserve existing category and product IDs: filters, URLs, dialogs, PDF links, and enquiries depend on them.
+2. Products need unique `id`, `name`, valid category `group`, `tag`, `desc`, `uses`, `image`, `index`, colours, and `gsm`. Use `gsm: null` without a verified paper-weight guide. Non-paper products use `material`. Do not invent composition, measurements, certification, stock, prices, or minimum quantities.
+3. Add actual photos under `assets/images/products/` and filenames to `scripts/site/manifests/product-images.json`. Category images use the category folder and manifest. Identify representative imagery as such.
+4. Run `npm run sync:catalogue` to refresh category cards, desktop filters, mobile options, and totals. The build also synchronizes deployed HTML in memory from the data.
+5. Run `npm run validate`. Regenerate and review the PDF separately when products change.
 
-Then visit `http://localhost:8000`.
+The PDF generator reads current website data, writes `output/pdf/MA-Industries-Catalogue.pdf`, and updates `assets/catalogues/MA-Industries-Paper-Catalogue.pdf`. This public filename is retained for existing links. PDF product links select the matching website dialog.
+
+## Editing layout safely
+
+Edit the existing rule in the owning CSS module. Avoid appending competing overrides. Keep breakpoint refinements with their component. `style.css` declares the module order; production preserves that order and strips comments/indentation. Explain non-obvious behavior in comments instead of commenting every declaration.
+
+| Width | Expected behavior |
+| --- | --- |
+| 900px and below | Category dropdown visible; sidebar hidden |
+| 901px and above | Sidebar visible; mobile category dropdown hidden |
+| 901–1100px | Search occupies its own toolbar row |
+| 600px and below | Footer has two equal columns; products and brands retain swipe layouts |
+| 800px and below | Header uses the mobile menu |
+
+Preserve the `products`, `pagination`, `results-count`, `active-category`, `category-select`, `search`, `sort`, `reset-catalogue`, `detail`, `detail-body`, `brief`, `paper`, `paper-options`, and `status` IDs. Maintain visible keyboard focus, 44px minimum touch targets, 16px mobile inputs, and reduced-motion behavior.
+
+Menu behavior belongs in `navigation.js`, shared by all pages. Catalogue scripts load in data → utilities → app order. Navigation initializes independently. Motion must enhance content without blocking access to it.
+
+Contributor conventions:
+
+- Preserve branding, business contact details, and the concise form/footer unless a change is requested.
+- Prefer delegated event handlers for dynamically rendered product cards and pagination controls.
+- Use `textContent` for visitor-supplied content. Escape trusted catalogue data when inserting it into HTML templates.
+- Publish only verified biographies, product specifications, availability, prices, minimum quantities, certifications, and performance claims.
+- Keep credentials out of source files and logs. Document anything that could not be verified at handoff.
+
+## Verification before pushing
+
+Run `npm run validate`. Tests cover catalogue validity, all category selections, search, sorting, pagination, reset, dialogs, enquiry drafts, menu behavior, reduced motion, static labels/counts, assets, and generated page details. Deployment verification checks every generated HTML page and its local targets. Tests do not replace visual review.
+
+After shared CSS changes, review **all four pages** at phone, tablet, and desktop widths. Also check the 900px category-control boundary and 1100px toolbar boundary:
+
+- No page-wide overflow; intended product, brand, and gallery swipe areas still scroll.
+- Search, sort, and reset align; mobile category labels fit.
+- Category cards preselect the right filter and heading.
+- Search, empty results, sorting, pagination, and reset work together.
+- Dialogs support mouse/keyboard, Escape, and scroll restoration.
+- Product selection fills the enquiry. Inspect draft URLs without sending test messages.
+- Brand cards align; Engineerings profile works; Industries profile remains disabled.
+- Footer, mobile menu, focus, and reduced motion still work.
+
+The cleanup was compared against preceding layout measurements for all four pages at 390px, 900px, and 1440px. Additional browser checks covered all four pages at 320, 600, 800, 900, 901, 1100, 1101, and 1440px, all mobile category choices, desktop search/sort/reset/pagination, the mobile menu, and the sugarcane category → product → enquiry flow. Automated tests use a simplified DOM; future layout changes still require real-browser checks.
 
 ## Deployment
 
-Render uses `render.yaml` to run `node scripts/site/build.mjs` and publish `dist/`. `SITE_URL` sets canonical and social-preview URLs; the production domain is `https://maindustries.in`.
+Render runs `node scripts/site/build.mjs` and publishes `dist/`. `SITE_URL` sets the canonical origin; production is `https://maindustries.in`. The build resolves share-image URLs, adds canonical URLs/structured data, and generates sitemap/robots files. Currently it produces 78 HTML pages: four root pages, 12 category guides, and 62 product pages.
 
-## Catalogue and content updates
+Only allowlisted public files are deployed. Keep image manifests and the build public-file list current. CSS source modules are bundled into `dist/assets/css/style.css`. Documentation, internal tools, prompts, temporary files, and credentials are not published. Never edit generated `dist/` directly.
 
-- Edit product and category records in `assets/js/catalogue-data.js`. Keep IDs stable and group IDs matched to an existing category.
-- Add public product or category images to the corresponding JSON manifest under `scripts/site/manifests/`.
-- Edit page content in the matching root HTML file and shared styles in `assets/css/style.css`.
-- Use the tools under `scripts/images/` to convert supplied source images. They read from `tmp/product-images/` or `tmp/category-images/` and write optimized assets into `assets/images/`.
-- Create a visiting card with `python scripts/cards/create-visiting-card.py --website https://maindustries.in/ --person maaz`. Valid people are `maaz`, `aadil`, `mohammed`, and `yahya`.
+## Other utilities
 
-Descriptions and images help visitors explore the range. Confirm item specifications, composition, price, availability, certification, and application suitability with the team before quoting. Enquiry actions prepare WhatsApp or email drafts; the site does not send messages or process submissions on a server.
+Image tools read local inputs under `tmp/product-images/` or `tmp/category-images/` and write optimized public assets. Review filenames and manifests afterward.
+
+Generate a visiting card:
+
+```powershell
+python scripts/cards/create-visiting-card.py --website https://maindustries.in/ --person maaz
+```
+
+Supported people: `maaz`, `aadil`, `mohammed`, `yahya`.
+
+After validation, this Windows PowerShell 5 one-liner stages, commits, and pushes only if each preceding command succeeds:
+
+```powershell
+git add .; if ($LASTEXITCODE -eq 0) { git commit -m "Refactor shared website styles and checks"; if ($LASTEXITCODE -eq 0) { git push } }
+```

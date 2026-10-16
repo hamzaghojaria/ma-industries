@@ -1,4 +1,4 @@
-/* Shared navigation for the standalone About and categories pages. */
+/* Shared header behavior for every page, including generated SEO pages. */
 (() => {
   'use strict';
   const dom = {
@@ -6,6 +6,8 @@
     menu: document.querySelector('.menu'),
     navigation: document.getElementById('site-navigation')
   };
+  if (!dom.header || !dom.menu || !dom.navigation) return;
+
   function setNavigationOpen(open) {
     dom.navigation.classList.toggle('open', open);
     dom.menu.setAttribute('aria-expanded', String(open));
@@ -25,6 +27,7 @@
     window.matchMedia('(min-width: 801px)').addEventListener('change', event => {
       if (event.matches) setNavigationOpen(false);
     });
+    // One scheduled update per frame, shared across every page's header.
     const updateHeader = () => dom.header.classList.toggle('scrolled', window.scrollY > 12);
     let scheduled = false;
     window.addEventListener('scroll', () => {
@@ -33,9 +36,21 @@
       window.requestAnimationFrame(() => { updateHeader(); scheduled = false; });
     }, { passive: true });
     updateHeader();
-
+    if (!('IntersectionObserver' in window)) return;
+    // Only in-page navigation links participate in section highlighting.
+    const observer = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        dom.navigation.querySelectorAll('a').forEach(link => {
+          const active = link.getAttribute('href') === '#' + entry.target.id;
+          link.classList.toggle('is-current', active);
+          if (active) link.setAttribute('aria-current', 'location');
+          else link.removeAttribute('aria-current');
+        });
+      }
+    }, { rootMargin: '-15% 0px -60% 0px', threshold: 0 });
+    document.querySelectorAll('#categories,#collection,#approach,#enquiry').forEach(section => observer.observe(section));
   }
-
 
   initializeNavigation();
 })();

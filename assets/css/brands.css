@@ -1,0 +1,233 @@
+/* Brands styles. Edit existing component rules instead of appending overrides.
+ * Rule order within each breakpoint is intentional. Production bundles these modules. */
+
+.brands-section {
+  padding: 40px var(--page-gutter) 44px;
+  background: #e9eee3;
+  border-top: 1px solid #d4ddce;
+}
+
+.brands-wrap {
+  max-width: 1100px;
+  margin-inline: auto;
+}
+
+.brands-section > .brands-wrap > .eyebrow,
+.brands-section h2,
+.brands-intro {
+  text-align: center;
+}
+
+.brands-section h2 {
+  margin: 8px 0 6px;
+  font-size: clamp(32px, 3.6vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -1.2px;
+}
+
+.brands-section h2 em {
+  color: var(--red);
+}
+
+.brands-intro {
+  margin: 0 auto 18px;
+  max-width: 520px;
+  color: #626958;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.brands-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.brand-card {
+  display: grid;
+  grid-template-rows: auto minmax(72px, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  min-height: 180px;
+  padding: 18px clamp(18px, 3vw, 30px);
+  border: 1px solid #d9dfd3;
+  border-radius: 5px;
+  background: #fffdf8;
+  color: var(--ink);
+  text-decoration: none;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+
+.brand-card:hover {
+  color: var(--ink);
+  transform: translateY(-3px);
+  border-color: #aebba5;
+  box-shadow: 0 12px 30px #303a2810;
+}
+
+.brand-card:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 4px;
+}
+
+.brand-card-kicker {
+  color: #74796c;
+  font: 600 9px/1.5 'DM Sans', Arial, sans-serif;
+  letter-spacing: 1px;
+}
+
+.brand-card-logo {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-width: 0;
+  min-height: 72px;
+}
+
+.brand-card-logo img {
+  display: block;
+  width: min(100%, 430px);
+  height: auto;
+}
+
+.brand-card-industries img {
+  width: min(100%, 400px);
+}
+
+.brand-card-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 14px;
+  border-top: 1px solid #e7e4db;
+  color: #31543f;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.brands-scroll-hint {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .brands-section {
+    padding: 30px var(--page-gutter) 34px;
+  }
+
+  .brands-section h2 {
+    font-size: clamp(29px, 7.5vw, 38px);
+  }
+
+  .brands-intro {
+    margin-bottom: 12px;
+    font-size: 12px;
+  }
+
+  .brands-grid {
+    display: flex;
+    gap: 12px;
+    margin-inline: -2px;
+    padding: 3px 2px 10px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 2px;
+    scrollbar-width: thin;
+    scrollbar-color: #a70027 #d9dfd3;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .brand-card {
+    flex: 0 0 min(84%, 350px);
+    grid-template-rows: auto 66px auto;
+    min-height: 160px;
+    padding: 15px 16px;
+    gap: 9px;
+    scroll-snap-align: start;
+  }
+
+  .brand-card-logo {
+    min-height: 66px;
+  }
+
+  .brand-card-logo img {
+    width: min(100%, 340px);
+  }
+
+  .brand-card-industries img {
+    width: min(100%, 320px);
+  }
+
+  .brand-card-link {
+    padding-top: 10px;
+    font-size: 11px;
+  }
+
+  .brands-scroll-hint {
+    display: flex;
+    justify-content: flex-end;
+    gap: 7px;
+    margin: 2px 0 0;
+    color: #626958;
+    font-size: 10px;
+    line-height: 1.4;
+  }
+}
+
+/* Independent links avoid nested anchors and keep disabled profiles non-interactive. */
+.brand-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 18px;
+  padding-top: 14px;
+  border-top: 1px solid #e7e4db;
+}
+
+.brand-card-actions .brand-card-link {
+  flex: 1 1 auto;
+  gap: 8px;
+  min-height: 44px;
+  padding-top: 0;
+  border-top: 0;
+  text-decoration: none;
+}
+
+.brand-card-actions .brand-card-link:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 4px;
+}
+
+.brands-grid .brand-card {
+  grid-template-rows: auto 1fr auto;
+}
+
+.brands-grid .brand-card-logo {
+  height: 104px;
+}
+
+.brands-grid .brand-card-logo img {
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.brands-grid .brand-card-actions {
+  align-self: end;
+}
+
+.brand-card-actions .brand-card-link:hover {
+  color: var(--red);
+}
+
+@media (max-width: 600px) {
+  .brands-grid .brand-card-logo {
+    height: 76px;
+  }
+}
+
+.brand-card-actions .brand-card-link-disabled, .brand-card-actions .brand-card-link-disabled:hover {
+  color: #85867f;
+  cursor: not-allowed;
+}
