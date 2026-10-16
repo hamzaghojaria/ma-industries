@@ -3175,9 +3175,10 @@ body.product-modal-open {
 }
 
 .about-hero h1 {
-  font-size: clamp(48px, 5.5vw, 82px);
-  letter-spacing: -3px;
-  margin: 22px 0;
+  font-size: clamp(36px, 3.8vw, 56px);
+  line-height: 1.12;
+  letter-spacing: -1.5px;
+  margin: 16px 0;
 }
 
 .about-hero-copy > p:not(.eyebrow),
@@ -3191,8 +3192,12 @@ body.product-modal-open {
 }
 
 .about-hero-copy .about-lead {
-  font-size: 19px;
+  font-size: 17px;
   color: var(--ink);
+}
+
+.about-hero-copy > p:not(.eyebrow) {
+  line-height: 1.65;
 }
 
 .about-hero-image {
@@ -3435,8 +3440,8 @@ body.product-modal-open {
   }
 
   .about-hero h1 {
-    font-size: clamp(44px, 9vw, 68px);
-    letter-spacing: -2px;
+    font-size: clamp(32px, 7vw, 44px);
+    letter-spacing: -1px;
   }
 
   .about-hero-image {
@@ -4088,8 +4093,14 @@ header nav .nav-cta.is-current {
 }
 
 .about-range-art {
-  padding: 22px;
+  padding: 16px;
   background: #e7e8dc;
+}
+
+/* Keep the About banner's mosaic shallow without changing the homepage images. */
+.about-range-art .range-mosaic img {
+  aspect-ratio: 1.8;
+  object-fit: cover;
 }
 
 .material-story {
@@ -4916,8 +4927,8 @@ header nav a[aria-current="page"] {
 }
 
 .about-hero {
-  padding-top: 48px;
-  padding-bottom: 48px;
+  padding-top: 32px;
+  padding-bottom: 32px;
 }
 
 .about-section {
@@ -4976,8 +4987,8 @@ header nav a[aria-current="page"] {
   }
 
   .about-hero {
-    padding-top: 34px;
-    padding-bottom: 34px;
+    padding-top: 24px;
+    padding-bottom: 24px;
   }
 
   .directory-hero {
