@@ -2,7 +2,7 @@
  * Rule order within each breakpoint is intentional. Production bundles these modules. */
 
 .brands-section {
-  padding: 40px var(--page-gutter) 44px;
+  padding: 32px var(--page-gutter) 34px;
   background: #e9eee3;
   border-top: 1px solid #d4ddce;
 }
@@ -113,7 +113,7 @@
 
 @media (max-width: 600px) {
   .brands-section {
-    padding: 30px var(--page-gutter) 34px;
+    padding: 24px var(--page-gutter) 26px;
   }
 
   .brands-section h2 {

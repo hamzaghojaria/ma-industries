@@ -102,6 +102,8 @@ The PDF generator reads current website data, writes `output/pdf/MA-Industries-C
 
 Edit the existing rule in the owning CSS module. Avoid appending competing overrides. Keep breakpoint refinements with their component. `style.css` declares the module order; production preserves that order and strips comments/indentation. Explain non-obvious behavior in comments instead of commenting every declaration.
 
+Shared vertical spacing uses `--section-space` and `--section-space-compact` in `shared.css`: 40px/32px on desktop and 30px/26px at 800px and below. Change these tokens to adjust section spacing together; banner and brand-card spacing is defined in the owning component rules.
+
 | Width | Expected behavior |
 | --- | --- |
 | 900px and below | Category dropdown visible; sidebar hidden |
