@@ -648,5 +648,19 @@
       "src": "assets/images/responsive/products/bio-pe-bin-liners-photo-960.webp",
       "width": 960
     }
+  ],
+  "assets/images/products/ribbed-travel-tumbler-photo.jpg": [
+    {
+      "src": "assets/images/responsive/products/ribbed-travel-tumbler-photo-320.webp",
+      "width": 320
+    },
+    {
+      "src": "assets/images/responsive/products/ribbed-travel-tumbler-photo-640.webp",
+      "width": 640
+    },
+    {
+      "src": "assets/images/responsive/products/ribbed-travel-tumbler-photo-960.webp",
+      "width": 960
+    }
   ]
 }

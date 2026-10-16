@@ -895,6 +895,35 @@
     "details": "Confirm sizes, pack quantities, material composition and application suitability on enquiry. Request product-specific documentation for any food-contact or certification requirement."
   },
   {
+    "id": "ribbed-travel-tumbler",
+    "name": "Ribbed travel tumbler",
+    "group": "sugarcane-kitchenware",
+    "tag": "SUGARCANE HOUSEHOLD GOODS",
+    "desc": "A reusable lidded tumbler for daily drinkware, office desks and corporate gifting enquiries, with a distinctive ribbed lower body.",
+    "uses": [
+      "Everyday drinkware at home",
+      "Office desks and workday breaks",
+      "Commuting and travel breaks",
+      "Corporate gifts and client appreciation",
+      "Employee welcome kits",
+      "Conference and event giveaways"
+    ],
+    "color": "#b3a08f",
+    "bg": "#eee8df",
+    "image": "assets/images/products/ribbed-travel-tumbler-photo.jpg",
+    "index": 67,
+    "gsm": null,
+    "material": "Confirm the selected item's composition and bio-based content on enquiry",
+    "illustration": true,
+    "details": "AI-generated product illustration based on reference photographs; actual finish and details may vary. Enquire about bulk quantities, gift packaging and logo personalisation for corporate orders; options are subject to supplier confirmation. Confirm beverage temperature suitability, lid performance and care instructions before use.",
+    "specifications": [
+      "Design: tall tumbler with matching lid and a ribbed lower body",
+      "Reference colours: brown and cream; confirm availability",
+      "Capacity and dimensions: confirmed on enquiry",
+      "Corporate gifting: enquire about quantities, personalisation and gift packaging"
+    ]
+  },
+  {
     "id": "salad-bowls",
     "name": "Sugarcane mixing bowl",
     "group": "sugarcane-kitchenware",
@@ -977,8 +1006,8 @@
     "index": 47,
     "gsm": null,
     "material": "BIO-PE + PE; 25% biomass content",
-    "illustration": false,
-    "details": "Resealable bags supplied in large and medium sizes.",
+    "illustration": true,
+    "details": "Resealable bags supplied in large and medium sizes. AI-generated product illustration based on reference photographs, showing frosted pouches with blue and orange zipper seals; actual colours, finish and details are confirmed on enquiry.",
     "specifications": [
       "Large: 55 μm; 25 × 30 cm; 20 pcs; 240 g",
       "Medium: 55 μm; 18 × 20 cm; 20 pcs; 126 g"
