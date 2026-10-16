@@ -350,8 +350,9 @@ footer {
   }
 
   .site-footer .footer-contact-actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
     gap: 10px;
     max-width: 310px;
     margin: 20px auto 0;
@@ -429,7 +430,33 @@ footer {
 }
 
 .footer-contact-actions {
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+}
+
+.site-footer .footer-contact-actions > :is(a, span) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 1px solid #ddd8ce;
+  border-radius: 50%;
+  background: #f5f2e9;
+}
+
+.site-footer .footer-contact-actions > [aria-disabled="true"] {
+  color: #89857c;
+  cursor: default;
+}
+
+.site-footer .footer-contact-actions > :is(a, span) > svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
 }
 
 .footer-contact-actions :is(.instagram-placeholder, .linkedin-placeholder) {
