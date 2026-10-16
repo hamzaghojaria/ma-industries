@@ -169,7 +169,10 @@
       <p>${escapeHtml(paper.desc)}</p>
       <div class="detail-gsm"><span>${paper.material ? 'Material' : 'GSM guide'}</span><strong>${escapeHtml(paper.material || gsmLabel(paper))}</strong>${paper.gsm ? '<small>Indicative range; confirm your required grade.</small>' : ''}</div>
       <p class="detail-uses"><strong>Uses:</strong> ${paper.uses.map(escapeHtml).join(' · ')}</p>
-      ${paper.details ? '<details class="product-extra-details"><summary>More details</summary><p>' + escapeHtml(paper.details) + '</p></details>' : ''}
+      <details class="product-extra-details"><summary>More details</summary>
+        ${paper.details ? '<p>' + escapeHtml(paper.details) + '</p>' : ''}
+        <p><strong>What to share:</strong> ${paper.material ? 'Size, capacity, colour, material, pack quantity and delivery location.' : 'Sheet or reel size, GSM, finish, printing needs, quantity and delivery location.'}</p>
+      </details>
       <p class="detail-note">${paper.sourcingOnly ? 'Additional sourcing range — confirm availability. Specifications confirmed on enquiry.' : 'Specifications and availability confirmed on enquiry.'}${paper.group === 'wrapping' ? ' Confirm food-contact and temperature suitability.' : ''}</p>
       <div class="product-enquiry-actions product-modal-actions"><button class="button" type="button" data-choose-paper="${paper.id}" aria-label="Enquire about this product"><span class="action-copy enquiry-full-label">Enquire about this product</span><span class="action-copy enquiry-short-label">Enquire product</span></button><a class="button whatsapp-button" href="${escapeHtml(productWhatsAppUrl(paper))}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp connect">${WHATSAPP_ICON}<span class="action-copy">WhatsApp<span class="connect-word"> connect</span></span></a></div>`);
     if (!dom.detail.open) {

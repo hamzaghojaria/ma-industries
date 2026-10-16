@@ -34,6 +34,19 @@ test('every mobile category option can select products and reset to the full cat
   assert.equal(page.get('active-category').textContent, 'All products');
 });
 
+test('every product has the same expandable details and enquiry controls', () => {
+  const page = boot();
+  for (const product of page.window.MACatalogueData.papers) {
+    page.location.hash = '#paper-' + product.id;
+    page.window.listeners.hashchange[0]();
+    const html = page.get('detail-body').innerHTML;
+    assert.match(html, /<details class="product-extra-details"><summary>More details<\/summary>/, product.id);
+    assert.match(html, /<strong>What to share:<\/strong>/, product.id);
+    assert.ok(html.includes(`data-choose-paper="${product.id}"`), product.id);
+    if (product.details) assert.ok(html.includes(product.details.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;')), product.id);
+  }
+});
+
 test('home page works without catalogue and product-dialog elements', () => {
   const page = createPageFixture();
   const originalGet = page.document.getElementById;
