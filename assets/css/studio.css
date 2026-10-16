@@ -12,6 +12,7 @@
 }
 .material-studio[data-theme="sage"] { --studio-tint: #cedbc3; }
 .material-studio[data-theme="rose"] { --studio-tint: #edd2c9; }
+.studio-copy { min-width: 0; }
 .studio-copy h2 {
   margin: 15px 0;
   font: 500 clamp(36px, 4.5vw, 66px)/1.08 'Playfair Display', Georgia, serif;
@@ -78,7 +79,6 @@
   padding: 14px 14px 50px;
   background: #fffdf7;
   box-shadow: 0 20px 45px #343c2520;
-  transform: rotate(-6deg);
   transition: transform .5s var(--ease-out);
 }
 .studio-photo::before {
@@ -117,7 +117,8 @@
   .brand-card.is-pointer-active, .founder-card.is-pointer-active, .product.is-pointer-active {
     transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateY(-4px);
   }
-  .studio-art.is-pointer-active .studio-photo { transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) rotate(-3deg); }
+  .studio-art.is-pointer-active .studio-photo { transform: translateY(-4px); }
+  .range-gateway.is-pointer-active { transform: translateY(-4px); }
 }
 @keyframes seal-turn { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: no-preference) {
@@ -131,6 +132,20 @@
   .studio-copy h2 { font-size: clamp(36px, 8vw, 54px); }
   .studio-result { min-height: 180px; }
   .hero-studio-seal { width: 68px; height: 68px; }
+  .studio-choices:not([hidden]) {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: 5px;
+    padding: 6px 5px 12px;
+    scrollbar-width: thin;
+    scrollbar-color: #a8b29e #e4e7dc;
+  }
+  .studio-choices button {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    scroll-snap-align: start;
+  }
 }
 @media (max-width: 400px) {
   .studio-art { min-height: 300px; }

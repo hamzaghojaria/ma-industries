@@ -69,110 +69,6 @@
       "width": 960
     }
   ],
-  "assets/images/gallery/malu-gallery-03.webp": [
-    {
-      "src": "assets/images/responsive/gallery/malu-gallery-03-320.webp",
-      "width": 320
-    },
-    {
-      "src": "assets/images/responsive/gallery/malu-gallery-03-640.webp",
-      "width": 640
-    },
-    {
-      "src": "assets/images/responsive/gallery/malu-gallery-03-960.webp",
-      "width": 960
-    }
-  ],
-  "assets/images/gallery/malu-gallery-04.webp": [
-    {
-      "src": "assets/images/responsive/gallery/malu-gallery-04-320.webp",
-      "width": 320
-    },
-    {
-      "src": "assets/images/responsive/gallery/malu-gallery-04-640.webp",
-      "width": 640
-    },
-    {
-      "src": "assets/images/responsive/gallery/malu-gallery-04-960.webp",
-      "width": 960
-    }
-  ],
-  "assets/images/gallery/malu-production-reference.webp": [
-    {
-      "src": "assets/images/responsive/gallery/malu-production-reference-320.webp",
-      "width": 320
-    },
-    {
-      "src": "assets/images/responsive/gallery/malu-production-reference-640.webp",
-      "width": 640
-    },
-    {
-      "src": "assets/images/responsive/gallery/malu-production-reference-960.webp",
-      "width": 960
-    }
-  ],
-  "assets/images/gallery/mill-facilities.webp": [
-    {
-      "src": "assets/images/responsive/gallery/mill-facilities-320.webp",
-      "width": 320
-    },
-    {
-      "src": "assets/images/responsive/gallery/mill-facilities-640.webp",
-      "width": 640
-    },
-    {
-      "src": "assets/images/responsive/gallery/mill-facilities-960.webp",
-      "width": 960
-    }
-  ],
-  "assets/images/gallery/mill-utilities.webp": [
-    {
-      "src": "assets/images/responsive/gallery/mill-utilities-320.webp",
-      "width": 320
-    },
-    {
-      "src": "assets/images/responsive/gallery/mill-utilities-597.webp",
-      "width": 597
-    }
-  ],
-  "assets/images/gallery/paper-mill-line.jpg": [
-    {
-      "src": "assets/images/responsive/gallery/paper-mill-line-320.webp",
-      "width": 320
-    },
-    {
-      "src": "assets/images/responsive/gallery/paper-mill-line-600.webp",
-      "width": 600
-    }
-  ],
-  "assets/images/gallery/paper-mill-reels.jpg": [
-    {
-      "src": "assets/images/responsive/gallery/paper-mill-reels-320.webp",
-      "width": 320
-    },
-    {
-      "src": "assets/images/responsive/gallery/paper-mill-reels-640.webp",
-      "width": 640
-    },
-    {
-      "src": "assets/images/responsive/gallery/paper-mill-reels-960.webp",
-      "width": 960
-    }
-  ],
-  "assets/images/gallery/production-control.webp": [
-    {
-      "src": "assets/images/responsive/gallery/production-control-320.webp",
-      "width": 320
-    },
-    {
-      "src": "assets/images/responsive/gallery/production-control-640.webp",
-      "width": 640
-    },
-    {
-      "src": "assets/images/responsive/gallery/production-control-960.webp",
-      "width": 960
-    }
-  ],
   "assets/images/categories/boards.webp": [
     {
       "src": "assets/images/responsive/categories/boards-320.webp",
@@ -660,6 +556,62 @@
     },
     {
       "src": "assets/images/responsive/products/ribbed-travel-tumbler-photo-960.webp",
+      "width": 960
+    }
+  ],
+  "assets/images/gallery/recycling-sorting.jpg": [
+    {
+      "src": "assets/images/responsive/gallery/recycling-sorting-320.webp",
+      "width": 320
+    },
+    {
+      "src": "assets/images/responsive/gallery/recycling-sorting-640.webp",
+      "width": 640
+    },
+    {
+      "src": "assets/images/responsive/gallery/recycling-sorting-960.webp",
+      "width": 960
+    }
+  ],
+  "assets/images/gallery/recycling-washing.jpg": [
+    {
+      "src": "assets/images/responsive/gallery/recycling-washing-320.webp",
+      "width": 320
+    },
+    {
+      "src": "assets/images/responsive/gallery/recycling-washing-640.webp",
+      "width": 640
+    },
+    {
+      "src": "assets/images/responsive/gallery/recycling-washing-960.webp",
+      "width": 960
+    }
+  ],
+  "assets/images/gallery/recycling-pellets.jpg": [
+    {
+      "src": "assets/images/responsive/gallery/recycling-pellets-320.webp",
+      "width": 320
+    },
+    {
+      "src": "assets/images/responsive/gallery/recycling-pellets-640.webp",
+      "width": 640
+    },
+    {
+      "src": "assets/images/responsive/gallery/recycling-pellets-960.webp",
+      "width": 960
+    }
+  ],
+  "assets/images/gallery/recycling-moulding.jpg": [
+    {
+      "src": "assets/images/responsive/gallery/recycling-moulding-320.webp",
+      "width": 320
+    },
+    {
+      "src": "assets/images/responsive/gallery/recycling-moulding-640.webp",
+      "width": 640
+    },
+    {
+      "src": "assets/images/responsive/gallery/recycling-moulding-960.webp",
       "width": 960
     }
   ]

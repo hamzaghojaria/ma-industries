@@ -242,7 +242,7 @@
   }
 
   .range-gateway:hover > .watermarked-image {
-    transform: rotate(-5deg) scale(1.035);
+    transform: scale(1.025);
   }
 
   .range-mosaic figure:hover {

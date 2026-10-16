@@ -33,14 +33,7 @@ const PUBLIC_FILES = [
   'assets/images/founders/aadil-dhukka.jpg',
   'assets/images/founders/maaz-dawa.jpg',
   'assets/images/founders/mohammed-dhukka.jpg',
-  'assets/images/gallery/paper-mill-line.jpg',
-  'assets/images/gallery/malu-production-reference.webp',
-  'assets/images/gallery/malu-gallery-03.webp',
-  'assets/images/gallery/malu-gallery-04.webp',
-  'assets/images/gallery/paper-mill-reels.jpg',
-  'assets/images/gallery/production-control.webp',
-  'assets/images/gallery/mill-facilities.webp',
-  'assets/images/gallery/mill-utilities.webp',
+  ...['sorting', 'washing', 'pellets', 'moulding'].map(stage => 'assets/images/gallery/recycling-' + stage + '.jpg'),
   ...PRODUCT_IMAGES.map(file => 'assets/images/products/' + file),
   ...CATEGORY_IMAGES.map(file => 'assets/images/categories/' + file)
 ];

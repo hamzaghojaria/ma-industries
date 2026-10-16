@@ -12,9 +12,11 @@
   right: 10px;
   bottom: 10px;
   z-index: 3;
-  width: clamp(76px, 34%, 164px);
-  height: 34px;
-  padding: 6px 8px;
+  box-sizing: content-box;
+  width: clamp(64px, 27%, 140px);
+  max-width: calc(100% - 32px);
+  aspect-ratio: 1270 / 230;
+  padding: 4px 6px;
   border-radius: 4px;
   background: #ffffffb3 url('../images/brand-logo.png') center / contain no-repeat;
   background-origin: content-box;
@@ -34,4 +36,13 @@
   border-radius: 0;
   transform: none;
 }
-.range-gateway > .watermarked-image::after { right: 22%; bottom: 18%; }
+.range-gateway > .watermarked-image::after { right: 10px; bottom: 10px; }
+
+@media (max-width: 600px) {
+  .watermarked-image::after {
+    right: 7px;
+    bottom: 7px;
+    width: clamp(52px, 24%, 92px);
+    padding: 3px 5px;
+  }
+}

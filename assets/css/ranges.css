@@ -601,13 +601,12 @@ header nav a[aria-current="page"] {
 
 .range-gateway > .watermarked-image {
   position: absolute;
-  right: -9%;
-  bottom: -8%;
-  width: 52%;
-  height: 80%;
+  right: 3%;
+  bottom: 8%;
+  width: 40%;
+  height: 76%;
   object-fit: cover;
-  border-radius: 48% 48% 0 0;
-  transform: rotate(-8deg);
+  border-radius: 12px;
 }
 
 .range-link {
