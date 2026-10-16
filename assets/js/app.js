@@ -177,8 +177,11 @@
     const paper = paperById.get(id);
     if (!paper) return;
     const category = categoryById.get(paper.group);
-    const specifications = specificationFields(paper);
+    const specifications = specificationFields(paper).filter(item =>
+      item.label.toLowerCase() !== 'material' &&
+      !(paper.specifications?.length && /^Confirm /i.test(item.value)));
     dom.detailBody.innerHTML = watermarkImages(`
+      <div class="product-modal-content">
       <div class="product-modal-heading"><span class="dialog-tag">${escapeHtml(category.name)}</span>
         <h2 id="detail-title">${escapeHtml(paper.name)}</h2></div>
       <figure class="detail-photo product-modal-visual"><img src="${escapeHtml(paper.image)}" alt="${escapeHtml(paper.name)}" width="800" height="800" decoding="async"></figure>
@@ -192,8 +195,8 @@
           <p><strong>What to share:</strong> ${paper.material ? 'Size, capacity, colour, material, pack quantity and delivery location.' : 'Sheet or reel size, GSM, finish, printing needs, quantity and delivery location.'}</p>
         </details>
         <p class="detail-note">${paper.sourcingOnly ? 'Additional sourcing range — confirm availability. Specifications confirmed on enquiry.' : 'Specifications and availability confirmed on enquiry.'}${paper.group === 'wrapping' ? ' Confirm food-contact and temperature suitability.' : ''}</p>
-        <div class="product-enquiry-actions product-modal-actions"><button class="button" type="button" data-choose-paper="${paper.id}" aria-label="Enquire about this product"><span class="action-copy enquiry-full-label">Enquire about this product</span><span class="action-copy enquiry-short-label">Enquire product</span></button><a class="button whatsapp-button" href="${escapeHtml(productWhatsAppUrl(paper))}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp connect">${WHATSAPP_ICON}<span class="action-copy">WhatsApp<span class="connect-word"> connect</span></span></a></div>
-      </div>`);
+      </div></div>
+      <div class="product-enquiry-actions product-modal-actions"><button class="button" type="button" data-choose-paper="${paper.id}" aria-label="Enquire about this product"><span class="action-copy enquiry-full-label">Enquire about this product</span><span class="action-copy enquiry-short-label">Enquire</span></button><a class="button whatsapp-button" href="${escapeHtml(productWhatsAppUrl(paper))}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp connect">${WHATSAPP_ICON}<span class="action-copy">WhatsApp<span class="connect-word"> connect</span></span></a></div>`);
     if (!dom.detail.open) {
       lockPageScroll();
       dom.detail.showModal();

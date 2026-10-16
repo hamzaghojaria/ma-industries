@@ -73,7 +73,7 @@
   box-shadow: 0 2px 10px #0001;
 }
 #detail > .close:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; }
-#detail-body {
+.product-modal-content {
   display: grid;
   grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
   gap: 20px 32px;
@@ -88,11 +88,49 @@
 .product-modal-section h3 { font-size: 14px; font-weight: 600; margin: 20px 0 8px; }
 .product-modal-section p { margin: 0; }
 .product-modal-section .detail-uses { margin: 0; padding-left: 18px; }
+#detail-body > .product-modal-actions { width: calc(55% - 16px); margin: 20px 0 0 auto; }
 @media (max-width: 700px) {
-  #detail { width: calc(100% - 16px); max-height: 94dvh; padding: 16px 20px 24px; }
-  #detail-body { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  #detail {
+    width: calc(100% - 16px);
+    height: 94vh;
+    height: 94dvh;
+    max-height: 94dvh;
+    padding: 0;
+    overflow: hidden;
+  }
+  #detail > .close { position: absolute; top: 10px; right: 14px; margin: 0; }
+  #detail-body { display: flex; flex-direction: column; height: 100%; min-height: 0; }
+  .product-modal-content {
+    flex: 1;
+    min-height: 0;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 18px 18px 12px;
+    scroll-padding-bottom: 16px;
+  }
+  .product-modal-heading h2 { font-size: 26px; margin-top: 8px; }
+  .product-modal-heading .dialog-tag { font-size: 10px; letter-spacing: 1px; }
   .product-modal-visual { position: static; }
-  .product-modal-visual img { max-height: 240px; }
+  .product-modal-visual img { max-height: 200px; }
+  .product-modal-copy p { font-size: 13px; line-height: 1.6; }
+  .product-modal-section h3 { margin: 14px 0 6px; }
+  .product-modal-copy .product-extra-details { margin: 10px 0; }
+  .product-modal-copy .product-specifications { margin-bottom: 8px; }
+  #detail-body > .product-modal-actions {
+    flex-shrink: 0;
+    width: auto;
+    margin: 0;
+    padding: 10px 18px max(12px, env(safe-area-inset-bottom));
+    background: var(--cream);
+    border-top: 1px solid var(--line);
+    box-shadow: 0 -4px 16px #26362908;
+    grid-template-columns: 1fr 1fr;
+  }
+  #detail .product-modal-actions .enquiry-full-label,
+  #detail .product-modal-actions .connect-word { display: none; }
+  #detail .product-modal-actions .enquiry-short-label { display: inline; }
 }
 
 .detail-uses { font-size: 13px; line-height: 1.7; }
