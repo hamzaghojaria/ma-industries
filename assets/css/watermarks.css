@@ -1,0 +1,37 @@
+/* Display-only branding: original assets remain available for catalogue generation. */
+.watermarked-image {
+  position: relative;
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  isolation: isolate;
+}
+.watermarked-image::after {
+  content: '';
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  z-index: 3;
+  width: clamp(76px, 34%, 164px);
+  height: 34px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  background: #ffffffb3 url('../images/brand-logo.png') center / contain no-repeat;
+  background-origin: content-box;
+  opacity: .72;
+  pointer-events: none;
+}
+.watermarked-image > img { display: block; }
+.directory-image > .watermarked-image,
+.founder-portrait > .watermarked-image { width: 100%; height: 100%; }
+.product-visual > .watermarked-image { position: absolute; inset: 0; width: 100%; height: 100%; }
+/* Gateway photography is positioned decoratively; its wrapper owns that geometry. */
+.range-gateway > .watermarked-image > img {
+  position: static;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+  transform: none;
+}
+.range-gateway > .watermarked-image::after { right: 22%; bottom: 18%; }

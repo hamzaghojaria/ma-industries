@@ -90,8 +90,17 @@
     ].join('\n');
   }
 
+  // A display watermark preserves original photos and is shared by static and dynamic markup.
+  // Skip existing wrappers so source previews and deployment builds remain idempotent.
+  function watermarkImages(html) {
+    return html.replace(/<span class="watermarked-image"><img\b[^>]*><\/span>|<img\b[^>]*>/g, markup => {
+      if (markup.startsWith('<span') || !/src="assets\/images\/(?:products|categories|ranges|gallery|founders)\//.test(markup)) return markup;
+      return '<span class="watermarked-image">' + markup + '</span>';
+    });
+  }
+
   // Classic scripts retain compatibility with opening index.html directly.
   window.MACatalogueUtils = Object.freeze({
-    validateCatalogue, gsmLabel, filterPapers, paginate, paginationPages, enquiryText, productWhatsAppText
+    validateCatalogue, gsmLabel, filterPapers, paginate, paginationPages, enquiryText, productWhatsAppText, watermarkImages
   });
 })();

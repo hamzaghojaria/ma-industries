@@ -4568,7 +4568,7 @@ header nav a[aria-current="page"] {
   line-height: 1.7;
 }
 
-.range-gateway img {
+.range-gateway > .watermarked-image {
   position: absolute;
   right: -9%;
   bottom: -8%;
@@ -5239,7 +5239,7 @@ header nav a[aria-current="page"] {
   transition: transform .4s var(--ease-out), box-shadow .4s var(--ease-out);
 }
 
-.range-gateway img {
+.range-gateway > .watermarked-image {
   transition: transform .65s var(--ease-out);
 }
 
@@ -5311,7 +5311,7 @@ header nav a[aria-current="page"] {
     transform: scale(1.045);
   }
 
-  .range-gateway:hover img {
+  .range-gateway:hover > .watermarked-image {
     transform: rotate(-5deg) scale(1.035);
   }
 

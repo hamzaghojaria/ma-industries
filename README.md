@@ -26,11 +26,12 @@ The homepage brand cards have separate website/profile actions. M&A Engineerings
 |-- index.html, about.html, categories.html, products.html
 |-- assets/
 |   |-- css/
-|   |   |-- style.css          Entry point; imports four CSS modules
+|   |   |-- style.css          Entry point; imports the component CSS modules
 |   |   |-- shared.css         Tokens, header, page sections, products, dialogs, motion
 |   |   |-- catalogue.css      Sidebar, category dropdown, search, sort, reset, layout
 |   |   |-- footer.css         Footer links, contact actions, responsive layout
-|   |   `-- brands.css         Homepage brand cards and their actions
+|   |   |-- brands.css         Homepage brand cards and their actions
+|   |   `-- watermarks.css     Logo/name overlays on content photography
 |   |-- js/
 |   |   |-- catalogue-data.js  Product/category data; canonical names and stable IDs
 |   |   |-- catalogue-utils.js Filtering, pagination, validation, enquiry helpers
@@ -112,6 +113,8 @@ Edit the existing rule in the owning CSS module. Avoid appending competing overr
 Preserve the `products`, `pagination`, `results-count`, `active-category`, `category-select`, `search`, `sort`, `reset-catalogue`, `detail`, `detail-body`, `brief`, `paper`, `paper-options`, and `status` IDs. Maintain visible keyboard focus, 44px minimum touch targets, 16px mobile inputs, and reduced-motion behavior.
 
 Menu behavior belongs in `navigation.js`, shared by all pages. Catalogue scripts load in data → utilities → app order. Navigation initializes independently. Motion must enhance content without blocking access to it.
+
+Content photos display the M&A Industries logo/name watermark through `watermarks.css`. The shared `watermarkImages()` helper wraps product, category, range, gallery, and founder images in static pages, generated pages, product cards, and dialogs. It skips logos/icons and existing wrappers. These are website overlays; original image files and downloadable PDFs remain unchanged.
 
 Contributor conventions:
 

@@ -10,6 +10,19 @@ for (const file of ['catalogue-data.js', 'catalogue-utils.js']) {
 const { papers, categories } = context.window.MACatalogueData;
 const utils = context.window.MACatalogueUtils;
 
+test('photo watermarks cover content images once and leave brand assets unchanged', () => {
+  for (const folder of ['products', 'categories', 'ranges', 'gallery', 'founders']) {
+    const image = `<img src="assets/images/${folder}/example.jpg" alt="Example">`;
+    const marked = utils.watermarkImages(image);
+    assert.equal(marked, `<span class="watermarked-image">${image}</span>`);
+    assert.equal(utils.watermarkImages(marked), marked);
+  }
+  for (const file of ['brand-logo.png', 'engineering-logo.svg', 'favicon-32.png']) {
+    const image = `<img src="assets/images/${file}" alt="Brand">`;
+    assert.equal(utils.watermarkImages(image), image);
+  }
+});
+
 test('catalogue validates groups and rejects duplicate IDs', () => {
   assert.doesNotThrow(() => utils.validateCatalogue(papers, categories));
   assert.throws(() => utils.validateCatalogue([papers[0], papers[0]], categories), /Duplicate/);

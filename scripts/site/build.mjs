@@ -3,6 +3,7 @@ import { readFile, writeFile, mkdir, copyFile, rm } from 'node:fs/promises';
 import { resolve, dirname, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Script } from 'node:vm';
+import { createHash } from 'node:crypto';
 import { createSeoPages } from './seo-pages.mjs';
 import { bundleStyles } from './styles.mjs';
 import { loadCatalogue, syncCatalogueMarkup } from './catalogue-markup.mjs';
@@ -63,7 +64,18 @@ function applyPublicUrl(html, origin, pagePath = '') {
 const pages = new Map();
 const siteOrigin = process.env.SITE_URL || process.env.RENDER_EXTERNAL_URL || 'https://maindustries.in/';
 const publicFiles = new Set(PUBLIC_FILES);
+// Version assets by content so a deployment cannot mix old helpers with new renderers.
+const assetVersions = new Map();
+for (const file of [...JAVASCRIPT_FILES, 'assets/css/style.css']) {
+  const contents = file.endsWith('.css')
+    ? await bundleStyles(new URL('../../' + file, import.meta.url))
+    : await readFile(resolve(ROOT, file));
+  assetVersions.set(file, createHash('sha256').update(contents).digest('hex').slice(0, 12));
+}
 const catalogue = await loadCatalogue();
+const watermarkContext = { window: {} };
+new Script(await readFile(resolve(ROOT, 'assets/js/catalogue-utils.js'), 'utf8')).runInNewContext(watermarkContext);
+const { watermarkImages } = watermarkContext.window.MACatalogueUtils;
 for (const file of PAGES) {
   let html = await readFile(resolve(ROOT, file), 'utf8');
   for (const [, asset] of html.matchAll(/(?:src|href)="(assets\/[^"?#]+)(?:[?#][^"]*)?"/g)) {
@@ -92,7 +104,9 @@ const organisation = {
   address: { '@type': 'PostalAddress', addressLocality: 'Mumbai', addressCountry: 'IN' },
   areaServed: 'Worldwide'
 };
-for (const [file, html] of pages) {
+for (const [file, sourceHtml] of pages) {
+  const html = watermarkImages(sourceHtml).replace(/((?:src|href)=")(assets\/(?:js|css)\/[^"?]+)(?:\?[^"\s]*)?(")/g,
+    (_, start, file, end) => assetVersions.has(file) ? `${start}${file}?v=${assetVersions.get(file)}${end}` : `${start}${file}${end}`);
   const pageUrl = new URL(file === 'index.html' ? '' : file, baseUrl).href;
   const name = html.match(/<title>\s*([\s\S]*?)\s*<\/title>/)[1].replaceAll('&amp;', '&');
   const graph = [organisation, {
