@@ -2,6 +2,12 @@
  * Rule order within each breakpoint is intentional. Production bundles these modules. */
 
 /* Search, sorting and reset controls. Use explicit classes, not child positions. */
+/* Product popup: concise overview, with item-specific notes available on demand. */
+.detail-uses { font-size: 13px; line-height: 1.7; }
+.product-extra-details { margin: 14px 0; border-bottom: 1px solid var(--line); }
+.product-extra-details summary { min-height: 44px; padding: 12px 0; cursor: pointer; font-size: 13px; font-weight: 600; }
+.product-extra-details p { padding-bottom: 12px; font-size: 13px; line-height: 1.7; }
+
 .catalogue-tools {
   display: flex;
   align-items: end;

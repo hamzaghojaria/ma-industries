@@ -163,18 +163,14 @@
     if (!paper) return;
     const category = categoryById.get(paper.group);
     dom.detailBody.innerHTML = watermarkImages(`
-      <span class="dialog-tag">${escapeHtml(category.name)} / ${String(paper.index).padStart(2, '0')}</span>
+      <span class="dialog-tag">${escapeHtml(category.name)}</span>
       <h2 id="detail-title">${escapeHtml(paper.name)}</h2>
       <figure class="detail-photo"><img src="${escapeHtml(paper.image)}" alt="${paper.illustration ? 'Representative collection: ' + escapeHtml(category.name) : escapeHtml(paper.name)}" width="800" height="800" decoding="async"></figure>
       <p>${escapeHtml(paper.desc)}</p>
-      <div class="detail-gsm"><span>${paper.material ? 'Material' : 'GSM guide'}</span><strong>${escapeHtml(paper.material || gsmLabel(paper))}</strong><small>${paper.material ? 'Confirm composition and specifications for your selected item.' : 'GSM means grams per square metre. Typical reference guide; confirm your required grade on enquiry.'}</small></div>
-      ${paper.details ? '<p class="detail-note">' + escapeHtml(paper.details) + '</p>' : ''}
-      <span class="availability">${paper.sourcingOnly ? 'Additional sourcing range — confirm availability' : 'Availability on enquiry'}</span>
-      <h3 class="detail-section-title">Applications to explore</h3>
-      <ul>${paper.uses.map(use => '<li>' + escapeHtml(use) + '</li>').join('')}</ul>
-      <h3 class="detail-section-title">Details to discuss</h3>
-      <p>${paper.material ? 'Dimensions, colour, capacity, material composition, pack quantities, care instructions and delivery timeline.' : 'Paper weight (GSM), sheet or reel dimensions, finish, printing requirements, quantity and delivery timeline.'}</p>
-      <p class="detail-note">Exact specifications, availability and suitability are confirmed on enquiry.${paper.group === 'wrapping' ? ' Confirm food-contact compliance and temperature suitability for the intended application.' : ''}</p>
+      <div class="detail-gsm"><span>${paper.material ? 'Material' : 'GSM guide'}</span><strong>${escapeHtml(paper.material || gsmLabel(paper))}</strong>${paper.gsm ? '<small>Indicative range; confirm your required grade.</small>' : ''}</div>
+      <p class="detail-uses"><strong>Uses:</strong> ${paper.uses.map(escapeHtml).join(' · ')}</p>
+      ${paper.details ? '<details class="product-extra-details"><summary>More details</summary><p>' + escapeHtml(paper.details) + '</p></details>' : ''}
+      <p class="detail-note">${paper.sourcingOnly ? 'Additional sourcing range — confirm availability. Specifications confirmed on enquiry.' : 'Specifications and availability confirmed on enquiry.'}${paper.group === 'wrapping' ? ' Confirm food-contact and temperature suitability.' : ''}</p>
       <div class="product-enquiry-actions product-modal-actions"><button class="button" type="button" data-choose-paper="${paper.id}" aria-label="Enquire about this product"><span class="action-copy enquiry-full-label">Enquire about this product</span><span class="action-copy enquiry-short-label">Enquire product</span></button><a class="button whatsapp-button" href="${escapeHtml(productWhatsAppUrl(paper))}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp connect">${WHATSAPP_ICON}<span class="action-copy">WhatsApp<span class="connect-word"> connect</span></span></a></div>`);
     if (!dom.detail.open) {
       lockPageScroll();
