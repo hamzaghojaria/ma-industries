@@ -5215,6 +5215,140 @@ header nav a[aria-current="page"] {
   border-radius: 6px;
 }
 
+/* Collection gateways beneath the category-page title. */
+.directory-jumps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  max-width: 1120px;
+}
+
+.directory-jumps .collection-jump {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 22px;
+  padding: 22px;
+  min-width: 0;
+  border: 1px solid #d8cbbb;
+  border-radius: 18px;
+  background: #fffaf2;
+  text-decoration: none;
+  box-shadow: 0 6px 22px #493b2510;
+}
+
+.directory-jumps .collection-jump-green {
+  background: #f1f5ed;
+  border-color: #c9d5c1;
+}
+
+.collection-jump-image {
+  width: 100px;
+  height: 126px;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.directory-jumps .collection-jump-copy {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 9px;
+}
+
+.directory-jumps .collection-jump-label {
+  color: var(--red);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+}
+
+.collection-jump-copy strong {
+  color: #283528;
+  font: 500 clamp(20px, 2vw, 28px)/1.2 'Playfair Display', Georgia, serif;
+}
+
+.directory-jumps .collection-jump-description {
+  line-height: 1.6;
+}
+
+.directory-jumps .collection-jump-count {
+  padding-top: 5px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.directory-jumps .collection-jump-arrow {
+  display: grid;
+  place-items: center;
+  align-self: flex-end;
+  flex: 0 0 32px;
+  height: 32px;
+  border: 1px solid #d8cbbb;
+  border-radius: 50%;
+  color: var(--red);
+  font-size: 18px;
+}
+
+.collection-jump:focus-visible {
+  outline: 3px solid var(--red);
+  outline-offset: 3px;
+}
+
+.directory-hero > .collection-scroll-hint {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .directory-jumps {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 4px;
+    padding: 6px 4px 16px;
+    scrollbar-width: thin;
+    scrollbar-color: #a8b29e #e4e7dc;
+  }
+
+  .directory-jumps .collection-jump {
+    flex: 0 0 88%;
+    box-sizing: border-box;
+    scroll-snap-align: start;
+    gap: 14px;
+    padding: 18px;
+  }
+
+  .collection-jump-image {
+    width: 68px;
+    height: 112px;
+  }
+
+  .directory-jumps .collection-jump-arrow {
+    position: absolute;
+    bottom: 14px;
+    right: 14px;
+    width: 26px;
+    height: 26px;
+  }
+
+  .directory-jumps .collection-jump-count {
+    padding-right: 22px;
+  }
+
+  .directory-hero > .collection-scroll-hint {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 11px;
+    letter-spacing: .4px;
+  }
+}
+
 .faq details {
   transition: border-color .25s, background .25s;
 }
