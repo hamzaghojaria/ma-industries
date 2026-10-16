@@ -3685,6 +3685,7 @@ header, .collection, .approach, .feature, .faq, .enquiry.enquiry-simple,
 
 .product > .product-top,
 .product > .product-gsm,
+.product > .product-card-facts,
 .product > p {
   padding-left: 20px;
   padding-right: 20px;
@@ -3698,6 +3699,7 @@ header, .collection, .approach, .feature, .faq, .enquiry.enquiry-simple,
 @media (max-width: 600px) {
   .product > .product-top,
   .product > .product-gsm,
+  .product > .product-card-facts,
   .product > p {
     padding-left: 18px;
     padding-right: 18px;

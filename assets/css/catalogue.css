@@ -41,7 +41,54 @@
 }
 .product > .product-actions { margin-top: auto; }
 
-/* Product popup: concise overview, with item-specific notes available on demand. */
+/* Every product uses the same popup; only its catalogue content changes. */
+#detail {
+  box-sizing: border-box;
+  width: calc(100% - 48px);
+  max-width: 1040px;
+  max-height: 90vh;
+  max-height: 90dvh;
+  padding: 24px 32px 32px;
+  overflow-y: auto;
+  border-radius: 14px;
+}
+#detail > .close {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 -12px -36px auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--cream);
+  box-shadow: 0 2px 10px #0001;
+}
+#detail > .close:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; }
+#detail-body {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  gap: 20px 32px;
+  align-items: start;
+}
+.product-modal-heading { grid-column: 1 / -1; padding-right: 44px; }
+.product-modal-heading h2 { margin: 10px 0 0; font-size: clamp(28px, 3vw, 38px); line-height: 1.2; }
+.product-modal-visual { position: sticky; top: 12px; margin: 0; min-width: 0; }
+.product-modal-visual img { max-height: 380px; }
+.product-modal-copy { min-width: 0; }
+.product-modal-copy .product-modal-overview { margin-top: 0; }
+.product-modal-section h3 { font-size: 14px; font-weight: 600; margin: 20px 0 8px; }
+.product-modal-section p { margin: 0; }
+.product-modal-section .detail-uses { margin: 0; padding-left: 18px; }
+@media (max-width: 700px) {
+  #detail { width: calc(100% - 16px); max-height: 94dvh; padding: 16px 20px 24px; }
+  #detail-body { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .product-modal-visual { position: static; }
+  .product-modal-visual img { max-height: 240px; }
+}
+
 .detail-uses { font-size: 13px; line-height: 1.7; }
 .product-extra-details { margin: 14px 0; border-bottom: 1px solid var(--line); }
 .product-extra-details summary { min-height: 44px; padding: 12px 0; cursor: pointer; font-size: 13px; font-weight: 600; }

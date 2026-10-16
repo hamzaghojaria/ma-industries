@@ -77,7 +77,7 @@
         <span class="index">${String(displayNumberById.get(paper.id)).padStart(2, '0')} / M&A</span>
         <img class="product-photo" src="${escapeHtml(paper.cardImage || paper.image)}" alt="${paper.illustration ? 'Collection: ' + escapeHtml(categoryById.get(paper.group).name) : name}" width="800" height="800" loading="lazy" decoding="async"><span class="type">${escapeHtml(paper.tag)}</span>
       </a>
-      <div class="product-top"><h3><a href="product-${paper.id}.html">${name}</a></h3>
+      <div class="product-top"><h3><a href="#paper-${paper.id}">${name}</a></h3>
         <a class="detail-button" href="#paper-${paper.id}" aria-label="View ${name}">${ACTION_ARROW}</a></div>
       <p class="product-card-overview">${escapeHtml(paper.desc)}</p>
       <dl class="product-card-facts">
@@ -179,20 +179,21 @@
     const category = categoryById.get(paper.group);
     const specifications = specificationFields(paper);
     dom.detailBody.innerHTML = watermarkImages(`
-      <span class="dialog-tag">${escapeHtml(category.name)}</span>
-      <h2 id="detail-title">${escapeHtml(paper.name)}</h2>
-      <figure class="detail-photo"><img src="${escapeHtml(paper.image)}" alt="${paper.illustration ? 'Representative collection: ' + escapeHtml(category.name) : escapeHtml(paper.name)}" width="800" height="800" decoding="async"></figure>
-      <p>${escapeHtml(paper.desc)}</p>
-      <div class="detail-gsm"><span>${paper.material ? 'Material' : 'GSM guide'}</span><strong>${escapeHtml(paper.material || gsmLabel(paper))}</strong>${paper.gsm ? '<small>Indicative range; confirm your required grade.</small>' : ''}</div>
-      <p class="detail-uses"><strong>Uses:</strong> ${paper.uses.map(escapeHtml).join(' · ')}</p>
-      <details class="product-extra-details"><summary>More details</summary>
-        ${paper.details ? '<p>' + escapeHtml(paper.details) + '</p>' : ''}
-        <h3>Specifications</h3><dl class="product-specifications">${specifications.map(item => '<div><dt>' + escapeHtml(item.label) + '</dt><dd>' + escapeHtml(item.value) + '</dd></div>').join('')}</dl>
-        <p><strong>What to share:</strong> ${paper.material ? 'Size, capacity, colour, material, pack quantity and delivery location.' : 'Sheet or reel size, GSM, finish, printing needs, quantity and delivery location.'}</p>
-        <p><a href="product-${paper.id}.html">View full product page</a></p>
-      </details>
-      <p class="detail-note">${paper.sourcingOnly ? 'Additional sourcing range — confirm availability. Specifications confirmed on enquiry.' : 'Specifications and availability confirmed on enquiry.'}${paper.group === 'wrapping' ? ' Confirm food-contact and temperature suitability.' : ''}</p>
-      <div class="product-enquiry-actions product-modal-actions"><button class="button" type="button" data-choose-paper="${paper.id}" aria-label="Enquire about this product"><span class="action-copy enquiry-full-label">Enquire about this product</span><span class="action-copy enquiry-short-label">Enquire product</span></button><a class="button whatsapp-button" href="${escapeHtml(productWhatsAppUrl(paper))}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp connect">${WHATSAPP_ICON}<span class="action-copy">WhatsApp<span class="connect-word"> connect</span></span></a></div>`);
+      <div class="product-modal-heading"><span class="dialog-tag">${escapeHtml(category.name)}</span>
+        <h2 id="detail-title">${escapeHtml(paper.name)}</h2></div>
+      <figure class="detail-photo product-modal-visual"><img src="${escapeHtml(paper.image)}" alt="${escapeHtml(paper.name)}" width="800" height="800" decoding="async"></figure>
+      <div class="product-modal-copy">
+        <p class="product-modal-overview">${escapeHtml(paper.desc)}</p>
+        <section class="product-modal-section"><h3>Material</h3><p>${escapeHtml(paper.material || 'Paper / board; confirm the selected grade and composition on enquiry.')}</p></section>
+        <section class="product-modal-section"><h3>Uses &amp; applications</h3><ul class="detail-uses">${paper.uses.map(use => '<li>' + escapeHtml(use) + '</li>').join('')}</ul></section>
+        <section class="product-modal-section"><h3>Specifications</h3><dl class="product-specifications">${specifications.map(item => '<div><dt>' + escapeHtml(item.label) + '</dt><dd>' + escapeHtml(item.value) + '</dd></div>').join('')}</dl></section>
+        <details class="product-extra-details"><summary>More details</summary>
+          ${paper.details ? '<p>' + escapeHtml(paper.details) + '</p>' : ''}
+          <p><strong>What to share:</strong> ${paper.material ? 'Size, capacity, colour, material, pack quantity and delivery location.' : 'Sheet or reel size, GSM, finish, printing needs, quantity and delivery location.'}</p>
+        </details>
+        <p class="detail-note">${paper.sourcingOnly ? 'Additional sourcing range — confirm availability. Specifications confirmed on enquiry.' : 'Specifications and availability confirmed on enquiry.'}${paper.group === 'wrapping' ? ' Confirm food-contact and temperature suitability.' : ''}</p>
+        <div class="product-enquiry-actions product-modal-actions"><button class="button" type="button" data-choose-paper="${paper.id}" aria-label="Enquire about this product"><span class="action-copy enquiry-full-label">Enquire about this product</span><span class="action-copy enquiry-short-label">Enquire product</span></button><a class="button whatsapp-button" href="${escapeHtml(productWhatsAppUrl(paper))}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp connect">${WHATSAPP_ICON}<span class="action-copy">WhatsApp<span class="connect-word"> connect</span></span></a></div>
+      </div>`);
     if (!dom.detail.open) {
       lockPageScroll();
       dom.detail.showModal();
@@ -248,14 +249,6 @@
       if (!card) return;
       const link = event.target.closest('a');
       if (link) {
-        // Real page links support discovery and opening in another tab;
-        // ordinary clicks keep the existing quick-view experience.
-        if (link.getAttribute('href') === `product-${card.dataset.paperId}.html` &&
-            !event.ctrlKey && !event.metaKey && !event.shiftKey && !event.altKey) {
-          event.preventDefault();
-          activateProduct(card.dataset.paperId);
-          return;
-        }
         // Let normal links retain modifier-click behaviour and hash navigation.
         if (location.hash === link.getAttribute('href')) openProduct(card.dataset.paperId);
       } else if (!window.getSelection()?.toString()) activateProduct(card.dataset.paperId);

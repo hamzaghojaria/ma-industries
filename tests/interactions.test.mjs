@@ -15,21 +15,18 @@ function boot(search = '') {
   return page;
 }
 
-test('product page links keep quick view on a normal click and preserve modifier navigation', () => {
+test('every card product link stays in the catalogue popup', () => {
   const page = boot();
+  const html = page.get('products').innerHTML;
+  assert.doesNotMatch(html, /href="product-[^"]+\.html"/);
   const product = page.window.MACatalogueData.papers[0];
-  assert.ok(page.get('products').innerHTML.includes(`href="product-${product.id}.html"`));
+  assert.equal((html.match(new RegExp(`href="#paper-${product.id}"`, 'g')) || []).length, 4);
   const card = {dataset: {paperId: product.id}};
-  const link = {getAttribute: () => `product-${product.id}.html`};
-  const target = {closest: selector => selector === '[data-paper-id]' ? card : selector === 'a' ? link : null};
-  let prevented = 0;
-  page.get('products').dispatch('click', {target, preventDefault() { prevented++; }});
-  assert.equal(prevented, 1);
+  const target = {closest: selector => selector === '[data-paper-id]' ? card : null};
+  page.get('products').dispatch('click', {target});
   assert.equal(page.location.hash, '#paper-' + product.id);
-  for (const modifier of ['ctrlKey', 'metaKey', 'shiftKey', 'altKey']) {
-    page.get('products').dispatch('click', {target, [modifier]: true, preventDefault() { prevented++; }});
-  }
-  assert.equal(prevented, 1, 'modified clicks retain browser navigation');
+  page.window.listeners.hashchange[0]();
+  assert.equal(page.get('detail').open, true);
 });
 
 test('every mobile category option can select products and reset to the full catalogue', () => {
@@ -59,6 +56,9 @@ test('every product has the same expandable details and enquiry controls', () =>
     page.location.hash = '#paper-' + product.id;
     page.window.listeners.hashchange[0]();
     const html = page.get('detail-body').innerHTML;
+    for (const heading of ['Material', 'Uses &amp; applications', 'Specifications']) assert.ok(html.includes(`<h3>${heading}</h3>`), product.id);
+    assert.ok(html.indexOf('<h3>Specifications</h3>') < html.indexOf('<details'), product.id);
+    assert.doesNotMatch(html, /View full product page|href="product-[^"]+\.html"/, product.id);
     assert.match(html, /<details class="product-extra-details"><summary>More details<\/summary>/, product.id);
     assert.match(html, /<strong>What to share:<\/strong>/, product.id);
     assert.ok(html.includes(`data-choose-paper="${product.id}"`), product.id);

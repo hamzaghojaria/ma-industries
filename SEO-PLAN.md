@@ -11,7 +11,7 @@ Every page has unique metadata, an absolute canonical URL, Open Graph and Twitte
 ## Improvements from this audit
 
 - Added a grouped, static no-JavaScript catalogue with links to all 67 product detail pages. Catalogue synchronization owns these links so additions remain consistent.
-- Product names in the interactive catalogue now use real detail-page URLs. Normal clicks retain the quick-view dialog; modified clicks use normal browser navigation. Expanded dialogs also offer a full-page link.
+- Product cards and names open the shared in-page popup. At the owner's request, no separate product-page link appears in the cards or popups. Full uses and specifications are visible in the shared popup layout.
 - Added catalogue ItemList structured data with all product URLs and positions.
 - Changed sourcing-only product titles to Sourcing Enquiries, with visible sourcing/availability context.
 - Added max-image-preview:large and build validation for absolute sharing-image URLs and deployed assets.
