@@ -56,8 +56,9 @@
     const search = query.trim().toLowerCase();
     const matches = papers.filter(paper =>
       (category === 'all' || paper.group === category) &&
-      [paper.name, paper.desc, paper.tag || '', paper.material || '', ...paper.uses,
-        ...specificationFields(paper).flatMap(field => [field.label, field.value])].join(' ').toLowerCase().includes(search)
+      // Category changes and paging need no searchable specification text.
+      (!search || [paper.name, paper.desc, paper.tag || '', paper.material || '', ...paper.uses,
+        ...specificationFields(paper).flatMap(field => [field.label, field.value])].join(' ').toLowerCase().includes(search))
     );
     // Sort a filtered copy so the original collection order remains unchanged.
     return sort === 'az' ? matches.sort((a, b) => a.name.localeCompare(b.name)) : matches;

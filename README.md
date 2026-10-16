@@ -1,6 +1,8 @@
 # M&A Industries website
 
-A static catalogue for paper and packaging, sugarcane-based products, and recycled household goods. The current catalogue has **62 products in 12 categories**. No database, checkout, backend form submission, or npm dependencies are required.
+A static catalogue for paper and packaging, sugarcane-based products, and recycled household goods. The current catalogue has **66 products in 12 categories**. No database, checkout, backend form submission, or npm dependencies are required.
+
+See [PERFORMANCE.md](PERFORMANCE.md) for the PageSpeed baseline, performance changes, image/font maintenance, and measurement limits. Range/directory/gallery styles live in `assets/css/ranges.css`; motion refinements live in `assets/css/motion.css`. Keep their import order in `style.css`. Gallery controls live in `assets/js/gallery.js` and load only on the homepage. Local fonts and responsive images are checked in, so deployments need no network downloads or image-processing dependencies.
 
 ## Pages and visitor flow
 
@@ -145,7 +147,7 @@ The cleanup was compared against preceding layout measurements for all four page
 
 ## Deployment
 
-Render runs `node scripts/site/build.mjs` and publishes `dist/`. `SITE_URL` sets the canonical origin; production is `https://maindustries.in`. The build resolves share-image URLs, adds canonical URLs/structured data, and generates sitemap/robots files. Currently it produces 78 HTML pages: four root pages, 12 category guides, and 62 product pages.
+Render runs `node scripts/site/build.mjs` and publishes `dist/`. `SITE_URL` sets the canonical origin; production is `https://maindustries.in`. The build resolves share-image URLs, adds canonical URLs/structured data, and generates sitemap/robots files. Currently it produces 82 HTML pages: four root pages, 12 category guides, and 66 product pages.
 
 Only allowlisted public files are deployed. Keep image manifests and the build public-file list current. CSS source modules are bundled into `dist/assets/css/style.css`. Documentation, internal tools, prompts, temporary files, and credentials are not published. Never edit generated `dist/` directly.
 

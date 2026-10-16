@@ -5,6 +5,7 @@ export const JAVASCRIPT_FILES = [
   'assets/js/catalogue-data.js',
   'assets/js/catalogue-utils.js',
   'assets/js/app.js',
+  'assets/js/gallery.js',
   'assets/js/navigation.js',
   'assets/js/experience.js'
 ];

@@ -29,8 +29,13 @@ test('enabling reduced motion cancels animations already in progress', () => {
   const preference = {matches: false, addEventListener(_type, callback) { preferenceChanged = callback; }};
   page.window.matchMedia = () => preference;
   const element = {animate() { return {finished: new Promise(() => {}), cancel() { cancelled++; }}; }};
-  page.document.querySelectorAll = selector => selector === '.hero-copy>*' ? [element] : [];
-  class Observer { observe() {} unobserve() {} disconnect() { disconnected = true; } }
+  page.document.querySelectorAll = selector => selector.includes('.range-gateway') ? [element] : [];
+  class Observer {
+    constructor(callback) { this.callback = callback; }
+    observe(target) { this.callback([{target, isIntersecting: true}]); }
+    unobserve() {}
+    disconnect() { disconnected = true; }
+  }
   page.window.IntersectionObserver = Observer;
   vm.runInNewContext(source, {...page.globals, IntersectionObserver: Observer});
   preference.matches = true;

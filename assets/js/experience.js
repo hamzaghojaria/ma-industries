@@ -59,8 +59,8 @@
     }
   }, { threshold: .08, rootMargin: '0px 0px -24px 0px' });
   const selectors = '.range-gateway,.directory-card,.offering-grid>a,.founder-card,.steps article,' +
-    '.material-story>*,.section-heading,.about-story-grid>*,.about-value-grid article,.enquiry>div,' +
-    '.directory-hero>*,.about-hero-copy>*,.about-range-art,.about-cta>*,.paper-guide-grid article,.product';
+    '.material-story>*,.about-story-grid>*,.about-value-grid article,.enquiry>div,' +
+    '.about-cta>*,.paper-guide-grid article,.product';
   function observeWithin(root) {
     for (const element of root.querySelectorAll(selectors)) {
       if (watched.has(element)) continue;
@@ -69,8 +69,8 @@
     }
   }
   observeWithin(document);
-  document.querySelectorAll('.hero-copy>*').forEach((element, index) => enter(element, Math.min(index * 65, 260), 16));
-  document.querySelectorAll('.hero-range-art .range-mosaic figure').forEach((element, index) => enter(element, 90 + index * 75, 16));
+  // Keep above-the-fold copy and images visible on their first paint: opacity
+  // entrance animations delay LCP even when the content is already downloaded.
   const products = document.getElementById('products');
   if (products && 'MutationObserver' in window) {
     new MutationObserver(() => observeWithin(products)).observe(products, { childList: true });

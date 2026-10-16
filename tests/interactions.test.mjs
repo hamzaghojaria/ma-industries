@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises';
 import vm from 'node:vm';
 import { createPageFixture } from './page-fixture.mjs';
 
-const sources = await Promise.all(['catalogue-data.js', 'catalogue-utils.js', 'app.js', 'navigation.js'].map(file =>
+const sources = await Promise.all(['catalogue-data.js', 'catalogue-utils.js', 'app.js', 'gallery.js', 'navigation.js'].map(file =>
   readFile(new URL('../assets/js/' + file, import.meta.url), 'utf8')
 ));
 function boot(search = '') {
@@ -53,14 +53,14 @@ test('home page works without catalogue and product-dialog elements', () => {
   page.document.getElementById = id => ['products', 'pagination', 'search', 'sort', 'reset-catalogue', 'detail', 'detail-body'].includes(id) ? null : originalGet(id);
   const context = vm.createContext(page.globals);
   assert.doesNotThrow(() => { for (const source of sources) vm.runInContext(source, context); });
-  assert.equal(page.get('paper-options').children.length, 63);
+  assert.equal(page.get('paper-options').children.length, page.window.MACatalogueData.papers.length + 1);
   assert.ok(page.get('brief').listeners.submit.length);
 });
 
 test('catalogue initializes and delegated paging/filter/reset controls stay functional', () => {
   const page = boot();
   assert.equal((page.get('products').innerHTML.match(/<article /g) || []).length, 6);
-  assert.equal(page.get('paper-options').children.length, 63);
+  assert.equal(page.get('paper-options').children.length, page.window.MACatalogueData.papers.length + 1);
   assert.equal((page.get('products').innerHTML.match(/class="product-photo"/g) || []).length, 6);
   assert.match(page.get('products').innerHTML, /loading="lazy"/);
   assert.match(page.get('products').innerHTML, /alt="Duplex paper"/);
@@ -73,13 +73,14 @@ test('catalogue initializes and delegated paging/filter/reset controls stay func
   assert.match(page.get('products').innerHTML, /No matching products/);
   page.get('reset-catalogue').click();
   assert.equal(page.get('search').value, '');
-  assert.match(page.get('results-count').textContent, /1–6 of 62/);
+  assert.ok(page.get('results-count').textContent.includes(`1–6 of ${page.window.MACatalogueData.papers.length}`));
 });
 
 test('new category links filter on load and non-paper products carry through to enquiry', () => {
   const page = boot('?category=sugarcane-kitchenware');
-  assert.match(page.get('results-count').textContent, /1–6 of 8 products/);
-  assert.match(page.get('products').innerHTML, /Cutting boards/);
+  const householdCount = page.window.MACatalogueData.papers.filter(product => product.group === 'sugarcane-kitchenware').length;
+  assert.ok(page.get('results-count').textContent.includes(`1–6 of ${householdCount} products`));
+  assert.match(page.get('products').innerHTML, /Sugarcane cutting boards/);
   assert.doesNotMatch(page.get('products').innerHTML, /GSM guide/);
   page.location.hash = '#paper-glass-airtight-containers';
   page.window.listeners.hashchange[0]();
@@ -87,16 +88,16 @@ test('new category links filter on load and non-paper products carry through to 
   assert.doesNotMatch(page.get('detail-body').innerHTML, /Paper weight \(GSM\)/);
   const choice = new page.Element(); choice.dataset.choosePaper = 'glass-airtight-containers';
   page.get('detail').dispatch('click', {target: choice});
-  assert.equal(page.get('paper').value, 'Glass airtight containers');
+  assert.equal(page.get('paper').value, page.window.MACatalogueData.papers.find(product => product.id === 'glass-airtight-containers').name);
   assert.equal(page.location.hash, 'enquiry');
   const fallback = boot('?category=unknown');
-  assert.match(fallback.get('results-count').textContent, /1–6 of 62 products/);
+  assert.ok(fallback.get('results-count').textContent.includes(`1–6 of ${fallback.window.MACatalogueData.papers.length} products`));
 });
 
 test('mobile category selection, desktop buttons and reset stay synchronized', () => {
   const page = boot('?category=sugarcane-kitchenware');
   assert.equal(page.get('category-select').value, 'sugarcane-kitchenware');
-  assert.equal(page.get('active-category').textContent, 'Sugarcane Kitchenware');
+  assert.equal(page.get('active-category').textContent, page.window.MACatalogueData.categories.find(category => category.id === 'sugarcane-kitchenware').name);
   page.get('category-select').value = 'recycled-household';
   page.get('category-select').dispatch('change');
   assert.match(page.get('results-count').textContent, /1–3 of 3 products/);
@@ -108,7 +109,7 @@ test('mobile category selection, desktop buttons and reset stay synchronized', (
   page.get('reset-catalogue').click();
   assert.equal(page.get('category-select').value, 'all');
   assert.equal(page.get('active-category').textContent, 'All products');
-  assert.match(page.get('results-count').textContent, /1–6 of 62 products/);
+  assert.ok(page.get('results-count').textContent.includes(`1–6 of ${page.window.MACatalogueData.papers.length} products`));
 });
 
 test('expanded sugarcane ranges paginate and preselect a new sourcing item', () => {

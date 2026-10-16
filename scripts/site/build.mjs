@@ -6,6 +6,7 @@ import { Script } from 'node:vm';
 import { createHash } from 'node:crypto';
 import { createSeoPages } from './seo-pages.mjs';
 import { bundleStyles } from './styles.mjs';
+import { responsiveImages } from './images.mjs';
 import { loadCatalogue, syncCatalogueMarkup } from './catalogue-markup.mjs';
 import { PAGES, JAVASCRIPT_FILES } from './config.mjs';
 
@@ -17,9 +18,13 @@ const normalizeHomeLinks = html => html.replace(/href="index\.html(#[^"]*)?"/g, 
 const OUTPUT = resolve(ROOT, 'dist');
 const PRODUCT_IMAGES = JSON.parse(await readFile(resolve(ROOT, 'scripts/site/manifests/product-images.json'), 'utf8'));
 const CATEGORY_IMAGES = JSON.parse(await readFile(resolve(ROOT, 'scripts/site/manifests/category-images.json'), 'utf8'));
+const RESPONSIVE_IMAGES = JSON.parse(await readFile(resolve(ROOT, 'scripts/site/manifests/responsive-images.json'), 'utf8'));
+const FONT_FILES = JSON.parse(await readFile(resolve(ROOT, 'scripts/site/manifests/fonts.json'), 'utf8'));
 // An allowlist keeps docs, local caches and credentials out of the hosted site.
 const PUBLIC_FILES = [
   ...PAGES, 'assets/css/style.css', ...JAVASCRIPT_FILES,
+  ...FONT_FILES,
+  ...Object.values(RESPONSIVE_IMAGES).flat().map(variant => variant.src),
   'assets/images/brand-logo.png', 'assets/images/engineering-logo.svg', 'assets/images/favicon-32.png',
   'assets/images/favicon-192.png', 'assets/images/apple-touch-icon.png',
   'assets/images/share-preview.png',
@@ -56,21 +61,31 @@ function applyPublicUrl(html, origin, pagePath = '') {
   const imageUrl = new URL('assets/images/share-preview.png', url).href;
   const pageUrl = new URL(pagePath, url).href;
   return html
+    .replace('<link rel="stylesheet"', '<link rel="preload" href="assets/fonts/dm-sans-normal-latin.woff2" as="font" type="font/woff2" crossorigin>\n' +
+      '<link rel="preload" href="assets/fonts/playfair-display-normal-latin.woff2" as="font" type="font/woff2" crossorigin>\n<link rel="stylesheet"')
     .replaceAll('content="assets/images/share-preview.png"', 'content="' + escapeHtml(imageUrl) + '"')
     .replace('</head>', '<link rel="canonical" href="' + escapeHtml(pageUrl) + '">\n' +
       '<meta property="og:url" content="' + escapeHtml(pageUrl) + '">\n</head>');
 }
 
 const pages = new Map();
-const siteOrigin = process.env.SITE_URL || process.env.RENDER_EXTERNAL_URL || 'https://maindustries.in/';
+// Canonicals must use the public domain, never the hosting provider's alias.
+const configuredUrl = new URL(process.env.SITE_URL || 'https://maindustries.in/');
+if (!['https:', 'http:'].includes(configuredUrl.protocol) || configuredUrl.username || configuredUrl.password) {
+  throw new Error('SITE_URL must be an HTTP(S) address without credentials');
+}
+const siteOrigin = configuredUrl.origin + '/';
 const publicFiles = new Set(PUBLIC_FILES);
 // Version assets by content so a deployment cannot mix old helpers with new renderers.
 const assetVersions = new Map();
+const assetContents = new Map();
 for (const file of [...JAVASCRIPT_FILES, 'assets/css/style.css']) {
   const contents = file.endsWith('.css')
     ? await bundleStyles(new URL('../../' + file, import.meta.url))
     : await readFile(resolve(ROOT, file));
   assetVersions.set(file, createHash('sha256').update(contents).digest('hex').slice(0, 12));
+  // Reuse the same bytes for hashing and writing instead of bundling CSS twice.
+  assetContents.set(file, contents);
 }
 const catalogue = await loadCatalogue();
 const watermarkContext = { window: {} };
@@ -105,13 +120,16 @@ const organisation = {
   areaServed: 'Worldwide'
 };
 for (const [file, sourceHtml] of pages) {
-  const html = watermarkImages(sourceHtml).replace(/((?:src|href)=")(assets\/(?:js|css)\/[^"?]+)(?:\?[^"\s]*)?(")/g,
+  const html = responsiveImages(watermarkImages(sourceHtml), RESPONSIVE_IMAGES).replace(/((?:src|href)=")(assets\/(?:js|css)\/[^"?]+)(?:\?[^"\s]*)?(")/g,
     (_, start, file, end) => assetVersions.has(file) ? `${start}${file}?v=${assetVersions.get(file)}${end}` : `${start}${file}${end}`);
   const pageUrl = new URL(file === 'index.html' ? '' : file, baseUrl).href;
   const name = html.match(/<title>\s*([\s\S]*?)\s*<\/title>/)[1].replaceAll('&amp;', '&');
   const graph = [organisation, {
     '@type': file === 'about.html' ? 'AboutPage' : (file.startsWith('category-') || ['categories.html', 'products.html'].includes(file)) ? 'CollectionPage' : 'WebPage', '@id': pageUrl + '#webpage',
     url: pageUrl, name, inLanguage: 'en',
+    description: html.match(/<meta name="description" content="([^"]+)"/)[1]
+      .replaceAll('&amp;', '&').replaceAll('&quot;', '"').replaceAll('&#39;', "'"),
+    ...(file.startsWith('product-') ? { mainEntity: { '@id': pageUrl + '#product' } } : {}),
     publisher: { '@id': organisation['@id'] },
     isPartOf: { '@id': new URL('#website', baseUrl).href }
   }, { '@type': 'WebSite', '@id': new URL('#website', baseUrl).href,
@@ -134,7 +152,7 @@ for (const file of new Set([...PUBLIC_FILES, ...pages.keys()])) {
     await writeFile(destination, normalizeHomeLinks(pages.get(file)));
   } else if (file.endsWith('.css')) {
     // Source remains readable; deployment removes comments and indentation.
-    const css = await bundleStyles(new URL('../../' + file, import.meta.url));
+    const css = assetContents.get(file);
     const compact = css.replace(/\/\*[\s\S]*?\*\//g, '').split('\n').map(line => line.trim()).join('');
     await writeFile(destination, compact);
   } else {

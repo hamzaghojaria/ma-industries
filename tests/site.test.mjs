@@ -43,7 +43,7 @@ test('all twelve category cards, desktop filters and mobile options agree with c
 test('static category fallbacks update when data changes', () => {
   const updated = { ...catalogue, papers: [...catalogue.papers, { ...catalogue.papers[0], id: 'test-only-extra' }] };
   const html = syncCatalogueMarkup(pages.get('products.html'), updated);
-  assert.match(html, /All products \(63\)/);
+  assert.ok(html.includes('All products (' + updated.papers.length + ')'));
   assert.match(html, /value="boards">Boards &amp; cartons \(6\)/);
   assert.equal(syncCatalogueMarkup(html, updated), html, 'sync is idempotent');
 });
@@ -52,7 +52,8 @@ test('local CSS modules compile into one stylesheet with no unresolved local imp
   const css = await bundleStyles(new URL('assets/css/style.css', ROOT));
   assert.doesNotMatch(css, /@import\s+url\(['"](?:shared|catalogue|footer|brands)\.css/);
   for (const selector of ['.mobile-category-filter', '.product-search', '.footer-nav-links', '.brand-card-actions']) assert.ok(css.includes(selector));
-  assert.match(css, /fonts.googleapis.com/);
+  assert.doesNotMatch(css, /fonts\.googleapis\.com|fonts\.gstatic\.com/);
+  assert.match(css, /font-display: optional/);
 });
 
 test('every generated category and product page has its own title, details and working catalogue link', async () => {

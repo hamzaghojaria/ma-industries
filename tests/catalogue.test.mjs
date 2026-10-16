@@ -37,7 +37,7 @@ test('product WhatsApp drafts identify the item and ask for relevant specificati
   assert.match(paperText, /Category: Packaging & bags/);
   assert.match(paperText, /Size \/ GSM \/ finish/);
   const kitchenText = utils.productWhatsAppText(kitchenware, 'Sugarcane Kitchenware');
-  assert.match(kitchenText, /Cutting boards/);
+  assert.ok(kitchenText.includes(kitchenware.name));
   assert.match(kitchenText, /Size \/ capacity \/ colour/);
   assert.doesNotMatch(kitchenText, /GSM/);
 });
@@ -68,7 +68,8 @@ test('pagination clamps pages after filtering and supports empty results', () =>
 test('new collections are searchable by material and category', () => {
   const films = utils.filterPapers(papers, {category: 'sugarcane-bags', query: 'Bio-PE'});
   assert.equal(films.length, 7);
-  assert.equal(utils.filterPapers(papers, {query: 'sugarcane kitchenware'}).length, 8);
+  const household = utils.filterPapers(papers, {category: 'sugarcane-kitchenware', query: 'sugarcane'});
+  assert.equal(household.length, papers.filter(product => product.group === 'sugarcane-kitchenware').length);
   assert.ok(utils.filterPapers(papers, {query: 'PCR PP'}).every(product => product.group === 'recycled-household'));
 });
 
@@ -116,8 +117,9 @@ test('every catalogue product has useful, non-fabricated specification fields', 
     assert.ok(fields.every(field => field.label && field.value));
     assert.ok(fields.some(field => /dimension|size|paper weight/i.test(field.label)), paper.id + ' should ask for size or weight');
   }
-  const clingWrap = papers.find(paper => paper.id === 'sugarcane-cling-wrap');
+  const clingWrap = papers.find(paper => paper.id === 'easy-cut-cling-wraps');
   const exactValues = utils.specificationFields(clingWrap).map(field => field.value).join(' ');
   assert.match(exactValues, /12 μm/);
-  assert.match(exactValues, /20 cm × 100 m/);
+  const exactFields = utils.specificationFields(clingWrap).map(field => `${field.label}: ${field.value}`).join(' ');
+  assert.match(exactFields, /20 cm roll: 12 μm; 100 m/);
 });
