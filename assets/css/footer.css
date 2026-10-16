@@ -457,6 +457,16 @@ footer {
   gap: 8px;
 }
 
+.footer-contact-actions .social-coming-soon {
+  font-size: 9px;
+  letter-spacing: .2px;
+  opacity: .75;
+}
+
+.footer-contact-actions :is(.instagram-placeholder, .linkedin-placeholder) > svg {
+  flex-shrink: 0;
+}
+
 .site-footer .footer-explore {
   width: min(100%, 360px);
   text-align: left;
