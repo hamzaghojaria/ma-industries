@@ -53,9 +53,7 @@ export function syncCatalogueMarkup(html, { papers, categories }) {
     const total = group.categories.reduce((sum, category) => sum + count(category.id), 0);
     const jump = new RegExp(`(href="#${group.id}"[\\s\\S]*?<span class="collection-jump-count">)[\\s\\S]*?(<\\/span>)`);
     html = html.replace(jump, `$1${total} products &middot; ${group.categories.length} categories$2`);
-    const guides = new RegExp(`(<!-- category-guides:${group.id} -->)[\\s\\S]*?(<!-- /category-guides -->)`);
-    html = html.replace(guides, `$1<nav class="category-guide-links" aria-label="${escapeHtml(group.name)} material guides"><span>Material guides</span>` +
-      group.categories.map(category => `<a href="category-${category.id}.html">${escapeHtml(category.name)}</a>`).join('') + '</nav>$2');
+
   }
   html = html.replace(/\b\d+ PRODUCTS \/ \d+ CATEGORIES/g, `${papers.length} PRODUCTS / ${categories.length} CATEGORIES`)
     .replace(/Browse all \d+ paper, packaging/g, `Browse all ${papers.length} paper, packaging`);

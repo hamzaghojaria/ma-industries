@@ -26,12 +26,14 @@ test('every mobile category option can select products and reset to the full cat
     page.get('category-select').value = category.id;
     page.get('category-select').dispatch('change');
     assert.equal(page.get('active-category').textContent, category.name);
+    assert.equal(page.get('category-description').textContent, category.desc);
     assert.ok(page.get('results-count').textContent.includes(`of ${count} products`));
     assert.equal(page.get('filter-' + category.id).getAttribute('aria-pressed'), 'true');
   }
   page.get('reset-catalogue').click();
   assert.equal(page.get('category-select').value, 'all');
   assert.equal(page.get('active-category').textContent, 'All products');
+  assert.match(page.get('category-description').textContent, /sugarcane-based and recycled/);
 });
 
 test('every product has the same expandable details and enquiry controls', () => {

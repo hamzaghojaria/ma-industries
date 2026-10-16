@@ -129,7 +129,7 @@ for (const [file, sourceHtml] of pages) {
   const pageUrl = new URL(file === 'index.html' ? '' : file, baseUrl).href;
   const name = html.match(/<title>\s*([\s\S]*?)\s*<\/title>/)[1].replaceAll('&amp;', '&');
   const graph = [organisation, {
-    '@type': file === 'about.html' ? 'AboutPage' : (file.startsWith('category-') || ['categories.html', 'products.html'].includes(file)) ? 'CollectionPage' : 'WebPage', '@id': pageUrl + '#webpage',
+    '@type': file === 'about.html' ? 'AboutPage' : ['categories.html', 'products.html'].includes(file) ? 'CollectionPage' : 'WebPage', '@id': pageUrl + '#webpage',
     url: pageUrl, name, inLanguage: 'en',
     description: html.match(/<meta name="description" content="([^"]+)"/)[1]
       .replaceAll('&amp;', '&').replaceAll('&quot;', '"').replaceAll('&#39;', "'"),
@@ -138,6 +138,14 @@ for (const [file, sourceHtml] of pages) {
     isPartOf: { '@id': new URL('#website', baseUrl).href }
   }, { '@type': 'WebSite', '@id': new URL('#website', baseUrl).href,
     url: baseUrl.href, name: organisation.name, publisher: { '@id': organisation['@id'] } }];
+  if (file === 'categories.html') {
+    graph[1].mainEntity = { '@id': pageUrl + '#categories' };
+    graph.push({ '@type': 'ItemList', '@id': pageUrl + '#categories', name: 'Product categories',
+      itemListElement: catalogue.categories.map((category, index) => ({
+        '@type': 'ListItem', position: index + 1, name: category.name,
+        url: new URL(`products.html?category=${category.id}#collection`, baseUrl).href
+      })) });
+  }
   pages.set(file, html.replace('</head>', '<script type="application/ld+json">' +
     JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replaceAll('<', '\\u003c') + '</script>\n</head>'));
 }

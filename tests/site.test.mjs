@@ -60,7 +60,7 @@ test('static category fallbacks update when data changes', () => {
   assert.equal(syncCatalogueMarkup(html, updated), html, 'sync is idempotent');
 });
 
-test('lead collections are consistent across source content, controls and crawlable guides', async () => {
+test('lead collections stay consistent without separate material-guide links or pages', async () => {
   const home = pages.get('index.html');
   const directory = pages.get('categories.html');
   const products = pages.get('products.html');
@@ -71,13 +71,14 @@ test('lead collections are consistent across source content, controls and crawla
   assert.ok(directory.indexOf('id="sugarcane-recycled"') < directory.indexOf('id="paper-packaging"'));
   const controls = [...products.matchAll(/data-filter="([^"]+)"/g)].map(match => match[1]);
   assert.deepEqual(controls.slice(1, 5), firstGroups);
-  for (const category of catalogue.categories) assert.ok(directory.includes(`href="category-${category.id}.html"`));
+  assert.doesNotMatch(directory, /category-guide-links|href="category-[^"]+\.html"|Material guides/);
+  for (const category of catalogue.categories) assert.ok(directory.includes(`href="products.html?category=${category.id}#collection"`));
   for (const [name, html] of pages) {
     assert.match(html, /property="og:image" content="assets\/images\/ranges\/sugarcane-bags-photo.jpg"/, name);
     assert.match(html, /class="footer-summary">Sugarcane-based essentials and recycled household goods/, name);
   }
   const seo = await createSeoPages(ROOT, new URL('https://maindustries.in/'), text => String(text).replaceAll('&', '&amp;'));
-  assert.deepEqual([...seo.pages.keys()].slice(0, 4), firstGroups.map(id => `category-${id}.html`));
+  assert.deepEqual([...seo.pages.keys()].slice(0, 4), Array.from(catalogue.papers.slice(0, 4), product => `product-${product.id}.html`));
 });
 
 test('local CSS modules compile into one stylesheet with no unresolved local imports', async () => {
@@ -88,20 +89,18 @@ test('local CSS modules compile into one stylesheet with no unresolved local imp
   assert.match(css, /font-display: optional/);
 });
 
-test('every generated category and product page has its own title, details and working catalogue link', async () => {
+test('generated product pages link back to filtered browsing without removed category pages', async () => {
   const escape = text => String(text).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('"', '&quot;');
   const seo = await createSeoPages(ROOT, new URL('https://maindustries.in/'), escape);
-  assert.equal(seo.pages.size, catalogue.papers.length + catalogue.categories.length);
-  for (const category of catalogue.categories) {
-    const html = seo.pages.get(`category-${category.id}.html`);
-    assert.ok(html.includes(`<h1>${escape(category.name)}</h1>`));
-    assert.ok(html.includes('assets/js/navigation.js'));
-  }
+  assert.equal(seo.pages.size, catalogue.papers.length);
+  assert.ok([...seo.pages.keys()].every(path => path.startsWith('product-')));
   for (const product of catalogue.papers) {
     const html = seo.pages.get(`product-${product.id}.html`);
     assert.ok(html.includes(`products.html?category=${product.group}#paper-${product.id}`));
     assert.ok(html.includes(`<h1>${escape(product.name)}</h1>`));
     assert.ok(html.includes(product.image));
+    assert.ok(html.includes(`href="products.html?category=${product.group}#collection"`));
+    assert.doesNotMatch(html, /category-[a-z-]+\.html/);
   }
 });
 

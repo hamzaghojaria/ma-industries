@@ -552,19 +552,6 @@ header nav a[aria-current="page"] {
   border-top: 3px solid #526d47;
 }
 
-.category-guide-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 18px;
-  align-items: center;
-  margin-top: 26px;
-  padding-top: 20px;
-  border-top: 1px solid var(--line);
-  font-size: 12px;
-}
-
-.category-guide-links > span { font-weight: 700; color: #48583e; }
-.category-guide-links a { display: inline-flex; align-items: center; min-height: 44px; text-underline-offset: 4px; }
 
 .range-gateway h3 {
   position: relative;

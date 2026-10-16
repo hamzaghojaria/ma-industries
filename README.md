@@ -15,13 +15,12 @@ The homepage Material Studio lets visitors choose an application and updates a m
 | Page | Purpose |
 | --- | --- |
 | `index.html` | Homepage, range introductions, gallery, enquiry form, and two brand cards |
-| `categories.html` | Sugarcane & Recycled categories first, followed by Paper & Packaging, with crawlable material-guide links |
+| `categories.html` | Sugarcane & Recycled categories first, followed by Paper & Packaging; cards open the filtered catalogue |
 | `products.html` | Category filters, search, sorting, six products per page, dialogs, enquiries |
 | `about.html` | Company information and founders |
-| `dist/category-*.html` | Generated, crawlable category guides |
 | `dist/product-*.html` | Generated, crawlable product details |
 
-Category cards open `products.html?category=<category-id>#collection`. Desktop visitors use the sidebar; at 900px and below, a category dropdown appears above search. Both controls share the same category state and counts. Selecting a category or changing search/sort returns to page one. Reset clears category, search, and sorting.
+Category cards open `products.html?category=<category-id>#collection`. Desktop visitors use the sidebar; at 900px and below, a category dropdown appears above search. Both controls share the same category state and counts. The selected category description appears inline above the products. Selecting a category or changing search/sort returns to page one. Reset clears category, search, and sorting.
 
 Product cards open a native dialog at `#paper-<product-id>`. Choosing a product fills the enquiry form. WhatsApp and email actions prepare drafts in the visitor's app for review and sending. The website itself never sends a message.
 
@@ -153,7 +152,7 @@ The cleanup was compared against preceding layout measurements for all four page
 
 ## Deployment
 
-Render runs `node scripts/site/build.mjs` and publishes `dist/`. `SITE_URL` sets the canonical origin; production is `https://maindustries.in`. The build resolves share-image URLs, adds canonical URLs/structured data, and generates sitemap/robots files. Currently it produces 82 HTML pages: four root pages, 12 category guides, and 66 product pages.
+Render runs `node scripts/site/build.mjs` and publishes `dist/`. `SITE_URL` sets the canonical origin; production is `https://maindustries.in`. The build resolves share-image URLs, adds canonical URLs/structured data, and generates sitemap/robots files. Currently it produces 70 HTML pages: four root pages and 66 product pages. Separate category-guide pages are no longer generated.
 
 Only allowlisted public files are deployed. Keep image manifests and the build public-file list current. CSS source modules are bundled into `dist/assets/css/style.css`. Documentation, internal tools, prompts, temporary files, and credentials are not published. Never edit generated `dist/` directly.
 

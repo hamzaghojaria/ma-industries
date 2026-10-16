@@ -2,7 +2,7 @@
 
 ## Lead collection repositioning
 
-Sugarcane-based and recycled products now lead homepage messaging, imagery, Material Studio, collection directories, product order and filters. About copy explains the paper origins and current everyday-product focus. Titles, descriptions, footer navigation and Organization structured data follow the new positioning. Social previews use the existing sugarcane food-packaging photograph instead of the old paper-only graphic. Each category directory links to its generated material guide in merchandising order; product/category URLs and IDs remain unchanged. The existing PDF catalogue was not regenerated.
+Sugarcane-based and recycled products now lead homepage messaging, imagery, Material Studio, collection directories, product order and filters. About copy explains the paper origins and current everyday-product focus. Titles, descriptions, footer navigation and Organization structured data follow the new positioning. Social previews use the existing sugarcane food-packaging photograph instead of the old paper-only graphic. Category cards open the filtered catalogue directly; the selected category description appears inline. Product URLs and IDs remain unchanged. The existing PDF catalogue was not regenerated.
 
 ## October 16, 2026 update
 
@@ -12,7 +12,7 @@ Sugarcane-based and recycled products now lead homepage messaging, imagery, Mate
 - Deployment verification now rejects duplicate or missing titles/descriptions, incorrect heading counts, missing or mismatched canonicals, incomplete sitemaps and inconsistent social URLs.
 - A live-domain fetch returned a 502 response through the browsing tool. This does not establish the site's availability for other visitors; live indexing and performance still need verification after deployment.
 
-The build now generates 66 product pages and 12 category guides alongside the four original pages. These contain static catalogue content, unique metadata, canonical URLs, related product links, enquiry actions and structured data. All 82 pages are included in the sitemap and linked from the directories. Edit catalogue data or scripts/site/seo-pages.mjs and rebuild; preview dist to review generated pages.
+The build now generates 66 product pages alongside the four original pages. Separate category-guide pages and their links have been removed. These contain static catalogue content, unique metadata, canonical URLs, related product links, enquiry actions and structured data. All 70 current pages are included in the sitemap. Product breadcrumbs point to the filtered catalogue; the category directory carries matching ItemList structured data. Edit catalogue data or scripts/site/seo-pages.mjs and rebuild; preview dist to review generated pages.
 
 Product schema contains no invented prices, stock, reviews or certifications. Without genuine offers or reviews, it does not qualify for Google's product rich results.
 

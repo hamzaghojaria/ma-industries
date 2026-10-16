@@ -48,6 +48,10 @@ Run fresh mobile and desktop PageSpeed reports for the homepage and representati
 ## Local verification
 
 - All 30 regression tests pass, along with source syntax checks and catalogue synchronization.
-- Production builds 82 pages; deployment verification checks local links, structured data, responsive candidates, metadata and fonts.
+- Production builds 70 pages; deployment verification checks local links, structured data, responsive candidates, metadata and fonts.
 - Browser checks covered all four root pages at 390, 900 and 1440 pixel viewport settings, with no page-wide overflow or broken loaded images. A mobile product dialog opened and filled the enquiry with the selected product without sending anything. The corrected mobile footer heading color was verified in computed styles.
 - Across 24 optimized source images, the candidates nearest 640 pixels total 658,002 bytes versus 2,367,735 bytes for the originals: approximately 72% smaller. This is an asset-size comparison, not a measured reduction in total page transfer. Actual downloads depend on viewport width, device pixel ratio and lazy loading.
+
+## Category browsing simplification
+
+Removed the material-guide link rows and 12 standalone category-guide pages. Category descriptions stay in the existing cards and appear inline when a visitor filters the product catalogue. Product pages remain, with breadcrumbs returning to filtered browsing. The sitemap contains 70 pages; no category-guide URLs are generated. Category-list structured data stays on categories.html. The PDF catalogue remains unchanged.

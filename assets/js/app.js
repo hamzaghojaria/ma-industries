@@ -12,7 +12,7 @@
   const byId = id => document.getElementById(id);
   const dom = {
     grid: byId('products'), pagination: byId('pagination'), count: byId('results-count'),
-    categorySelect: byId('category-select'), categoryHeading: byId('active-category'), search: byId('search'), sort: byId('sort'), reset: byId('reset-catalogue'),
+    categorySelect: byId('category-select'), categoryHeading: byId('active-category'), categoryDescription: byId('category-description'), search: byId('search'), sort: byId('sort'), reset: byId('reset-catalogue'),
     form: byId('brief'), paper: byId('paper'), options: byId('paper-options'),
     status: byId('status'), detail: byId('detail'), detailBody: byId('detail-body'),
     filters: [...document.querySelectorAll('[data-filter]')]
@@ -33,6 +33,10 @@
   function syncFilterButtons() {
     if (dom.categorySelect) dom.categorySelect.value = state.category;
     if (dom.categoryHeading) dom.categoryHeading.textContent = state.category === 'all' ? 'All products' : categoryById.get(state.category).name;
+    // Keep category guidance in the browsing flow rather than a separate page.
+    if (dom.categoryDescription) dom.categoryDescription.textContent = state.category === 'all'
+      ? 'Explore sugarcane-based and recycled everyday products, followed by our paper and packaging range.'
+      : categoryById.get(state.category).desc;
     for (const button of dom.filters) {
       const active = button.dataset.filter === state.category;
       button.classList.toggle('active', active);

@@ -11,7 +11,7 @@ export async function createSeoPages(root, baseUrl, escape) {
   const template = await readFile(new URL('about.html', root), 'utf8');
   const pages = new Map();
   const productPath = item => `product-${item.id}.html`;
-  const categoryPath = item => `category-${item.id}.html`;
+  const categoryPath = item => `products.html?category=${item.id}#collection`;
   const url = path => new URL(path, baseUrl).href;
   const fitDescription = value => {
     const text = value.replace(/\s+/g, ' ').trim();
@@ -33,13 +33,6 @@ export async function createSeoPages(root, baseUrl, escape) {
     html = html.replace('</head>', `<script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replaceAll('<', '\\u003c')}</script>\n</head>`);
     pages.set(path, html);
   };
-  for (const category of categories) {
-    const items = papers.filter(item => item.group === category.id);
-    const description = fitDescription(`${category.desc} Browse ${items.length} products from M&A Industries in Mumbai and enquire about your application.`);
-    render(categoryPath(category), `${category.name} Supplier in Mumbai | M&A Industries`, description,
-      `<div><nav aria-label="Breadcrumb"><a href="index.html">Home</a> / <a href="categories.html">Categories</a> / ${escape(category.name)}</nav><p class="eyebrow">M&amp;A INDUSTRIES · MUMBAI</p><h1>${escape(category.name)}</h1><p>${escape(category.desc)}</p><h2>Explore ${items.length} products</h2>${list(items)}<h2>Discuss your requirements</h2><p>Share your application, quantity, delivery destination and required dimensions. Confirm material composition, specifications, pricing and availability with our Mumbai team.</p><a class="button" href="index.html#enquiry">Make an enquiry</a></div>`,
-      [breadcrumbs(category), { '@type': 'ItemList', name: category.name, itemListElement: items.map((item, i) => ({ '@type': 'ListItem', position: i + 1, name: item.name, url: url(productPath(item)) })) }]);
-  }
   for (const item of papers) {
     const category = categories.find(category => category.id === item.group);
     const properties = specificationFields(item).map(specification => ({ '@type': 'PropertyValue', name: specification.label, value: specification.value }));

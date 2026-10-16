@@ -258,6 +258,14 @@
   min-width: 0;
 }
 
+.category-description {
+  max-width: 680px;
+  margin: 0 0 22px;
+  color: #606457;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
 .category-context {
   display: flex;
   align-items: baseline;
