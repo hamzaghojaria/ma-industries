@@ -270,9 +270,41 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  .range-mosaic figure {
+    animation: range-float 5.5s ease-in-out infinite;
+    animation-play-state: paused;
+  }
+
+  .range-mosaic figure:nth-child(2) { animation-delay: -1.1s; }
+  .range-mosaic figure:nth-child(3) { animation-delay: -2.2s; }
+  .range-mosaic figure:nth-child(4) { animation-delay: -3.3s; }
+  .range-mosaic.motion-in-view figure { animation-play-state: running; }
+  .range-mosaic figure:is(:hover, :focus-within) { animation-play-state: paused; }
+
+  .studio-art .studio-photo {
+    animation: range-float 6s ease-in-out infinite;
+    animation-play-state: paused;
+  }
+  .studio-art.motion-in-view .studio-photo { animation-play-state: running; }
+  .studio-art:is(:hover, :focus-within) .studio-photo { animation-play-state: paused; }
+
+  .approach .steps article > span {
+    animation: mobile-number-glow 3s ease-in-out infinite;
+    animation-play-state: paused;
+  }
+  .approach.motion-in-view .steps article > span { animation-play-state: running; }
+  .approach .steps article:nth-child(2) > span { animation-delay: -.5s; }
+  .approach .steps article:nth-child(3) > span { animation-delay: -1s; }
+
   .button:active, .card-whatsapp:active, .directory-jumps a:active {
     transform: scale(.98);
   }
+}
+
+/* Independent translate preserves the desktop pointer tilt and image rotation. */
+@keyframes range-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -6px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

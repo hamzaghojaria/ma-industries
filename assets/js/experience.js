@@ -4,6 +4,7 @@
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const running = new Set();
   let observer;
+  let ambientObserver;
 
   function enter(element, delay = 0, distance = 20) {
     if (reducedMotion.matches || !element?.animate) return;
@@ -45,9 +46,17 @@
   reducedMotion.addEventListener('change', () => {
     if (!reducedMotion.matches) return;
     observer?.disconnect();
+    ambientObserver?.disconnect();
+    document.querySelectorAll('.motion-in-view').forEach(element => element.classList.remove('motion-in-view'));
     for (const animation of running) animation.cancel();
   });
   if (reducedMotion.matches || !('IntersectionObserver' in window)) return;
+
+  // The same gentle motion runs on desktop and mobile, only while visible.
+  ambientObserver = new IntersectionObserver(entries => {
+    for (const entry of entries) entry.target.classList.toggle('motion-in-view', entry.isIntersecting);
+  }, { threshold: 0 });
+  document.querySelectorAll('.range-mosaic,.studio-art,.approach').forEach(element => ambientObserver.observe(element));
 
   const watched = new WeakSet();
   observer = new IntersectionObserver(entries => {
@@ -60,7 +69,7 @@
   }, { threshold: .08, rootMargin: '0px 0px -24px 0px' });
   const selectors = '.range-gateway,.directory-card,.offering-grid>a,.founder-card,.steps article,' +
     '.material-story>*,.about-story-grid>*,.about-value-grid article,.enquiry>div,' +
-    '.about-cta>*,.paper-guide-grid article,.product';
+    '.about-cta>*,.paper-guide-grid article,.product,.brand-card,.studio-copy';
   function observeWithin(root) {
     for (const element of root.querySelectorAll(selectors)) {
       if (watched.has(element)) continue;
