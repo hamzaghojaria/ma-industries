@@ -5,7 +5,7 @@ import { ROOT, PAGES } from './config.mjs';
 const output = new URL('dist/', ROOT);
 const files = (await readdir(output)).filter(file => file.endsWith('.html'));
 if (files.length !== PAGES.length || files.some(file => !PAGES.includes(file))) {
-  throw new Error('Deployment must contain only the four main pages; product details belong in popups');
+  throw new Error('Deployment must contain every configured page; product details belong in popups');
 }
 const pages = new Map(await Promise.all(files.map(async file => [file, await readFile(new URL(file, output), 'utf8')])));
 let links = 0;

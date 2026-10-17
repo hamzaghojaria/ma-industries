@@ -117,7 +117,7 @@ for (const [file, sourceHtml] of pages) {
   const pageUrl = new URL(file === 'index.html' ? '' : file, baseUrl).href;
   const name = html.match(/<title>\s*([\s\S]*?)\s*<\/title>/)[1].replaceAll('&amp;', '&');
   const graph = [organisation, {
-    '@type': file === 'about.html' ? 'AboutPage' : ['categories.html', 'products.html'].includes(file) ? 'CollectionPage' : 'WebPage', '@id': pageUrl + '#webpage',
+    '@type': file === 'contact.html' ? 'ContactPage' : file === 'about.html' ? 'AboutPage' : ['categories.html', 'products.html'].includes(file) ? 'CollectionPage' : 'WebPage', '@id': pageUrl + '#webpage',
     url: pageUrl, name, inLanguage: 'en',
     description: html.match(/<meta name="description" content="([^"]+)"/)[1]
       .replaceAll('&amp;', '&').replaceAll('&quot;', '"').replaceAll('&#39;', "'"),
