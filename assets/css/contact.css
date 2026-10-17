@@ -14,7 +14,7 @@
 .contact-channel-copy strong { font-size: clamp(17px, 1.8vw, 23px); font-weight: 500; overflow-wrap: anywhere; }
 .contact-channel-copy > span:last-child { font-size: 12px; color: #ded8cc; line-height: 1.6; }
 .contact-channel-arrow { display: grid; place-items: center; flex: 0 0 34px; height: 34px; border-radius: 50%; border: 1px solid #ffffff40; transition: background .2s, transform .2s; }
-.contact-method:hover .contact-channel-arrow, .contact-method:focus-visible .contact-channel-arrow { background: var(--red); border-color: var(--red); transform: translate(2px,-2px); }
+.contact-method:hover .contact-channel-arrow, .contact-method:focus-visible .contact-channel-arrow { background: var(--red); border-color: var(--red); color: #fff; transform: translate(2px,-2px); }
 .contact-page .enquiry.enquiry-simple { background: var(--ink); color: var(--cream); scroll-margin-top: 100px; grid-template-columns: minmax(0,.85fr) minmax(0,1.15fr); gap: clamp(28px,6vw,90px); padding-block: 48px; }
 .contact-enquiry-intro > h2 { font-size: clamp(34px,3.5vw,48px); line-height: 1.15; }
 .contact-enquiry-intro > p:not(.eyebrow) { max-width: 430px; color: #c9cbbf; line-height: 1.8; }
@@ -31,7 +31,7 @@
 .contact-page .enquiry input:focus, .contact-page .enquiry textarea:focus { border-color: #dda99e; outline: 2px solid #dda99e55; outline-offset: 2px; }
 .contact-page .enquiry .optional, .contact-page .enquiry .requirement-help, .contact-page .enquiry .form-note { color: #b9bdb0; }
 .contact-page #status { color: var(--cream); }
-.contact-method:hover, .contact-method:focus-visible { background: #ffffff08; }
+.contact-details .contact-method:hover, .contact-details .contact-method:focus-visible { background: #ffffff08; color: #fffdf7; }
 .contact-method:focus-visible { outline: 2px solid #efbac5; outline-offset: 4px; }
 .warehouse-map-link span { transition: transform .2s ease; }
 .warehouse-map-link:hover span, .warehouse-map-link:focus-visible span { transform: translate(3px,-3px); }
