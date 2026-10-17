@@ -60,7 +60,7 @@
   ambientObserver = new IntersectionObserver(entries => {
     for (const entry of entries) entry.target.classList.toggle('motion-in-view', entry.isIntersecting);
   }, { threshold: 0 });
-  document.querySelectorAll('.range-mosaic,.studio-art,.approach').forEach(element => ambientObserver.observe(element));
+  document.querySelectorAll('.range-mosaic,.studio-art,.approach,.home-products').forEach(element => ambientObserver.observe(element));
 
   const watched = new WeakSet();
   observer = new IntersectionObserver(entries => {

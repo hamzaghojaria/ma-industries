@@ -1,5 +1,7 @@
 .home-products { padding-top: 20px; padding-bottom: 48px; background: #f4e8e5; }
 .home-products .section-heading { align-items: end; gap: 24px; }
+.home-products h2 em { position: relative; }
+.home-products h2 em::after { content: ''; position: absolute; left: 0; bottom: -5px; width: 65%; height: 2px; background: linear-gradient(90deg, var(--red), transparent); transform-origin: left; }
 .home-products-intro { max-width: 360px; line-height: 1.7; color: #64675e; }
 .home-products-controls { display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 16px; }
 .home-products-controls button { display: grid; place-items: center; width: 46px; height: 46px; border: 1px solid var(--red); border-radius: 50%; background: transparent; color: var(--red); font-size: 24px; cursor: pointer; transition: transform .18s ease, background .2s ease, color .2s ease; }
@@ -8,7 +10,7 @@
 .home-products-controls button:disabled { opacity: .3; cursor: default; }
 .home-products-grid::-webkit-scrollbar { display: none; }
 .home-products-grid { display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 48px) / 3); gap: 24px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-inline: 4px; padding: 4px; scrollbar-width: none; }
-.home-product { display: flex; flex-direction: column; min-width: 0; scroll-snap-align: start; overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: #fffdf8; }
+.home-product { display: flex; flex-direction: column; min-width: 0; scroll-snap-align: start; overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: #fffdf8; transition: translate .25s ease, box-shadow .25s ease, border-color .25s ease; }
 .home-product-image { aspect-ratio: 4 / 3; overflow: hidden; background: #e9ede3; }
 .home-product-image .watermarked-image { display: block; width: 100%; height: 100%; }
 .home-product-image img { display: block; width: 100%; height: 100%; object-fit: contain; transition: transform .25s ease; }
@@ -20,6 +22,7 @@
 .home-product h3 span { color: var(--red); }
 .home-product p { margin: 0 0 20px; color: #64675e; font-size: 14px; line-height: 1.65; }
 .home-product-link { margin-top: auto; color: var(--red); font-size: 13px; font-weight: 700; }
+.home-product-link span, .home-product h3 span, .home-products-controls button span { display: inline-block; transition: transform .25s ease; }
 .home-products-footer { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding-top: 28px; }
 .home-products-footer > span { color: #64675e; font-size: 14px; }
 @media (max-width: 900px) { .home-products-grid { grid-auto-columns: 44%; } }
@@ -28,8 +31,20 @@
   .home-products .section-heading, .home-products-footer { align-items: start; flex-direction: column; }
   .home-products-grid { grid-auto-columns: 85%; gap: 18px; }
 }
+@media (prefers-reduced-motion: no-preference) {
+  .home-products.motion-in-view h2 em::after { animation: home-heading-line .8s .2s ease both; }
+  .home-product:focus-visible .home-product-link span { transform: translateX(5px); }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .home-product:hover { translate: 0 -3px; box-shadow: 0 4px 12px #71363c18; border-color: #bf9198; }
+  .home-product:hover .home-product-link span { transform: translateX(5px); }
+  .home-product:hover h3 span { transform: translate(2px, -2px); }
+  #home-products-next:hover:not(:disabled) span { transform: translateX(3px); }
+  #home-products-previous:hover:not(:disabled) span { transform: translateX(-3px); }
+}
+@keyframes home-heading-line { from { transform: scaleX(0); opacity: 0; } to { transform: scaleX(1); opacity: 1; } }
 @media (prefers-reduced-motion: reduce) {
-  .home-product-image img, .home-products-controls button { transition: none; }
+  .home-product, .home-product-image img, .home-products-controls button, .home-product-link span, .home-product h3 span, .home-products-controls button span { transition: none; }
   .home-product:hover img, .home-products-controls button:active:not(:disabled) { transform: none; }
 }
 
