@@ -1,4 +1,4 @@
-.home-products { padding-top: 20px; padding-bottom: 48px; }
+.home-products { padding-top: 20px; padding-bottom: 48px; background: #f4e8e5; }
 .home-products .section-heading { align-items: end; gap: 24px; }
 .home-products-intro { max-width: 360px; line-height: 1.7; color: #64675e; }
 .home-products-controls { display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 16px; }
