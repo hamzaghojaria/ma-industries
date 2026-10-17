@@ -96,6 +96,15 @@
   }
 
   function enquiryText(formData) {
+    if (formData.get('enquiry_type') === 'contact') {
+      return ['M&A INDUSTRIES - CONTACT ENQUIRY', '',
+        'Name: ' + (formData.get('name') || 'Not specified'),
+        'Email: ' + (formData.get('email') || 'Not specified'),
+        ...(formData.get('paper') ? ['Product: ' + formData.get('paper')] : []),
+        ...(formData.get('quantity') ? ['Quantity: ' + formData.get('quantity')] : []),
+        '', 'Message:', formData.get('details') || '', '', 'Thank you.'
+      ].join('\n');
+    }
     const labels = {
       name: 'Name', email: 'Email', paper: 'Product',
       quantity: 'Quantity', details: 'Project details'

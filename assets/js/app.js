@@ -314,7 +314,7 @@
       const channel = event.submitter?.value || 'whatsapp';
       if (channel === 'email') {
         location.href = 'mailto:' + CONTACT.email + '?subject=' +
-          encodeURIComponent('Product enquiry — ' + dom.paper.value) + '&body=' + encodeURIComponent(text);
+          encodeURIComponent(dom.paper.value ? 'Product enquiry — ' + dom.paper.value : 'Contact enquiry | M&A Industries') + '&body=' + encodeURIComponent(text);
         dom.status.textContent = 'Your email app has been requested. Review the prepared enquiry and send it to ' + CONTACT.email + '.';
       } else {
         const link = document.createElement('a');
