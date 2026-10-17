@@ -82,7 +82,7 @@ test('catalogue initializes and delegated paging/filter/reset controls stay func
   assert.equal(page.get('paper-options').children.length, page.window.MACatalogueData.papers.length + 1);
   assert.equal((page.get('products').innerHTML.match(/class="product-photo"/g) || []).length, 6);
   assert.match(page.get('products').innerHTML, /loading="lazy"/);
-  assert.match(page.get('products').innerHTML, /alt="Sugarcane cutting boards"/);
+  assert.match(page.get('products').innerHTML, /alt="Ribbed travel tumbler"/);
   page.get('pagination').dispatch('click', { target: page.get('pagination').children.at(-1) });
   assert.match(page.get('results-count').textContent, /7–12/);
   page.get('filter-labels').click();
@@ -99,7 +99,7 @@ test('new category links filter on load and non-paper products carry through to 
   const page = boot('?category=sugarcane-kitchenware');
   const householdCount = page.window.MACatalogueData.papers.filter(product => product.group === 'sugarcane-kitchenware').length;
   assert.ok(page.get('results-count').textContent.includes(`1–6 of ${householdCount} products`));
-  assert.match(page.get('products').innerHTML, /Sugarcane cutting boards/);
+  assert.match(page.get('products').innerHTML, /Ribbed travel tumbler/);
   assert.doesNotMatch(page.get('products').innerHTML, /GSM guide/);
   page.location.hash = '#paper-glass-airtight-containers';
   page.window.listeners.hashchange[0]();

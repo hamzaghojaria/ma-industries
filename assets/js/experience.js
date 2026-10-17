@@ -19,7 +19,11 @@
   function enterDialog(dialog) {
     enter(dialog, 0, 12);
   }
-  window.MAExperience = Object.freeze({ enterDialog });
+  function confirmEnquiry(status) {
+    status.classList.add('enquiry-ready');
+    enter(status, 0, 6);
+  }
+  window.MAExperience = Object.freeze({ enterDialog, confirmEnquiry });
 
   const progress = document.createElement('div');
   progress.className = 'reading-progress';
@@ -64,12 +68,16 @@
     for (const entry of entries) {
       if (!entry.isIntersecting) continue;
       observer.unobserve(entry.target);
-      enter(entry.target, Math.min(stagger++ * 65, 195));
+      if (entry.target.id === 'home-products-title') {
+        entry.target.querySelectorAll('[data-heading-line]').forEach((line, index) => enter(line, index * 130, 12));
+      } else {
+        enter(entry.target, Math.min(stagger++ * 65, 195));
+      }
     }
   }, { threshold: .08, rootMargin: '0px 0px -24px 0px' });
   const selectors = '.range-gateway,.directory-card,.offering-grid>a,.founder-card,.steps article,' +
     '.material-story>*,.about-story-grid>*,.about-value-grid article,.enquiry>div,' +
-    '.about-cta>*,.paper-guide-grid article,.product,.brand-card,.studio-copy';
+    '.about-cta>*,.paper-guide-grid article,.product,.brand-card,.studio-copy,.home-product,#home-products-title';
   function observeWithin(root) {
     for (const element of root.querySelectorAll(selectors)) {
       if (watched.has(element)) continue;

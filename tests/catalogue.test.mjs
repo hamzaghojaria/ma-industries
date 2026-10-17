@@ -35,7 +35,8 @@ test('sugarcane and recycled products lead the collection without losing paper r
   const leadingCount = papers.filter(product => featured.includes(product.group)).length;
   assert.ok(papers.slice(0, leadingCount).every(product => featured.includes(product.group)));
   assert.ok(papers.slice(leadingCount).every(product => !featured.includes(product.group)));
-  assert.equal(papers[0].id, 'cutting-boards');
+  assert.deepEqual(Array.from(papers.filter(product => product.group === 'sugarcane-kitchenware').slice(0, 6), product => product.id), ['ribbed-travel-tumbler', 'glass-airtight-containers', 'sugarcane-toothbrushes', 'sugarcane-hangers', 'reusable-cups', 'rice-paddles']);
+  assert.deepEqual(Array.from(papers.filter(product => product.group === 'sugarcane-paper').slice(0, 2), product => product.id), ['sugarcane-paper-cups', 'sugarcane-bath-tissues']);
   assert.equal(papers.find(product => product.id === 'duplex-paper').index, 1, 'original reference remains stable');
   assert.equal(new Set(papers.map(product => product.id)).size, papers.length);
   assert.equal(utils.filterPapers(papers, {category: 'boards'})[0].id, 'duplex-paper');

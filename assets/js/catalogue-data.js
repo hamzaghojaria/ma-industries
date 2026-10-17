@@ -1049,11 +1049,11 @@
     ],
     "color": "#b7c9ba",
     "bg": "#e9ede3",
-    "image": "assets/images/products/easy-cut-cling-wraps-photo.jpg",
+    "image": "assets/images/products/sugarcane-cling-wrap-slider.webp",
     "index": 49,
     "gsm": null,
     "material": "BIO-PE + PE; 25% biomass content",
-    "illustration": false,
+    "illustration": true,
     "details": "Cling film supplied in 100-metre rolls.",
     "specifications": [
       "20 cm roll: 12 μm; 100 m; 1 pc; 360 g",
@@ -1072,11 +1072,11 @@
     ],
     "color": "#b7c9ba",
     "bg": "#e9ede3",
-    "image": "assets/images/products/food-storage-roll-bags-photo.jpg",
+    "image": "assets/images/products/sugarcane-roll-bags-dispenser.webp",
     "index": 50,
     "gsm": null,
     "material": "BIO-PE + PE; 25% biomass content",
-    "illustration": false,
+    "illustration": true,
     "details": "All variants have an 11 μm thickness and contain 200 bags.",
     "specifications": [
       "Extra large: 35 × 45 cm; 655 g",
@@ -1097,11 +1097,11 @@
     ],
     "color": "#b7c9ba",
     "bg": "#e9ede3",
-    "image": "assets/images/products/food-storage-pop-up-bags-photo.jpg",
+    "image": "assets/images/products/sugarcane-sanitary-bags-dispenser.webp",
     "index": 51,
     "gsm": null,
     "material": "BIO-PE + PE or BIO-PE; 25% or 100% biomass content",
-    "illustration": false,
+    "illustration": true,
     "details": "All variants have an 11 μm thickness and contain 100 bags.",
     "specifications": [
       "Standard large: 30 × 40 cm; 292 g",
@@ -1191,23 +1191,23 @@
   },
   {
     "id": "sugarcane-soup-bowls",
-    "name": "Soup bowls",
+    "name": "Sugarcane bowls",
     "group": "sugarcane-paper",
     "tag": "SUGARCANE PAPER",
-    "desc": "Explore deep bagasse bowls for soup and other foodservice applications.",
+    "desc": "Deep, round sugarcane bowls with tapered sides and a rolled rim for foodservice enquiries.",
     "uses": [
       "Soup service",
       "Foodservice enquiries"
     ],
     "color": "#d4c8a8",
     "bg": "#e9ede3",
-    "image": "assets/images/products/sugarcane-soup-bowls-photo.jpg",
+    "image": "assets/images/products/sugarcane-deep-bowl.webp",
     "index": 56,
     "gsm": null,
     "material": "Sugarcane bagasse pulp options; confirm composition, coatings and intended-use suitability",
-    "illustration": false,
+    "illustration": true,
     "sourcingOnly": true,
-    "details": "Additional sourcing range. Product availability, material composition, sizes and pack quantities are confirmed on enquiry. Request item-specific documentation for food-contact, temperature or care requirements where relevant."
+    "details": "Illustrative shape reference. Additional sourcing range. Product availability, material composition, sizes and pack quantities are confirmed on enquiry. Request item-specific documentation for food-contact, temperature or care requirements where relevant."
   },
   {
     "id": "sugarcane-serving-trays",
@@ -1520,7 +1520,17 @@ const featuredOrder = ['sugarcane-kitchenware', 'sugarcane-bags', 'sugarcane-pap
 const categoryOrder = [...featuredOrder, ...categories.filter(category => !featuredOrder.includes(category.id)).map(category => category.id)];
 const rank = new Map(categoryOrder.map((id, index) => [id, index]));
 categories.sort((a, b) => rank.get(a.id) - rank.get(b.id));
-papers.sort((a, b) => rank.get(a.group) - rank.get(b.group));
+const priorityProducts = {
+  'sugarcane-kitchenware': ['ribbed-travel-tumbler', 'glass-airtight-containers', 'sugarcane-toothbrushes', 'sugarcane-hangers', 'reusable-cups', 'rice-paddles'],
+  'sugarcane-bags': ['double-zipper-bags', 'easy-cut-cling-wraps', 'food-storage-roll-bags', 'food-storage-pop-up-bags'],
+  'sugarcane-paper': ['sugarcane-paper-cups', 'sugarcane-bath-tissues', 'sugarcane-soup-bowls', 'sugarcane-packaging-paper']
+};
+const productRank = product => {
+  const order = priorityProducts[product.group] || [];
+  const position = order.indexOf(product.id);
+  return position < 0 ? order.length : position;
+};
+papers.sort((a, b) => rank.get(a.group) - rank.get(b.group) || productRank(a) - productRank(b));
 // Card-only WebP previews follow the image generator's naming convention.
 // Full-size originals remain in `image` for dialogs, documents and product pages.
 for (const product of papers) {

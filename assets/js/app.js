@@ -324,6 +324,7 @@
         link.click();
         dom.status.textContent = 'WhatsApp has been requested. Review the prepared enquiry and send it to +91 97696 81761.';
       }
+      window.MAExperience?.confirmEnquiry(dom.status);
     });
   }
 

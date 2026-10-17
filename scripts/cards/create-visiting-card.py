@@ -15,17 +15,20 @@ from urllib.parse import urlparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--website', required=True, help='Confirmed public website URL')
-parser.add_argument('--person', choices=['maaz', 'aadil', 'mohammed', 'yahya'], default='maaz')
+parser.add_argument('--person', choices=['maaz', 'aadil', 'mohammed', 'yahya', 'hamza'], default='maaz')
 args = parser.parse_args()
 WEBSITE = args.website
 NAME, PHONE, DISPLAY_PHONE, FILE_NAME = {
     'maaz': ('Maaz Dawa', '919769681761', '+91 97696 81761', 'Maaz'),
+    'hamza': ('Hamza Ghojaria', '919892203101', '+91 98922 03101', 'Hamza'),
     'aadil': ('Aadil Dhukka', '919769554745', '+91 97695 54745', 'Aadil'),
     'mohammed': ('Mohammed Dhukka', '919773233219', '+91 97732 33219', 'Mohammed'),
     'yahya': ('Mohammed Yahya Seliya', '27844523727', '+27 844523727', 'Yahya'),
 }[args.person]
 EMAIL = 'info@maengineerings.in' if args.person == 'yahya' else 'info@maindustries.in'
 TITLE = 'Business Development Manager' if args.person == 'yahya' else ('Managing Director' if args.person == 'mohammed' else 'Director')
+if args.person == 'hamza':
+    TITLE = 'Business Development Head'
 assert urlparse(WEBSITE).scheme in ('https', 'http') and urlparse(WEBSITE).netloc
 
 ROOT = Path(__file__).resolve().parents[2]

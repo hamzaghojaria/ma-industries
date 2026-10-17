@@ -3,12 +3,12 @@
   'use strict';
   const byId = id => document.getElementById(id);
 
-  function initializeGallery() {
-    const track = byId('gallery-track');
-    const previous = byId('gallery-previous');
-    const next = byId('gallery-next');
+  function initializeGallery(prefix = 'gallery', itemSelector = 'figure') {
+    const track = byId(prefix + '-track');
+    const previous = byId(prefix + '-previous');
+    const next = byId(prefix + '-next');
     if (!track || !previous || !next) return;
-    const frames = [...track.querySelectorAll('figure')];
+    const frames = [...track.querySelectorAll(itemSelector)];
     if (!frames.length) return;
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     let step = 0;
@@ -35,4 +35,5 @@
   }
 
   initializeGallery();
+  initializeGallery('home-products', '.home-product');
 })();
