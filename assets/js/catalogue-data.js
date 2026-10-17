@@ -784,11 +784,11 @@
     ],
     "color": "#d4c8a8",
     "bg": "#e9ede3",
-    "image": "assets/images/products/sugarcane-paper-cups-photo.jpg",
+    "image": "assets/images/products/sugarcane-paper-cups-sizes-pack.webp",
     "index": 38,
     "gsm": null,
     "material": "Sugarcane paper / bagasse pulp; composition varies by product",
-    "illustration": false,
+    "illustration": true,
     "details": "Confirm sizes, pack quantities, material composition and application suitability on enquiry. Request product-specific documentation for any food-contact or certification requirement."
   },
   {
